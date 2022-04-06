@@ -1,8 +1,23 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+import store from "../src/store";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const queryClient = new QueryClient();
+const App = (props: AppProps) => {
+  const { Component, pageProps } = props;
 
-export default MyApp
+  return (
+    <>
+      <CssBaseline />
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </Provider>
+    </>
+  );
+};
+
+export default App;
