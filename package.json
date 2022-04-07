@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/server": "^11.4.0",
     "@octokit/core": "^3.6.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/react": "^16.14.24",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^16.9.14",
     "@types/react-redux": "^7.1.23",
     "axios": "^0.26.1",
@@ -21,10 +23,12 @@
     "marked": "^4.0.12",
     "next": "12.1.4",
     "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-query": "^3.34.19",
-    "react-redux": "^7.2.8"
+    "react-redux": "^7.2.8",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@emotion/react": "^11.8.2",
