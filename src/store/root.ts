@@ -1,28 +1,45 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+import { selectBlocks } from "./selector";
 
-interface Todo {
-  text: string;
-  completed: boolean;
+const root = {
+  blocks: [
+    {
+      id: "block_id_1",
+      type: "Profile",
+      title: "프로필",
+      iconName: "AccountCircle",
+      fields: [{ id: "field_id_1", type: "Text", title: "메인 텍스트", value: { input: "" } }],
+    },
+    {
+      id: "block_id_2",
+      type: "Profile",
+      title: "프로필",
+      iconName: "AccountCircle",
+      fields: [{ id: "field_id_2", type: "SampleDoubleText", title: "보조 텍스트", value: { input: "", input2: "" } }],
+    },
+  ],
+};
+
+interface ItemValue {
+  blockId: string;
+  fieldId: string;
+  valueId: string;
+  value: any;
 }
+export const handleItemValue = createAction<ItemValue>("setup/handleItemValue");
 
-export const addTodo = createAction<Todo>("todos/add");
-export const toggleTodo = createAction<number>("todos/toggle");
+const rootReducer = createReducer(root, builder => {
+  builder.addCase(handleItemValue, (state, action) => {
+    const { blockId, fieldId, valueId, value } = action.payload;
+    const blocks = selectBlocks(state);
+    const targetBlock = blocks.find(block => block.id === blockId);
+    if (!targetBlock) return;
 
-const rootReducer = createReducer([] as Todo[], builder => {
-  builder
-    .addCase(addTodo, (state, action) => {
-      // This push() operation gets translated into the same
-      // extended-array creation as in the previous example.
-      const todo = action.payload;
-      state.push(todo);
-    })
-    .addCase(toggleTodo, (state, action) => {
-      // The "mutating" version of this case reducer is much
-      //  more direct than the explicitly pure one.
-      const index = action.payload;
-      const todo = state[index];
-      todo.completed = !todo.completed;
-    });
+    const targetField = targetBlock.fields.find(field => field.id === fieldId);
+    if (!targetField) return;
+
+    targetField.value[valueId] = value;
+  });
 });
 
 export default rootReducer;

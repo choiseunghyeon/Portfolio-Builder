@@ -1,9 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
-import TestContainer from "../src/container/TestContainer";
+import SetupContainer from "../src/container/SetupContainer";
 const Home: NextPage = () => {
   return (
     <>
-      <TestContainer />
+      <SetupContainer />
     </>
   );
 };

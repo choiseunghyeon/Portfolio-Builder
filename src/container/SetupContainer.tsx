@@ -1,14 +1,26 @@
 import { Button, Typography } from "@mui/material";
 import type { GetStaticProps, NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Block from "../components/setup/blocks/Block";
 import Drag from "../components/Drag";
-import { addTodo } from "../store/root";
-const TestContainer = () => {
-  const state = useSelector(state => state);
-  // const dispatch = useDispatch();
+import { handleItemValue } from "../store/root";
+const SetupContainer = () => {
+  const blocks = useSelector(state => state.blocks);
+  const dispatch = useDispatch();
   // const [text, setText] = useState("11");
+  const handleField = useCallback(
+    (blockId, fieldId, valueId, value: any): void => {
+      const payload = {
+        blockId,
+        fieldId,
+        valueId,
+        value,
+      };
+      dispatch(handleItemValue(payload));
+    },
+    [dispatch]
+  );
   const [winReady, setWinReady] = useState(false);
 
   useEffect(() => {
@@ -21,12 +33,12 @@ const TestContainer = () => {
   return (
     <>
       {/* <Button onClick={handleTodo}>클릭</Button> */}
-      {winReady && <Drag />}
+      {winReady && <Drag blocks={blocks} handleField={handleField} />}
     </>
   );
 };
 
-export default TestContainer;
+export default SetupContainer;
 
 // export const getStaticProps: GetStaticProps = async context => {
 //   return {

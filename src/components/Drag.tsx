@@ -14,22 +14,9 @@ import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Block from "./setup/blocks/Block";
 import { Typography } from "@mui/material";
 import { IBlock } from "../types/block";
-const blockInfo: IBlock = {
-  id: "block_id_1",
-  type: "Profile",
-  title: "프로필",
-  iconName: "AccountCircle",
-  fields: [{ id: "field_id_1", type: "Text", title: "abc" }],
-};
-// 드래그 요소 생성
-const Drag = () => {
-  const [datas, setDatas] = useState([
-    { key: "item-1", content: "item-1" },
-    { key: "item-2", content: "item-2" },
-    { key: "item-3", content: "item-3" },
-    { key: "item-4", content: "item-4" },
-  ]);
 
+// 드래그 요소 생성
+const Drag = ({ blocks, handleField }) => {
   const onDragEnd = (result, provided) => {
     if (!result) {
       console.log("result가 null인 경우");
@@ -47,19 +34,19 @@ const Drag = () => {
       return;
     }
 
-    // 데이터 변경
-    setDatas(prev => {
-      // 원본 데이터
-      const sourceData = datas[source.index];
-      // datas 복사
-      let newDatas = prev;
-      // 기존 데이터 제거
-      newDatas.splice(source.index, 1);
-      // 이동 위치로 데이터 옮기기
-      newDatas.splice(destination.index, 0, sourceData);
+    // // 데이터 변경
+    // setDatas(prev => {
+    //   // 원본 데이터
+    //   const sourceData = datas[source.index];
+    //   // datas 복사
+    //   let newDatas = prev;
+    //   // 기존 데이터 제거
+    //   newDatas.splice(source.index, 1);
+    //   // 이동 위치로 데이터 옮기기
+    //   newDatas.splice(destination.index, 0, sourceData);
 
-      return newDatas;
-    });
+    //   return newDatas;
+    // });
   };
 
   return (
@@ -72,12 +59,16 @@ const Drag = () => {
           {(provided, snapshot) => (
             // CCS가 적용된 Div
             <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }} {...provided.droppableProps} ref={provided.innerRef}>
-              <Draggable key={"1"} draggableId={"1"} index={1}>
+              {blocks.map((block, blockIndex) => (
+                <Draggable key={block.id} draggableId={block.id} index={blockIndex}>
+                  {(provided, snapshot) => (
+                    <Block blockInfo={block} handleField={handleField} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />
+                  )}
+                </Draggable>
+              ))}
+              {/* <Draggable key={"2"} draggableId={"2"} index={2}>
                 {(provided, snapshot) => <Block blockInfo={blockInfo} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />}
-              </Draggable>
-              <Draggable key={"2"} draggableId={"2"} index={2}>
-                {(provided, snapshot) => <Block blockInfo={blockInfo} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />}
-              </Draggable>
+              </Draggable> */}
               {/* <Draggable key={"2"} draggableId={"2"} index={2}>
                 {(provided, snapshot) => (
                   <Block title="프로필" ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps}>
