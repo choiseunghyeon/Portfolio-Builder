@@ -1,7 +1,8 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+import { IBlock } from "../types/block";
 import { selectBlocks } from "./selector";
 
-const root = {
+const root: TempState = {
   blocks: [
     {
       id: "block_id_1",
@@ -20,26 +21,44 @@ const root = {
   ],
 };
 
-interface ItemValue {
+interface ItemValuePayload {
   blockId: string;
   fieldId: string;
   valueId: string;
   value: any;
 }
-export const handleItemValue = createAction<ItemValue>("setup/handleItemValue");
 
+interface ISwapBlockPayload {
+  sourceIndex: number;
+  destinationIndex: number;
+}
+
+interface TempState {
+  blocks: IBlock[];
+}
+export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
+export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
 const rootReducer = createReducer(root, builder => {
-  builder.addCase(handleItemValue, (state, action) => {
-    const { blockId, fieldId, valueId, value } = action.payload;
-    const blocks = selectBlocks(state);
-    const targetBlock = blocks.find(block => block.id === blockId);
-    if (!targetBlock) return;
+  builder
+    .addCase(changeItemValue, (state, action) => {
+      const { blockId, fieldId, valueId, value } = action.payload;
+      const blocks = selectBlocks(state);
+      const targetBlock = blocks.find(block => block.id === blockId);
+      if (!targetBlock) return;
 
-    const targetField = targetBlock.fields.find(field => field.id === fieldId);
-    if (!targetField) return;
+      const targetField = targetBlock.fields.find(field => field.id === fieldId);
+      if (!targetField) return;
 
-    targetField.value[valueId] = value;
-  });
+      targetField.value[valueId] = value;
+    })
+    .addCase(swapBlock, (state, action) => {
+      const { sourceIndex, destinationIndex } = action.payload;
+
+      const blocks = selectBlocks(state);
+
+      //swap two items
+      [blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]];
+    });
 });
 
 export default rootReducer;

@@ -3,8 +3,8 @@ import type { GetStaticProps, NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Block from "../components/setup/blocks/Block";
-import Drag from "../components/Drag";
-import { handleItemValue } from "../store/root";
+import SetupPanel from "../components/SetupPanel";
+import { changeItemValue, swapBlock } from "../store/root";
 const SetupContainer = () => {
   const blocks = useSelector(state => state.blocks);
   const dispatch = useDispatch();
@@ -17,7 +17,18 @@ const SetupContainer = () => {
         valueId,
         value,
       };
-      dispatch(handleItemValue(payload));
+      dispatch(changeItemValue(payload));
+    },
+    [dispatch]
+  );
+
+  const swapBlockPosition = useCallback(
+    (sourceIndex, destinationIndex) => {
+      const payload = {
+        sourceIndex,
+        destinationIndex,
+      };
+      dispatch(swapBlock(payload));
     },
     [dispatch]
   );
@@ -33,7 +44,7 @@ const SetupContainer = () => {
   return (
     <>
       {/* <Button onClick={handleTodo}>클릭</Button> */}
-      {winReady && <Drag blocks={blocks} handleField={handleField} />}
+      {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} />}
     </>
   );
 };
