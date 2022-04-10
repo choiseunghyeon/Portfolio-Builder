@@ -8,7 +8,7 @@ export const previewSelectorProvider = {
   Profile: (block: IBlock): IProfileProps => {
     const [imageField, mainTextField, subTextField] = block.fields;
     return {
-      imageSrc: imageField.value.imageUrl,
+      imageSrc: imageField.value.imageSrc,
       title: mainTextField.value.input,
       subtitle: subTextField.value.input,
     };

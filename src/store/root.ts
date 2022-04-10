@@ -11,7 +11,7 @@ const root: TempState = {
       title: "프로필",
       iconName: "AccountCircle",
       fields: [
-        { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageUrl: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" } },
+        { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" } },
         { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "Front End Developer" } },
         { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "프론트 엔드 개발자 입니다." } },
       ],
@@ -26,7 +26,7 @@ const root: TempState = {
           id: uuidv4(),
           type: "Image",
           title: "이미지 업로드",
-          value: { imageUrl: "https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" },
+          value: { imageSrc: "https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" },
         },
         { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "미니언 내꺼" } },
         { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "미니언 좋아합니다." } },

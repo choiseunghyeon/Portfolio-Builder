@@ -8,7 +8,6 @@ import { changeItemValue, swapBlock } from "../store/root";
 const SetupContainer = () => {
   const blocks = useSelector(state => state.blocks);
   const dispatch = useDispatch();
-  // const [text, setText] = useState("11");
   const handleField = useCallback(
     (blockId, fieldId, valueId, value: any): void => {
       const payload = {
@@ -38,9 +37,6 @@ const SetupContainer = () => {
     setWinReady(true);
   }, []);
 
-  // const handleTodo = () => {
-  //   dispatch(addTodo({ completed: false, text: text }));
-  // };
   return (
     <>
       {/* <Button onClick={handleTodo}>클릭</Button> */}
