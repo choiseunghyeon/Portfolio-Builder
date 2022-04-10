@@ -7,12 +7,12 @@ export interface IBlock {
   fields: IField[];
 }
 
-type FieldType = "Text" | "Link" | "image" | "video" | "date" | "style" | "SampleDoubleText";
+type FieldType = "Text" | "Link" | "Image" | "Video" | "Date" | "Style" | "SampleDoubleText";
 export interface IField {
   id: string;
   type: FieldType;
   title: string;
-  value: ITextFieldValue | IDoubleTextField | { [key: string]: any };
+  value: { [key: string]: any };
 }
 
 export interface IFieldProps extends IField {

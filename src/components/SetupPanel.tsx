@@ -28,6 +28,11 @@ const SetupPanel = ({ blocks, handleField, swapBlockPosition }: ISetupPanel) => 
       return;
     }
 
+    // 빈 공간에 놓은 경우
+    if (!destination) {
+      return;
+    }
+
     swapBlockPosition(source.index, destination.index);
   };
 
