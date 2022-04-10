@@ -11,6 +11,16 @@ import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import Block from "./setup/blocks/Block";
+import { Typography } from "@mui/material";
+import { IBlock } from "../types/block";
+const blockInfo: IBlock = {
+  id: "block_id_1",
+  type: "Profile",
+  title: "프로필",
+  iconName: "AccountCircle",
+  fields: [{ id: "field_id_1", type: "Text", title: "abc" }],
+};
 // 드래그 요소 생성
 const Drag = () => {
   const [datas, setDatas] = useState([
@@ -63,41 +73,25 @@ const Drag = () => {
             // CCS가 적용된 Div
             <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }} {...provided.droppableProps} ref={provided.innerRef}>
               <Draggable key={"1"} draggableId={"1"} index={1}>
-                {(provided, snapshot) => (
-                  <ListItem ref={provided.innerRef} {...provided.draggableProps}>
-                    <ListItemAvatar {...provided.dragHandleProps}>
-                      <Avatar>
-                        <ImageIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                  </ListItem>
-                )}
+                {(provided, snapshot) => <Block blockInfo={blockInfo} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />}
               </Draggable>
               <Draggable key={"2"} draggableId={"2"} index={2}>
+                {(provided, snapshot) => <Block blockInfo={blockInfo} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />}
+              </Draggable>
+              {/* <Draggable key={"2"} draggableId={"2"} index={2}>
                 {(provided, snapshot) => (
-                  <ListItem ref={provided.innerRef} {...provided.draggableProps}>
-                    <ListItemAvatar {...provided.dragHandleProps}>
-                      <Avatar>
-                        <ImageIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                  </ListItem>
+                  <Block title="프로필" ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps}>
+                    <Typography>2</Typography>
+                  </Block>
                 )}
               </Draggable>
               <Draggable key={"3"} draggableId={"3"} index={3}>
                 {(provided, snapshot) => (
-                  <ListItem ref={provided.innerRef} {...provided.draggableProps}>
-                    <ListItemAvatar {...provided.dragHandleProps}>
-                      <Avatar>
-                        <ImageIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                  </ListItem>
+                  <Block title="프로필" ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps}>
+                    <Typography>3</Typography>
+                  </Block>
                 )}
-              </Draggable>
+              </Draggable> */}
             </List>
           )}
         </Droppable>

@@ -1,0 +1,2 @@
+- Block Drag 할 때 field 영역 animation 반응안하게
+- Field Drag 할 때 영역 안잡힘
