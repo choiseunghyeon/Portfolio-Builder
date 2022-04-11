@@ -1,6 +1,6 @@
+import { previewProvider } from "@components/preview/provider";
 import { useSelector } from "react-redux";
-import { previewProvider } from "../components/preview/provider";
-import { previewSelectorProvider } from "../store/selector";
+import { previewSelectorProvider } from "@store/selector";
 const PreviewContainer = () => {
   const blocks = useSelector(state => state.blocks);
 

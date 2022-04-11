@@ -2,7 +2,7 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "@mui/material/List";
 import Block from "./setup/blocks/Block";
-import { IBlock } from "../types/block";
+import { IBlock } from "@type/block";
 
 interface ISetupPanel {
   blocks: IBlock[];

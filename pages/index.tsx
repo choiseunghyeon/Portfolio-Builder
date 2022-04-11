@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
+import PreviewContainer from "@container/PreviewContainer";
+import SetupContainer from "@container/SetupContainer";
 import type { GetStaticProps, NextPage } from "next";
-import PreviewContainer from "../src/container/PreviewContainer";
-import SetupContainer from "../src/container/SetupContainer";
 const Home: NextPage = () => {
   return (
     <>

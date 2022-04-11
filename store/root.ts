@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { IBlock } from "../types/block";
+import { IBlock } from "@type/block";
 import { selectBlocks } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 

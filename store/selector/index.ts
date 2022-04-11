@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { IProfileProps } from "../../components/preview/Profile";
-import { IBlock } from "../../types/block";
-import { RootState } from "../index";
+import { IProfileProps } from "@components/preview/Profile";
+import { IBlock } from "@type/block";
+import { RootState } from "..";
 export const selectBlocks = (state: RootState) => state.blocks;
 
 export const previewSelectorProvider = {

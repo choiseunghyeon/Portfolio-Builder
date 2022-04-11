@@ -3,8 +3,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { IBlock } from "../../../types/block";
 import IconComponent from "../../common/IconComponent";
+import { IBlock } from "@type/block";
 import { fieldProvider } from "../fields/provider";
 
 interface IBlockProps {

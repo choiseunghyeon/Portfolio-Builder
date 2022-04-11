@@ -1,7 +1,8 @@
 import { ChangeEvent, useCallback } from "react";
-import { IFieldProps } from "../../../types/block";
+import { IFieldProps } from "@type/block";
 
-export default function SampleDoubleTextField({ blockId, id, type, title, handleField }: IFieldProps) {
+export default function TextField({ blockId, id, type, value, title, handleField }: IFieldProps) {
+  const { input } = value;
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
       const valueId = event.target.dataset.valueid;
@@ -13,10 +14,7 @@ export default function SampleDoubleTextField({ blockId, id, type, title, handle
   return (
     <>
       <div>{title}</div>
-      <div>
-        <input data-valueid="input" onChange={handleInput} />
-        <input data-valueid="input2" onChange={handleInput} />
-      </div>
+      <input data-valueid="input" value={input} onChange={handleInput} />
     </>
   );
 }

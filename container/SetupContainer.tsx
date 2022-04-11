@@ -1,10 +1,9 @@
 import { Button, Typography } from "@mui/material";
+import SetupPanel from "@components/SetupPanel";
 import type { GetStaticProps, NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Block from "../components/setup/blocks/Block";
-import SetupPanel from "../components/SetupPanel";
-import { changeItemValue, swapBlock } from "../store/root";
+import { changeItemValue, swapBlock } from "@store/root";
 const SetupContainer = () => {
   const blocks = useSelector(state => state.blocks);
   const dispatch = useDispatch();

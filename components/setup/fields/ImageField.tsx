@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from "react";
-import { IFieldProps } from "../../../types/block";
+import { IFieldProps } from "@type/block";
 
 export default function ImageField({ blockId, id, type, value, title, handleField }: IFieldProps) {
   const { imageSrc } = value;
