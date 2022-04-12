@@ -6,7 +6,7 @@ export interface IProfileProps {
   subtitle: string;
   imageSrc: string;
 }
-const DeveloperProfile = ({ title, subtitle, imageSrc }: IProfileProps) => {
+const Profile = ({ title, subtitle, imageSrc }: IProfileProps) => {
   return (
     <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
       <Grid container spacing={1}>
@@ -30,18 +30,10 @@ const DeveloperProfile = ({ title, subtitle, imageSrc }: IProfileProps) => {
             {subtitle}
           </Typography>
         </Grid>
-        {/* <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="body1">{content}</Typography>
-        </Grid>
-        {icons.map((icon, idx) => (
-          <Grid item xs={4} key={idx}>
-            <IconComponent {...icon} fontSize="1.5rem" />
-          </Grid>
-        ))} */}
       </Grid>
       <Divider />
     </Box>
   );
 };
 
-export default DeveloperProfile;
+export default Profile;

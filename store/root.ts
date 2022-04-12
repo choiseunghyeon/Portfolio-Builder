@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { IBlock } from "@type/block";
-import { selectBlocks } from "./selector";
+import { selectBlockById, selectBlocks } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 
 const root: TempState = {
@@ -56,8 +56,7 @@ const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
       const { blockId, fieldId, valueId, value } = action.payload;
-      const blocks = selectBlocks(state);
-      const targetBlock = blocks.find(block => block.id === blockId);
+      const targetBlock = selectBlockById(state, blockId);
       if (!targetBlock) return;
 
       const targetField = targetBlock.fields.find(field => field.id === fieldId);

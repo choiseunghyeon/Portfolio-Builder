@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import DeveloperProfile from "./Profile";
+import Profile from "./Profile";
 
 export default {
   title: "Profile",
-  component: DeveloperProfile,
-} as ComponentMeta<typeof DeveloperProfile>;
+  component: Profile,
+} as ComponentMeta<typeof Profile>;
 
-const Template: ComponentStory<typeof DeveloperProfile> = args => <DeveloperProfile {...args} />;
+const Template: ComponentStory<typeof Profile> = args => <Profile {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
