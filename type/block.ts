@@ -1,4 +1,4 @@
-type BlockType = "Profile" | "Career" | "Project";
+export type BlockType = "Profile" | "Career" | "Project";
 export interface IBlock {
   id: string;
   type: BlockType;

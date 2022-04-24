@@ -1,53 +1,55 @@
-import { Button, Typography } from "@mui/material";
-import SetupPanel from "@components/SetupPanel";
-import type { GetStaticProps, NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { changeItemValue, swapBlock } from "@store/root";
-const SetupContainer = () => {
-  const blocks = useSelector(state => state.blocks);
+import { foldTab } from "@store/root";
+import { tabFold } from "@store/selector";
+import { EN_TAB_VALUE, TabType } from "@type/tab";
+import { panelProvider } from "@components/setup/panel/provider";
+import TabPanel from "@components/setup/panel/TabPanel";
+import IconComponent from "@components/common/IconComponent";
+
+function a11yProps(value: TabType) {
+  return {
+    id: `vertical-tab-${value}`,
+    "aria-controls": `vertical-tabpanel-${value}`,
+    value,
+  };
+}
+
+export default function SetupContainer() {
+  const [value, setValue] = React.useState<TabType>("MiniMap");
   const dispatch = useDispatch();
-  const handleField = useCallback(
-    (blockId, fieldId, valueId, value: any): void => {
-      const payload = {
-        blockId,
-        fieldId,
-        valueId,
-        value,
-      };
-      dispatch(changeItemValue(payload));
-    },
-    [dispatch]
-  );
+  const needTabFold = useSelector(tabFold);
+  const CurrentTabPanel = panelProvider[value];
+  const handleChange = (event: React.SyntheticEvent, newValue: TabType) => {
+    if (newValue === "Fold") {
+      return;
+    }
+    dispatch(foldTab(false));
+    setValue(newValue);
+  };
 
-  const swapBlockPosition = useCallback(
-    (sourceIndex, destinationIndex) => {
-      const payload = {
-        sourceIndex,
-        destinationIndex,
-      };
-      dispatch(swapBlock(payload));
-    },
-    [dispatch]
-  );
-  const [winReady, setWinReady] = useState(false);
-
-  useEffect(() => {
-    setWinReady(true);
-  }, []);
+  const toggleTabPanel = () => {
+    dispatch(foldTab(!needTabFold));
+  };
 
   return (
-    <>
-      {/* <Button onClick={handleTodo}>클릭</Button> */}
-      {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} />}
-    </>
+    <Box sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex" }}>
+      <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
+        <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
+        <Tab label={"Project"} {...a11yProps("Project")} />
+        <Tab label={"Career"} {...a11yProps("Career")} />
+        <Tab label={"Profile"} {...a11yProps("Profile")} />
+        <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
+      </Tabs>
+      <Box sx={{ display: `${needTabFold ? "none" : "block"}` }}>
+        <TabPanel value={value}>
+          <CurrentTabPanel value={value} />
+        </TabPanel>
+      </Box>
+    </Box>
   );
-};
-
-export default SetupContainer;
-
-// export const getStaticProps: GetStaticProps = async context => {
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   }
-// }
+}

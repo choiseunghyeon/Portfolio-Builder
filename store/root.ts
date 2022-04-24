@@ -3,7 +3,12 @@ import { IBlock } from "@type/block";
 import { selectBlockById, selectBlocks } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 
+interface TempState {
+  blocks: IBlock[];
+  tabFold: boolean;
+}
 const root: TempState = {
+  tabFold: false,
   blocks: [
     {
       id: uuidv4(),
@@ -47,11 +52,9 @@ interface ISwapBlockPayload {
   destinationIndex: number;
 }
 
-interface TempState {
-  blocks: IBlock[];
-}
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
+export const foldTab = createAction<boolean>("setup/foldTab");
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
@@ -71,6 +74,10 @@ const rootReducer = createReducer(root, builder => {
 
       //swap two items
       [blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]];
+    })
+    .addCase(foldTab, (state, action) => {
+      const needFold = action.payload;
+      state.tabFold = needFold;
     });
 });
 

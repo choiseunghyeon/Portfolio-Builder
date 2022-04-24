@@ -11,28 +11,29 @@ export interface IProjectProps {
 
 const Project = ({ name, organigation, term, description, skills }: IProjectProps) => {
   return (
-    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography color="textSecondary" gutterBottom>
+    <Box sx={{ textAlign: "left" }}>
+      <Grid container spacing={0}>
+        <Grid item xs={12}>
+          <Typography sx={{ fontWeight: "bold" }} variant="h6">
             {name}
-            {organigation}
-            {term}
-            {description}
-            {skills}
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3"></Typography>
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">{organigation}</Typography>
         </Grid>
-        {/* <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="body1">{content}</Typography>
+        <Grid item xs={12}>
+          <Typography gutterBottom variant="subtitle2">
+            {term}
+          </Typography>
         </Grid>
-        {icons.map((icon, idx) => (
-          <Grid item xs={4} key={idx}>
-            <IconComponent {...icon} fontSize="1.5rem" />
-          </Grid>
-        ))} */}
+        <Grid item xs={12}>
+          <Typography gutterBottom variant="body1" color={"textSecondary"}>
+            {description}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body2">{skills}</Typography>
+        </Grid>
       </Grid>
       <Divider />
     </Box>

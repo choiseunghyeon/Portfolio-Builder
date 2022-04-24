@@ -2,31 +2,34 @@ import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
 import IconComponent from "../common/IconComponent";
 
 export interface ICareerProps {
-  title: string;
-  subtitle: string;
-  detail: string;
+  organigation: string;
+  role: string;
+  term: string;
+  description: string;
 }
-const Career = ({ title, subtitle, detail }: ICareerProps) => {
+const Career = ({ organigation, role, term, description }: ICareerProps) => {
   return (
-    <Box sx={{ margin: "24px 0 16px 0" }}>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
-            {title}
+    <Box>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography sx={{ fontWeight: "bold" }} variant="h6">
+            {organigation}
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography color="textSecondary" gutterBottom>
-            {subtitle}
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">{role}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography gutterBottom variant="subtitle2">
+            {term}
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
-            {detail}
+        <Grid item xs={12}>
+          <Typography gutterBottom variant="body1" color={"textSecondary"}>
+            {description}
           </Typography>
         </Grid>
       </Grid>
-      <Divider />
     </Box>
   );
 };

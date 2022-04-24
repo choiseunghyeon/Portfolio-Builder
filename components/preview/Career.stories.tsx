@@ -11,7 +11,10 @@ const Template: ComponentStory<typeof Career> = args => <Career {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "이카운트",
-  subtitle: "TFT1팀",
-  detail: "테스트 코드 설계 및 작성 / 자체 프레임 워크 기능 개발 및 리팩토링",
+  organigation: "이카운트",
+  role: "TFT1팀",
+  term: "2022.04 - 2023.04",
+  description: `- 인도네이사 국가를 대상으로
+  - 프론트 엔드를 맡아서
+  - 테스트 코드 설계 및 작성`,
 };
