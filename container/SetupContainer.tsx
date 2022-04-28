@@ -18,18 +18,18 @@ function a11yProps(value: TabType) {
     value,
   };
 }
-
+const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Fold"];
 export default function SetupContainer() {
-  const [value, setValue] = React.useState<TabType>("MiniMap");
+  const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap");
   const dispatch = useDispatch();
   const needTabFold = useSelector(tabFold);
-  const CurrentTabPanel = panelProvider[value];
+  const CurrentTabPanel = panelProvider[currentTabValue];
   const handleChange = (event: React.SyntheticEvent, newValue: TabType) => {
     if (newValue === "Fold") {
       return;
     }
     dispatch(foldTab(false));
-    setValue(newValue);
+    setCurrentTabValue(newValue);
   };
 
   const toggleTabPanel = () => {
@@ -38,7 +38,7 @@ export default function SetupContainer() {
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex" }}>
-      <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
+      <Tabs orientation="vertical" variant="fullWidth" value={currentTabValue} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
         <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
         <Tab label={"Project"} {...a11yProps("Project")} />
         <Tab label={"Career"} {...a11yProps("Career")} />
@@ -46,9 +46,11 @@ export default function SetupContainer() {
         <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
       </Tabs>
       <Box sx={{ display: `${needTabFold ? "none" : "block"}` }}>
-        <TabPanel value={value}>
-          <CurrentTabPanel value={value} />
-        </TabPanel>
+        {tabList.map(tabPanelValue => (
+          <TabPanel key={tabPanelValue} currentTabValue={currentTabValue} tabValue={tabPanelValue}>
+            <CurrentTabPanel value={tabPanelValue} />
+          </TabPanel>
+        ))}
       </Box>
     </Box>
   );

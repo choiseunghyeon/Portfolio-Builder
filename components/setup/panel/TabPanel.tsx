@@ -4,15 +4,20 @@ import { TabType } from "@type/tab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  value: TabType;
+  currentTabValue: string;
+  tabValue: string;
 }
 
 export default function TabPanel(props: TabPanelProps) {
-  const { children, value, ...other } = props;
+  const { children, currentTabValue, tabValue } = props;
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography>{children}</Typography>
-    </Box>
+    <div role="tabpanel" hidden={currentTabValue !== tabValue}>
+      {currentTabValue === tabValue && (
+        <Box sx={{ p: 1 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
   );
 }

@@ -5,6 +5,17 @@ import { v4 as uuidv4 } from "uuid";
 
 interface TempState {
   blocks: IBlock[];
+  blockStyle: {
+    Profile: {
+      id: string;
+    };
+    Career: {
+      id: string;
+    };
+    Project: {
+      id: string;
+    };
+  };
   tabFold: boolean;
 }
 const root: TempState = {
@@ -38,6 +49,17 @@ const root: TempState = {
       ],
     },
   ],
+  blockStyle: {
+    Profile: {
+      id: "default",
+    },
+    Project: {
+      id: "default",
+    },
+    Career: {
+      id: "default",
+    },
+  },
 };
 
 interface ItemValuePayload {
