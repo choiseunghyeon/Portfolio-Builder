@@ -10,6 +10,7 @@ import { EN_TAB_VALUE, TabType } from "@type/tab";
 import { panelProvider } from "@components/setup/panel/provider";
 import TabPanel from "@components/setup/panel/TabPanel";
 import IconComponent from "@components/common/IconComponent";
+import { Grid } from "@mui/material";
 
 function a11yProps(value: TabType) {
   return {
@@ -37,21 +38,25 @@ export default function SetupContainer() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex" }}>
-      <Tabs orientation="vertical" variant="fullWidth" value={currentTabValue} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
-        <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
-        <Tab label={"Project"} {...a11yProps("Project")} />
-        <Tab label={"Career"} {...a11yProps("Career")} />
-        <Tab label={"Profile"} {...a11yProps("Profile")} />
-        <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
-      </Tabs>
-      <Box sx={{ display: `${needTabFold ? "none" : "block"}` }}>
-        {tabList.map(tabPanelValue => (
-          <TabPanel key={tabPanelValue} currentTabValue={currentTabValue} tabValue={tabPanelValue}>
-            <CurrentTabPanel value={tabPanelValue} />
-          </TabPanel>
-        ))}
-      </Box>
-    </Box>
+    <Grid container spacing={1}>
+      <Grid item xs={4}>
+        <Tabs orientation="vertical" variant="fullWidth" value={currentTabValue} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
+          <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
+          <Tab label={"Project"} {...a11yProps("Project")} />
+          <Tab label={"Career"} {...a11yProps("Career")} />
+          <Tab label={"Profile"} {...a11yProps("Profile")} />
+          <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
+        </Tabs>
+      </Grid>
+      <Grid item xs={8}>
+        <Box sx={{ display: `${needTabFold ? "none" : "block"}`, flexGrow: 1 }}>
+          {tabList.map(tabPanelValue => (
+            <TabPanel key={tabPanelValue} currentTabValue={currentTabValue} tabValue={tabPanelValue}>
+              <CurrentTabPanel value={tabPanelValue} />
+            </TabPanel>
+          ))}
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

@@ -4,6 +4,7 @@ export interface IBlock {
   type: BlockType;
   title: string;
   iconName: string;
+  styleType: string;
   fields: IField[];
 }
 

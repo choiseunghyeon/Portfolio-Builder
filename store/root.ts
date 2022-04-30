@@ -1,19 +1,19 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { IBlock } from "@type/block";
-import { selectBlockById, selectBlocks } from "./selector";
+import { BlockType, IBlock } from "@type/block";
+import { selectBlockById, selectBlocks, selectBlocksByType } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 
 interface TempState {
   blocks: IBlock[];
   blockStyle: {
     Profile: {
-      id: string;
+      styleTypes: string[];
     };
     Career: {
-      id: string;
+      styleTypes: string[];
     };
     Project: {
-      id: string;
+      styleTypes: string[];
     };
   };
   tabFold: boolean;
@@ -26,6 +26,7 @@ const root: TempState = {
       type: "Profile",
       title: "프로필",
       iconName: "AccountCircle",
+      styleType: "default",
       fields: [
         { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" } },
         { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "Front End Developer" } },
@@ -37,6 +38,7 @@ const root: TempState = {
       type: "Profile",
       title: "프로필",
       iconName: "AccountCircle",
+      styleType: "default",
       fields: [
         {
           id: uuidv4(),
@@ -51,13 +53,13 @@ const root: TempState = {
   ],
   blockStyle: {
     Profile: {
-      id: "default",
+      styleTypes: ["default", "second"],
     },
     Project: {
-      id: "default",
+      styleTypes: ["default"],
     },
     Career: {
-      id: "default",
+      styleTypes: ["default"],
     },
   },
 };
@@ -74,9 +76,15 @@ interface ISwapBlockPayload {
   destinationIndex: number;
 }
 
+interface IChangeBlockStyleType {
+  blockType: BlockType;
+  styleType: string;
+}
+
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
 export const foldTab = createAction<boolean>("setup/foldTab");
+export const changeBlockStyleType = createAction<IChangeBlockStyleType>("setup/changeBlockStyleType");
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
@@ -100,6 +108,11 @@ const rootReducer = createReducer(root, builder => {
     .addCase(foldTab, (state, action) => {
       const needFold = action.payload;
       state.tabFold = needFold;
+    })
+    .addCase(changeBlockStyleType, (state, action) => {
+      const { blockType, styleType } = action.payload;
+      const blocks = selectBlocksByType(state, blockType);
+      blocks.forEach(block => (block.styleType = styleType));
     });
 });
 

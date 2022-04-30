@@ -45,7 +45,7 @@ const SetupPanel = ({ blocks, handleField, swapBlockPosition }: ISetupPanel) => 
           {/* 드래그 Div 생성 */}
           {(provided, snapshot) => (
             // CCS가 적용된 Div
-            <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }} {...provided.droppableProps} ref={provided.innerRef}>
+            <List {...provided.droppableProps} ref={provided.innerRef}>
               {blocks.map((block, blockIndex) => (
                 <Draggable key={block.id} draggableId={block.id} index={blockIndex}>
                   {(provided, snapshot) => (
