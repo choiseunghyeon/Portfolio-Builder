@@ -25,7 +25,7 @@ interface ISetupBlockContainer {
 
 const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
   const blocks = useSelector(state => selectBlocksByType(state, blockType));
-  const { styleTypes, columnCount, changableColumnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType));
+  const { styleType, changableStyleTypes, columnCount, changableColumnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType));
   const [currentTabValue, setCurrentTabValue] = useState<TabValueType>("block");
   const handleChange = (event: React.SyntheticEvent, newValue: TabValueType) => {
     setCurrentTabValue(newValue);
@@ -81,7 +81,14 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
           {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} />}
         </TabPanel>
         <TabPanel currentTabValue={currentTabValue} tabValue="style">
-          <StylePanel block={blocks[0]} handleBlockStyleType={handleBlockStyleType} styleTypes={styleTypes} columnCount={columnCount} changableColumnCount={changableColumnCount} />
+          <StylePanel
+            block={blocks[0]}
+            styleType={styleType}
+            handleBlockStyleType={handleBlockStyleType}
+            changableStyleTypes={changableStyleTypes}
+            columnCount={columnCount}
+            changableColumnCount={changableColumnCount}
+          />
         </TabPanel>
       </Box>
     </Box>

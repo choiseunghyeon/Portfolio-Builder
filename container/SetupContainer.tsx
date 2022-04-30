@@ -4,13 +4,14 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { foldTab } from "@store/root";
+import { addBlock, foldTab, IAddBlockPayload } from "@store/root";
 import { tabFold } from "@store/selector";
 import { EN_TAB_VALUE, TabType } from "@type/tab";
 import { panelProvider } from "@components/setup/panel/provider";
 import TabPanel from "@components/setup/panel/TabPanel";
 import IconComponent from "@components/common/IconComponent";
 import { Grid } from "@mui/material";
+import { BlockType } from "@type/block";
 
 function a11yProps(value: TabType) {
   return {
@@ -37,6 +38,14 @@ export default function SetupContainer() {
     dispatch(foldTab(!needTabFold));
   };
 
+  const onAddBlock = (blockType: BlockType, title: string) => {
+    const payload: IAddBlockPayload = {
+      blockType,
+      title,
+    };
+    dispatch(addBlock(payload));
+  };
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={4}>
@@ -52,7 +61,7 @@ export default function SetupContainer() {
         <Box sx={{ display: `${needTabFold ? "none" : "block"}`, flexGrow: 1 }}>
           {tabList.map(tabPanelValue => (
             <TabPanel key={tabPanelValue} currentTabValue={currentTabValue} tabValue={tabPanelValue}>
-              <CurrentTabPanel value={tabPanelValue} />
+              <CurrentTabPanel value={tabPanelValue} onAddBlock={onAddBlock} />
             </TabPanel>
           ))}
         </Box>

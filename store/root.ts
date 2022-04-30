@@ -3,6 +3,8 @@ import { BlockType, BlockXSType, IBlock } from "@type/block";
 import { selectBlockById, selectBlockIndexById, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 import { EachBlockTypeStyle, ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
+import { convertColumnCountIntoXS } from "./utils";
+import { createBlock } from "./defaultBlockData";
 
 interface TempState {
   blocks: IBlock[];
@@ -25,26 +27,6 @@ const root: TempState = {
         { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" } },
         { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "Front End Developer" } },
         { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "프론트 엔드 개발자 입니다." } },
-      ],
-    },
-    {
-      id: uuidv4(),
-      type: "Profile",
-      title: "프로필",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        {
-          id: uuidv4(),
-          type: "Image",
-          title: "이미지 업로드",
-          value: { imageSrc: "https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" },
-        },
-        { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "미니언 내꺼" } },
-        { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "미니언 좋아합니다." } },
       ],
     },
     {
@@ -94,17 +76,20 @@ const root: TempState = {
   ],
   blockTypeStyle: {
     Profile: {
-      styleTypes: ["default", "second"],
+      styleType: "default",
+      changableStyleTypes: ["default", "second"],
       columnCount: 1,
       changableColumnCount: [],
     },
     Project: {
-      styleTypes: ["default"],
+      styleType: "default",
+      changableStyleTypes: ["default"],
       columnCount: 1,
       changableColumnCount: [1, 2, 3, 4],
     },
     Career: {
-      styleTypes: ["default"],
+      styleType: "default",
+      changableStyleTypes: ["default"],
       columnCount: 1,
       changableColumnCount: [1, 2, 3, 4],
     },
@@ -125,14 +110,17 @@ interface ISwapBlockPayload {
 
 export interface IChangeBlockTypeStylePayload extends Partial<IBlockTypeStyle> {
   blockType: BlockType;
-  // 선택된 styleType
-  styleType?: string;
 }
 
+export interface IAddBlockPayload {
+  blockType: BlockType;
+  title: string;
+}
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
 export const foldTab = createAction<boolean>("setup/foldTab");
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType");
+export const addBlock = createAction<IAddBlockPayload>("setup/addBlock");
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
@@ -161,17 +149,35 @@ const rootReducer = createReducer(root, builder => {
     .addCase(changeBlockTypeStyle, (state, action) => {
       const { blockType, styleType, columnCount } = action.payload;
       const blocks = selectBlocksByType(state, blockType);
+      const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
 
       if (styleType !== undefined) {
+        targetBlockTypeStyle.styleType = styleType;
         blocks.forEach(block => (block.style.styleType = styleType));
       }
 
       if (columnCount !== undefined) {
-        const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
         targetBlockTypeStyle.columnCount = columnCount;
-        const xs = (12 / columnCount) as BlockXSType;
+        const xs = convertColumnCountIntoXS(columnCount);
         blocks.forEach(block => (block.style.xs = xs));
       }
+    })
+    .addCase(addBlock, (state, action) => {
+      const { blockType, title } = action.payload;
+      const blockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
+      const blocks = selectBlocks(state);
+      let lastBlockIndexInBlockType;
+      for (let lastIndex = blocks.length - 1; lastIndex >= 0; lastIndex--) {
+        if (blocks[lastIndex].type === blockType) {
+          lastBlockIndexInBlockType = lastIndex;
+          break;
+        }
+      }
+      if (!lastBlockIndexInBlockType) return;
+      const blockData = createBlock(blockType, title, blockTypeStyle);
+
+      if (!blockData) return;
+      blocks.splice(lastBlockIndexInBlockType + 1, 0, blockData);
     });
 });
 

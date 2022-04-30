@@ -7,18 +7,15 @@ import { previewProvider } from "./preview/provider";
 import { previewSelectorProvider } from "@store/selector";
 import { Checkbox, Divider, FormControl, Grid, InputLabel, ListItem, MenuItem, OutlinedInput, Paper, Select, SelectChangeEvent } from "@mui/material";
 import IconComponent from "./common/IconComponent";
-import { ColumnCountType } from "@type/blockStyle";
+import { ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
 
-interface IStylePanel {
+interface IStylePanel extends IBlockTypeStyle {
   block: IBlock;
-  styleTypes: string[];
-  columnCount: ColumnCountType;
-  changableColumnCount: number[];
   handleBlockStyleType: Function;
 }
 // 드래그 요소 생성
-const StylePanel = ({ block, styleTypes, columnCount, changableColumnCount, handleBlockStyleType }: IStylePanel) => {
-  const currentStyleType = block.style.styleType;
+const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changableColumnCount, handleBlockStyleType }: IStylePanel) => {
+  const currentStyleType = styleType;
   const PreviewComponent = previewProvider[block.type];
   const previewProps = previewSelectorProvider[block.type](block);
 
@@ -46,7 +43,7 @@ const StylePanel = ({ block, styleTypes, columnCount, changableColumnCount, hand
             </FormControl>
           </Grid>
         )}
-        {styleTypes.map((styleType, index) => (
+        {changableStyleTypes.map((styleType, index) => (
           <>
             <Grid item xs={12} key={index}>
               <Checkbox
@@ -56,8 +53,6 @@ const StylePanel = ({ block, styleTypes, columnCount, changableColumnCount, hand
                 checkedIcon={<IconComponent icon="Favorite" />}
               />
               <PreviewComponent key={block.id} {...previewProps} styleType={styleType} />
-              {/* <Paper elevation={3}>
-              </Paper> */}
             </Grid>
           </>
         ))}

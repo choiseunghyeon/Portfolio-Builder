@@ -18,7 +18,7 @@ interface IBlockProps {
 // eslint-disable-next-line react/display-name
 const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField }: IBlockProps, ref: any) => {
   const { iconName, title, fields, id } = blockInfo;
-  const [needExpand, setNeedExpand] = useState<boolean>(true);
+  const [needExpand, setNeedExpand] = useState<boolean>(false);
   const handleAccordion = useCallback((event: React.SyntheticEvent, expanded: boolean) => {
     setNeedExpand(expanded);
   }, []);
