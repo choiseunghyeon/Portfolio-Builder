@@ -13,7 +13,7 @@ const Profile = (props: IProfileProps) => {
     case "second":
       return <SecondProfile {...props} />;
     default:
-      break;
+      return null;
   }
 };
 

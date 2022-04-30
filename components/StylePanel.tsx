@@ -20,22 +20,20 @@ const StylePanel = ({ block, styleList: styleTypes, handleChangeBlockStyleType }
   const previewProps = previewSelectorProvider[block.type](block);
 
   return (
-    <List>
+    <>
       {styleTypes.map(styleType => (
         <>
-          <ListItem disablePadding>
-            <Checkbox
-              checked={styleType === currentStyleType}
-              onChange={() => handleChangeBlockStyleType(styleType)}
-              icon={<IconComponent icon="FavoriteBorder" />}
-              checkedIcon={<IconComponent icon="Favorite" />}
-            />
-            <PreviewComponent key={block.id} {...previewProps} styleType={styleType} />
-          </ListItem>
+          <Checkbox
+            checked={styleType === currentStyleType}
+            onChange={() => handleChangeBlockStyleType(styleType)}
+            icon={<IconComponent icon="FavoriteBorder" />}
+            checkedIcon={<IconComponent icon="Favorite" />}
+          />
+          <PreviewComponent key={block.id} {...previewProps} styleType={styleType} />
           <Divider />
         </>
       ))}
-    </List>
+    </>
   );
 };
 
