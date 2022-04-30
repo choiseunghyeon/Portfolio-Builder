@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useCallback, forwardRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import IconComponent from "../../common/IconComponent";
 import { IBlock } from "@type/block";
 import { fieldProvider } from "../fields/provider";
+import { Box } from "@mui/material";
 
 interface IBlockProps {
   blockInfo: IBlock;
@@ -15,10 +16,14 @@ interface IBlockProps {
 }
 
 // eslint-disable-next-line react/display-name
-const Block = React.forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField }: IBlockProps, ref: any) => {
+const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField }: IBlockProps, ref: any) => {
   const { iconName, title, fields, id } = blockInfo;
+  const [needExpand, setNeedExpand] = useState<boolean>(true);
+  const handleAccordion = useCallback((event: React.SyntheticEvent, expanded: boolean) => {
+    setNeedExpand(expanded);
+  }, []);
   return (
-    <Accordion disableGutters ref={ref} {...draggableProps}>
+    <Accordion expanded={needExpand} onChange={handleAccordion} disableGutters ref={ref} {...draggableProps}>
       <AccordionSummary expandIcon={<IconComponent icon={"ExpandMore"} />} aria-controls="panel1a-content">
         <span {...dragHandleProps}>
           <IconComponent icon={"DragIndicator"} />
@@ -29,10 +34,18 @@ const Block = React.forwardRef(({ draggableProps, dragHandleProps, blockInfo, ha
         <Typography>{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {fields.map(field => {
-          const FieldComponent = fieldProvider[field.type];
-          return <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />;
-        })}
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off">
+          {fields.map(field => {
+            const FieldComponent = fieldProvider[field.type];
+            return <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />;
+          })}
+        </Box>
       </AccordionDetails>
     </Accordion>
   );

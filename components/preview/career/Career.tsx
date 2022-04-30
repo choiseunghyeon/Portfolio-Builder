@@ -1,13 +1,14 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
+import { IBlockStyle } from "@type/block";
 
 export interface ICareerProps {
   organigation: string;
   role: string;
   term: string;
   description: string;
-  styleType: string;
+  blockStyle: IBlockStyle;
 }
-const Career = ({ organigation, role, term, description, styleType }: ICareerProps) => {
+const Career = ({ organigation, role, term, description, blockStyle }: ICareerProps) => {
   return (
     <Box>
       <Grid container>

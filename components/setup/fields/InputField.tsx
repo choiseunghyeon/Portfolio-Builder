@@ -1,7 +1,8 @@
 import { ChangeEvent, useCallback } from "react";
 import { IFieldProps } from "@type/block";
+import { Box, TextField } from "@mui/material";
 
-export default function TextField({ blockId, id, type, value, title, handleField }: IFieldProps) {
+export default function InputField({ blockId, id, type, value, title, handleField }: IFieldProps) {
   const { input } = value;
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
@@ -13,8 +14,7 @@ export default function TextField({ blockId, id, type, value, title, handleField
   );
   return (
     <>
-      <div>{title}</div>
-      <input data-valueid="input" value={input} onChange={handleInput} />
+      <TextField inputProps={{ "data-valueid": "input" }} value={input} label={title} variant="standard" onChange={handleInput} />
     </>
   );
 }

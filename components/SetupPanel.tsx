@@ -32,8 +32,9 @@ const SetupPanel = ({ blocks, handleField, swapBlockPosition }: ISetupPanel) => 
     if (!destination) {
       return;
     }
-
-    swapBlockPosition(source.index, destination.index);
+    const sourceBlockId = blocks[source.index].id;
+    const destinationBlockId = blocks[destination.index].id;
+    swapBlockPosition(sourceBlockId, destinationBlockId);
   };
 
   return (

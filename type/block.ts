@@ -4,11 +4,18 @@ export interface IBlock {
   type: BlockType;
   title: string;
   iconName: string;
-  styleType: string;
+  style: IBlockStyle;
   fields: IField[];
 }
 
-type FieldType = "Text" | "Link" | "Image" | "Video" | "Date" | "Style" | "SampleDoubleText";
+export interface IBlockStyle {
+  styleType: string;
+  xs: BlockXSType;
+}
+
+export type BlockXSType = 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1;
+
+type FieldType = "Text" | "MultiLineText" | "Link" | "Image" | "Video" | "Date" | "Style" | "SampleDoubleText";
 export interface IField {
   id: string;
   type: FieldType;

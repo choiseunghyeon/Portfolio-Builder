@@ -5,12 +5,13 @@ import { createSelector } from "@reduxjs/toolkit";
 import { BlockType, IBlock } from "@type/block";
 import { RootState } from "..";
 export const selectBlocks = (state: RootState) => state.blocks;
-export const selectBlockStyle = (state: RootState) => state.blockStyle;
+export const selectBlockStyle = (state: RootState) => state.blockTypeStyle;
+export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.findIndex(block => block.id === blockId));
 export const selectBlockById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.find(block => block.id === blockId));
 export const tabFold = (state: RootState) => state.tabFold;
 
 export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, blockType: BlockType) => blockType], (blocks, blockType) => blocks.filter(block => block.type === blockType));
-export const selectStyleTypesByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType].styleTypes);
+export const selectBlockTypeStyleByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType]);
 // for memoization
 const selectProfileProps = createSelector(
   (block: IBlock) => block,
@@ -20,7 +21,7 @@ const selectProfileProps = createSelector(
       imageSrc: imageField.value.imageSrc,
       title: mainTextField.value.input,
       subtitle: subTextField.value.input,
-      styleType: block.styleType,
+      blockStyle: block.style,
     };
   }
 );
@@ -28,13 +29,14 @@ const selectProfileProps = createSelector(
 const selectProjectProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock): IProjectProps => {
+    const [nameField, organigationField, termField, descriptionField, skillsFeild] = block.fields;
     return {
-      name: "aa",
-      organigation: "asdf",
-      description: "sdfs",
-      skills: " asdf",
-      term: "sdfas",
-      styleType: block.styleType,
+      name: nameField.value.input,
+      organigation: organigationField.value.input,
+      description: descriptionField.value.multiLineInput,
+      term: `${termField.value.from} ~ ${termField.value.to}`,
+      skills: skillsFeild.value.multiLineInput,
+      blockStyle: block.style,
     };
   }
 );
@@ -47,7 +49,7 @@ const selectCareerProps = createSelector(
       role: "Front End Developer",
       term: "2021-12 - 2022-12",
       description: "웹 개발 및 유지보수",
-      styleType: block.styleType,
+      blockStyle: block.style,
     };
   }
 );

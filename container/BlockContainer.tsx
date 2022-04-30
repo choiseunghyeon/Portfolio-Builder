@@ -5,9 +5,9 @@ import SetupPanel from "@components/SetupPanel";
 import type { GetStaticProps, NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlockStyleType, changeItemValue, swapBlock } from "@store/root";
+import { changeBlockTypeStyle, changeItemValue, IChangeBlockTypeStylePayload, swapBlock } from "@store/root";
 import { BlockType } from "@type/block";
-import { selectBlocksByType, selectStyleTypesByBlockType } from "@store/selector";
+import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/selector";
 import TabPanel from "@components/setup/panel/TabPanel";
 import StylePanel from "@components/StylePanel";
 
@@ -22,21 +22,22 @@ type TabValueType = "block" | "style";
 interface ISetupBlockContainer {
   blockType: BlockType;
 }
+
 const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
   const blocks = useSelector(state => selectBlocksByType(state, blockType));
-  const styleTypes = useSelector(state => selectStyleTypesByBlockType(state, blockType));
+  const { styleTypes, columnCount, changableColumnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType));
   const [currentTabValue, setCurrentTabValue] = useState<TabValueType>("block");
   const handleChange = (event: React.SyntheticEvent, newValue: TabValueType) => {
     setCurrentTabValue(newValue);
   };
 
   const dispatch = useDispatch();
-  const handleChangeBlockStyleType = styleType => {
+  const handleBlockStyleType = (styleOption: Partial<IChangeBlockTypeStylePayload>) => {
     const payload = {
       blockType,
-      styleType,
+      ...styleOption,
     };
-    dispatch(changeBlockStyleType(payload));
+    dispatch(changeBlockTypeStyle(payload));
   };
 
   const handleField = useCallback(
@@ -53,10 +54,10 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
   );
 
   const swapBlockPosition = useCallback(
-    (sourceIndex, destinationIndex) => {
+    (sourceBlockId: string, destinationBlockId: string) => {
       const payload = {
-        sourceIndex,
-        destinationIndex,
+        sourceBlockId,
+        destinationBlockId,
       };
       dispatch(swapBlock(payload));
     },
@@ -80,7 +81,7 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
           {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} />}
         </TabPanel>
         <TabPanel currentTabValue={currentTabValue} tabValue="style">
-          <StylePanel block={blocks[0]} handleChangeBlockStyleType={handleChangeBlockStyleType} styleList={styleTypes} />
+          <StylePanel block={blocks[0]} handleBlockStyleType={handleBlockStyleType} styleTypes={styleTypes} columnCount={columnCount} changableColumnCount={changableColumnCount} />
         </TabPanel>
       </Box>
     </Box>

@@ -1,4 +1,5 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
+import { IBlockStyle } from "@type/block";
 
 export interface IProjectProps {
   name: string;
@@ -6,10 +7,12 @@ export interface IProjectProps {
   term: string;
   description: string;
   skills: string;
-  styleType: string;
+  blockStyle: IBlockStyle;
 }
-
-const Project = ({ name, organigation, term, description, skills, styleType }: IProjectProps) => {
+function splitMultiLineText(multiLineText: string): string[] {
+  return multiLineText.split("\n");
+}
+const Project = ({ name = "", organigation = "", term = "", description = "", skills = "", blockStyle }: IProjectProps) => {
   return (
     <Box sx={{ textAlign: "left" }}>
       <Grid container spacing={0}>
@@ -28,11 +31,14 @@ const Project = ({ name, organigation, term, description, skills, styleType }: I
         </Grid>
         <Grid item xs={12}>
           <Typography gutterBottom variant="body1" color={"textSecondary"}>
-            {description}
+            {description && splitMultiLineText(description).map((text, index) => <div key={index}>{text}</div>)}
+            {/* {description} */}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body2">{skills}</Typography>
+          <Typography variant="body2">
+            <ul>{skills && splitMultiLineText(skills).map((text, index) => <li key={index}>{text}</li>)}</ul>
+          </Typography>
         </Grid>
       </Grid>
       <Divider />
