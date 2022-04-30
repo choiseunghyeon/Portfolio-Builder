@@ -17,4 +17,7 @@ Default.args = {
   description: `- 인도네이사 국가를 대상으로
   - 프론트 엔드를 맡아서
   - 테스트 코드 설계 및 작성`,
+  attributes: {
+    styleType: "default",
+  },
 };
