@@ -38,14 +38,6 @@ export default function SetupContainer() {
     dispatch(foldTab(!needTabFold));
   };
 
-  const onAddBlock = (blockType: BlockType, title: string) => {
-    const payload: IAddBlockPayload = {
-      blockType,
-      title,
-    };
-    dispatch(addBlock(payload));
-  };
-
   return (
     <Grid container spacing={1}>
       <Grid item xs={4}>
@@ -61,7 +53,7 @@ export default function SetupContainer() {
         <Box sx={{ display: `${needTabFold ? "none" : "block"}`, flexGrow: 1 }}>
           {tabList.map(tabPanelValue => (
             <TabPanel key={tabPanelValue} currentTabValue={currentTabValue} tabValue={tabPanelValue}>
-              <CurrentTabPanel value={tabPanelValue} onAddBlock={onAddBlock} />
+              <CurrentTabPanel value={tabPanelValue} />
             </TabPanel>
           ))}
         </Box>

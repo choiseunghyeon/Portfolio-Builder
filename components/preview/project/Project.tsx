@@ -1,18 +1,18 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
 import { IBlockStyle } from "@type/block";
+import { IBaseProps } from "@type/preview";
 
-export interface IProjectProps {
+export interface IProjectProps extends IBaseProps {
   name: string;
   organigation: string;
   term: string;
   description: string;
   skills: string;
-  blockStyle: IBlockStyle;
 }
 function splitMultiLineText(multiLineText: string): string[] {
   return multiLineText.split("\n");
 }
-const Project = ({ name = "", organigation = "", term = "", description = "", skills = "", blockStyle }: IProjectProps) => {
+const Project = ({ name = "", organigation = "", term = "", description = "", skills = "", attributes }: IProjectProps) => {
   return (
     <Box sx={{ textAlign: "left" }}>
       <Grid container spacing={0}>

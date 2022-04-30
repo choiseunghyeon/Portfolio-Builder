@@ -121,6 +121,7 @@ export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
 export const foldTab = createAction<boolean>("setup/foldTab");
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType");
 export const addBlock = createAction<IAddBlockPayload>("setup/addBlock");
+export const removeBlock = createAction<string>("setup/removeBlock");
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
@@ -178,6 +179,12 @@ const rootReducer = createReducer(root, builder => {
 
       if (!blockData) return;
       blocks.splice(lastBlockIndexInBlockType + 1, 0, blockData);
+    })
+    .addCase(removeBlock, (state, action) => {
+      const blockId = action.payload;
+      const blocks = selectBlocks(state);
+      const targetBlockIndex = selectBlockIndexById(state, blockId);
+      blocks.splice(targetBlockIndex, 1);
     });
 });
 

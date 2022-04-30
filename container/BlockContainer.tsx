@@ -1,15 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import SetupPanel from "@components/SetupPanel";
 import type { GetStaticProps, NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlockTypeStyle, changeItemValue, IChangeBlockTypeStylePayload, swapBlock } from "@store/root";
+import { addBlock, changeBlockTypeStyle, changeItemValue, IAddBlockPayload, IChangeBlockTypeStylePayload, removeBlock, swapBlock } from "@store/root";
 import { BlockType } from "@type/block";
 import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/selector";
 import TabPanel from "@components/setup/panel/TabPanel";
 import StylePanel from "@components/StylePanel";
+import IconComponent from "@components/common/IconComponent";
 
 function a11yProps(index: number) {
   return {
@@ -53,6 +54,18 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
     [dispatch]
   );
 
+  const onAddBlock = (blockType: BlockType, title: string) => {
+    const payload: IAddBlockPayload = {
+      blockType,
+      title,
+    };
+    dispatch(addBlock(payload));
+  };
+
+  const onRemoveBlock = (blockId: string) => {
+    dispatch(removeBlock(blockId));
+  };
+
   const swapBlockPosition = useCallback(
     (sourceBlockId: string, destinationBlockId: string) => {
       const payload = {
@@ -75,10 +88,10 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
         <Tab label="내용" value="block" {...a11yProps(0)} />
         <Tab label="스타일" value="style" {...a11yProps(1)} />
       </Tabs>
-      {/* <Button onClick={handleTodo}>클릭</Button> */}
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel currentTabValue={currentTabValue} tabValue="block">
-          {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} />}
+          {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} onRemoveBlock={onRemoveBlock} />}
+          {blockType === "Project" && <ProjectAdd blockType={blockType} onAddBlock={onAddBlock} />}
         </TabPanel>
         <TabPanel currentTabValue={currentTabValue} tabValue="style">
           <StylePanel
@@ -96,3 +109,36 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
 };
 
 export default BlockContainer;
+
+interface IProjectAddProps {
+  blockType: "Project";
+  onAddBlock: Function;
+}
+
+const defaultProejctName = "프로젝트";
+function ProjectAdd({ blockType, onAddBlock }: IProjectAddProps) {
+  const [projectName, setProjectName] = useState(defaultProejctName);
+  const handleProjectName = (event: any) => {
+    setProjectName(event.target.value);
+  };
+
+  const handleAddBlock = (event: any) => {
+    setProjectName(defaultProejctName);
+    onAddBlock(blockType, projectName);
+  };
+
+  return (
+    <>
+      <Grid sx={{ marginTop: "10px" }} container justifyContent="center" alignItems="center">
+        <Grid item xs={8}>
+          <TextField id="standard-basic" label="프로젝트 이름" value={projectName} onChange={handleProjectName} variant="standard" />
+        </Grid>
+        <Grid item xs={4}>
+          <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock}>
+            추가
+          </Button>
+        </Grid>
+      </Grid>
+    </>
+  );
+}

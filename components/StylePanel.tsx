@@ -8,6 +8,7 @@ import { previewSelectorProvider } from "@store/selector";
 import { Checkbox, Divider, FormControl, Grid, InputLabel, ListItem, MenuItem, OutlinedInput, Paper, Select, SelectChangeEvent } from "@mui/material";
 import IconComponent from "./common/IconComponent";
 import { ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
+import { changeBlockTypeStyle } from "@store/root";
 
 interface IStylePanel extends IBlockTypeStyle {
   block: IBlock;
@@ -43,19 +44,24 @@ const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changa
             </FormControl>
           </Grid>
         )}
-        {changableStyleTypes.map((styleType, index) => (
-          <>
-            <Grid item xs={12} key={index}>
-              <Checkbox
-                checked={styleType === currentStyleType}
-                onChange={() => handleBlockStyleType({ styleType: styleType })}
-                icon={<IconComponent icon="FavoriteBorder" />}
-                checkedIcon={<IconComponent icon="Favorite" />}
-              />
-              <PreviewComponent key={block.id} {...previewProps} styleType={styleType} />
-            </Grid>
-          </>
-        ))}
+        {changableStyleTypes.map((changableStyleType, index) => {
+          const attributes = {
+            styleType: changableStyleType,
+          };
+          return (
+            <>
+              <Grid item xs={12} key={index}>
+                <Checkbox
+                  checked={changableStyleType === currentStyleType}
+                  onChange={() => handleBlockStyleType({ styleType: changableStyleType })}
+                  icon={<IconComponent icon="FavoriteBorder" />}
+                  checkedIcon={<IconComponent icon="Favorite" />}
+                />
+                <PreviewComponent key={block.id} {...previewProps} attributes={attributes} />
+              </Grid>
+            </>
+          );
+        })}
       </Grid>
     </>
   );

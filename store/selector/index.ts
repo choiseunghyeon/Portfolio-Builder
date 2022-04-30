@@ -21,7 +21,9 @@ const selectProfileProps = createSelector(
       imageSrc: imageField.value.imageSrc,
       title: mainTextField.value.input,
       subtitle: subTextField.value.input,
-      blockStyle: block.style,
+      attributes: {
+        styleType: block.style.styleType,
+      },
     };
   }
 );
@@ -36,7 +38,9 @@ const selectProjectProps = createSelector(
       description: descriptionField.value.multiLineInput,
       term: `${termField.value.from} ~ ${termField.value.to}`,
       skills: skillsFeild.value.multiLineInput,
-      blockStyle: block.style,
+      attributes: {
+        styleType: block.style.styleType,
+      },
     };
   }
 );
@@ -49,7 +53,9 @@ const selectCareerProps = createSelector(
       role: "Front End Developer",
       term: "2021-12 - 2022-12",
       description: "웹 개발 및 유지보수",
-      blockStyle: block.style,
+      attributes: {
+        styleType: block.style.styleType,
+      },
     };
   }
 );

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "@mui/material/List";
 import Block from "./setup/blocks/Block";
 import { IBlock } from "@type/block";
+import { Button, Grid, TextField } from "@mui/material";
+import IconComponent from "./common/IconComponent";
 
 interface ISetupPanel {
   blocks: IBlock[];
   handleField: Function;
   swapBlockPosition: Function;
+  onRemoveBlock: Function;
 }
 // 드래그 요소 생성
-const SetupPanel = ({ blocks, handleField, swapBlockPosition }: ISetupPanel) => {
+const SetupPanel = ({ blocks, handleField, swapBlockPosition, onRemoveBlock }: ISetupPanel) => {
   const onDragEnd = (result, provided) => {
     if (!result) {
       console.log("result가 null인 경우");
@@ -50,7 +53,14 @@ const SetupPanel = ({ blocks, handleField, swapBlockPosition }: ISetupPanel) => 
               {blocks.map((block, blockIndex) => (
                 <Draggable key={block.id} draggableId={block.id} index={blockIndex}>
                   {(provided, snapshot) => (
-                    <Block blockInfo={block} handleField={handleField} ref={provided.innerRef} draggableProps={provided.draggableProps} dragHandleProps={provided.dragHandleProps} />
+                    <Block
+                      blockInfo={block}
+                      handleField={handleField}
+                      onRemoveBlock={onRemoveBlock}
+                      ref={provided.innerRef}
+                      draggableProps={provided.draggableProps}
+                      dragHandleProps={provided.dragHandleProps}
+                    />
                   )}
                 </Draggable>
               ))}

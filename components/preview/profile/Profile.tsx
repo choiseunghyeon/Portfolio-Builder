@@ -1,14 +1,14 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
 import { IBlockStyle } from "@type/block";
+import { IBaseProps } from "@type/preview";
 
-export interface IProfileProps {
+export interface IProfileProps extends IBaseProps {
   title: string;
   subtitle: string;
   imageSrc: string;
-  blockStyle: IBlockStyle;
 }
 const Profile = (props: IProfileProps) => {
-  switch (props.blockStyle.styleType) {
+  switch (props.attributes.styleType) {
     case "default":
       return <DefaultProfile {...props} />;
     case "second":

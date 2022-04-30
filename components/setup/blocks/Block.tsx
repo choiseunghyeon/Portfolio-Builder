@@ -13,15 +13,22 @@ interface IBlockProps {
   handleField: Function;
   draggableProps: any;
   dragHandleProps: any;
+  onRemoveBlock: Function;
 }
 
 // eslint-disable-next-line react/display-name
-const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField }: IBlockProps, ref: any) => {
+const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField, onRemoveBlock }: IBlockProps, ref: any) => {
   const { iconName, title, fields, id } = blockInfo;
   const [needExpand, setNeedExpand] = useState<boolean>(false);
   const handleAccordion = useCallback((event: React.SyntheticEvent, expanded: boolean) => {
     setNeedExpand(expanded);
   }, []);
+  const removeBlock = useCallback(
+    (event: any) => {
+      onRemoveBlock(id);
+    },
+    [id]
+  );
   return (
     <Accordion expanded={needExpand} onChange={handleAccordion} disableGutters ref={ref} {...draggableProps}>
       <AccordionSummary expandIcon={<IconComponent icon={"ExpandMore"} />} aria-controls="panel1a-content">
@@ -32,6 +39,9 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
           <IconComponent icon={iconName} />
         </span>
         <Typography>{title}</Typography>
+        <span onClick={removeBlock}>
+          <IconComponent icon="Remove" />
+        </span>
       </AccordionSummary>
       <AccordionDetails>
         <Box
