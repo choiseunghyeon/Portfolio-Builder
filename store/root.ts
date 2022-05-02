@@ -39,7 +39,7 @@ const root: TempState = {
         xs: 12,
       },
       fields: [
-        { id: uuidv4(), type: "Text", title: "프로젝트", value: { input: "대출 추천 재개발" } },
+        { id: uuidv4(), type: "Text", title: "프로젝트", validation: { includeSpecialChar: true, limit: 10 }, value: { input: "대출 추천 재개발" } },
         { id: uuidv4(), type: "Text", title: "소속 / 기관", value: { input: "Banksalad" } },
         {
           id: uuidv4(),

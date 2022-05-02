@@ -11,6 +11,7 @@ import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/sele
 import TabPanel from "@components/setup/panel/TabPanel";
 import StylePanel from "@components/StylePanel";
 import IconComponent from "@components/common/IconComponent";
+import { getAddableBlockDefaultNameAndLabel, isAddableBlock } from "@store/utils";
 
 function a11yProps(index: number) {
   return {
@@ -91,7 +92,7 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel currentTabValue={currentTabValue} tabValue="block">
           {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} onRemoveBlock={onRemoveBlock} />}
-          {blockType === "Project" && <ProjectAdd blockType={blockType} onAddBlock={onAddBlock} />}
+          {isAddableBlock(blockType) && <NewBlockName blockType={blockType} onAddBlock={onAddBlock} />}
         </TabPanel>
         <TabPanel currentTabValue={currentTabValue} tabValue="style">
           <StylePanel
@@ -110,28 +111,28 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
 
 export default BlockContainer;
 
-interface IProjectAddProps {
-  blockType: "Project";
+interface INewBlockNameProps {
+  blockType: BlockType;
   onAddBlock: Function;
 }
 
-const defaultProejctName = "프로젝트";
-function ProjectAdd({ blockType, onAddBlock }: IProjectAddProps) {
-  const [projectName, setProjectName] = useState(defaultProejctName);
-  const handleProjectName = (event: any) => {
+function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
+  const { defaultBlockName, blockLabel } = getAddableBlockDefaultNameAndLabel(blockType);
+  const [newBlockName, setProjectName] = useState(defaultBlockName);
+  const handleNewBlockName = (event: any) => {
     setProjectName(event.target.value);
   };
 
   const handleAddBlock = (event: any) => {
-    setProjectName(defaultProejctName);
-    onAddBlock(blockType, projectName);
+    setProjectName(defaultBlockName);
+    onAddBlock(blockType, newBlockName);
   };
 
   return (
     <>
       <Grid sx={{ marginTop: "10px" }} container justifyContent="center" alignItems="center">
         <Grid item xs={8}>
-          <TextField id="standard-basic" label="프로젝트 이름" value={projectName} onChange={handleProjectName} variant="standard" />
+          <TextField id="standard-basic" label={blockLabel} value={newBlockName} onChange={handleNewBlockName} variant="standard" />
         </Grid>
         <Grid item xs={4}>
           <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock}>

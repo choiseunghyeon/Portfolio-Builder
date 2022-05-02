@@ -15,11 +15,17 @@ export interface IBlockStyle {
 
 export type BlockXSType = 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1;
 
+export interface IFieldValidation {
+  dataType?: "numeric";
+  limit?: number;
+  includeSpecialChar?: boolean;
+}
 type FieldType = "Text" | "MultiLineText" | "Link" | "Image" | "Video" | "Date" | "Style" | "SampleDoubleText";
 export interface IField {
   id: string;
   type: FieldType;
   title: string;
+  validation?: IFieldValidation;
   value: { [key: string]: any };
 }
 

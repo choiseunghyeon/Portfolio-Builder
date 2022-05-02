@@ -6,6 +6,7 @@ import { BlockType, IBlock } from "@type/block";
 import { RootState } from "..";
 export const selectBlocks = (state: RootState) => state.blocks;
 export const selectBlockStyle = (state: RootState) => state.blockTypeStyle;
+
 export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.findIndex(block => block.id === blockId));
 export const selectBlockById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.find(block => block.id === blockId));
 export const tabFold = (state: RootState) => state.tabFold;
