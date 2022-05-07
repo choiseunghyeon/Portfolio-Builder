@@ -13,6 +13,9 @@ export const tabFold = (state: RootState) => state.tabFold;
 
 export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, blockType: BlockType) => blockType], (blocks, blockType) => blocks.filter(block => block.type === blockType));
 export const selectBlockTypeStyleByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType]);
+
+export const selectBlockLayout = (state: RootState) => state.blockLayout;
+
 // for memoization
 const selectProfileProps = createSelector(
   (block: IBlock) => block,

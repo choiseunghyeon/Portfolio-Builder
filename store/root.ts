@@ -1,21 +1,28 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { BlockType, BlockXSType, IBlock } from "@type/block";
-import { selectBlockById, selectBlockIndexById, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector";
+import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector";
 import { v4 as uuidv4 } from "uuid";
 import { EachBlockTypeStyle, ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
 import { convertColumnCountIntoXS } from "./utils";
 import { createBlock } from "./defaultBlockData";
 
+export interface LayoutBlock {
+  id?: string;
+  groupBlockType?: BlockType;
+  title: string;
+}
 interface TempState {
   blocks: IBlock[];
   blockTypeStyle: EachBlockTypeStyle;
   tabFold: boolean;
+  blockLayout: LayoutBlock[][];
 }
 const root: TempState = {
+  blockLayout: [[{ title: "프로필", id: "aasdfs" }], [{ title: "커리어", groupBlockType: "Career" }], [{ title: "프로젝트", groupBlockType: "Project" }]],
   tabFold: false,
   blocks: [
     {
-      id: uuidv4(),
+      id: "aasdfs",
       type: "Profile",
       title: "프로필",
       iconName: "AccountCircle",
@@ -122,9 +129,14 @@ export const foldTab = createAction<boolean>("setup/foldTab");
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType");
 export const addBlock = createAction<IAddBlockPayload>("setup/addBlock");
 export const removeBlock = createAction<string>("setup/removeBlock");
+
+// layout
+export const swapBlockLayout = createAction<any>("setup/swapBlockLayout");
+export const addBlockLayout = createAction<void>("setup/addBlockLayout");
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
+      console.log("called changeItemValue");
       const { blockId, fieldId, valueId, value } = action.payload;
       const targetBlock = selectBlockById(state, blockId);
       if (!targetBlock) return;
@@ -142,6 +154,32 @@ const rootReducer = createReducer(root, builder => {
 
       //swap two items
       [blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]];
+    })
+    .addCase(swapBlockLayout, (state, action) => {
+      const { source, destination } = action.payload;
+      const blockLayout = selectBlockLayout(state);
+      const current: any[] = blockLayout[source.droppableId];
+      const next: any[] = blockLayout[destination.droppableId];
+      const target: any = current[source.index];
+
+      // moving to same list
+      if (source.droppableId === destination.droppableId) {
+        const reordered: any[] = reorder(current, source.index, destination.index);
+        blockLayout[source.droppableId] = reordered;
+      }
+      // moving to different list
+
+      // remove from original
+      current.splice(source.index, 1);
+      // insert into next
+      next.splice(destination.index, 0, target);
+
+      blockLayout[source.droppableId] = current;
+      blockLayout[destination.droppableId] = next;
+    })
+    .addCase(addBlockLayout, (state, action) => {
+      const blockLayout = selectBlockLayout(state);
+      blockLayout.push([]);
     })
     .addCase(foldTab, (state, action) => {
       const needFold = action.payload;
@@ -187,5 +225,13 @@ const rootReducer = createReducer(root, builder => {
       blocks.splice(targetBlockIndex, 1);
     });
 });
+
+const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 export default rootReducer;
