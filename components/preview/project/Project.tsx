@@ -14,7 +14,7 @@ function splitMultiLineText(multiLineText: string): string[] {
 }
 const Project = ({ name = "", organigation = "", term = "", description = "", skills = "", attributes }: IProjectProps) => {
   return (
-    <Box sx={{ textAlign: "left" }}>
+    <Box sx={{ textAlign: "left", p: 1 }}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Typography sx={{ fontWeight: "bold" }} variant="h6">

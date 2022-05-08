@@ -52,11 +52,12 @@ const selectProjectProps = createSelector(
 const selectCareerProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock): ICareerProps => {
+    const [organigationField, roleField, termField, descriptionField] = block.fields;
     return {
-      organigation: "회사",
-      role: "Front End Developer",
-      term: "2021-12 - 2022-12",
-      description: "웹 개발 및 유지보수",
+      organigation: organigationField.value.input,
+      role: roleField.value.input,
+      term: `${termField.value.from} ~ ${termField.value.to}`,
+      description: descriptionField.value.multiLineInput,
       attributes: {
         styleType: block.style.styleType,
       },

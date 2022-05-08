@@ -10,7 +10,7 @@ export interface ICareerProps extends IBaseProps {
 }
 const Career = ({ organigation, role, term, description, attributes }: ICareerProps) => {
   return (
-    <Box>
+    <Box sx={{ p: 1 }}>
       <Grid container>
         <Grid item xs={12}>
           <Typography sx={{ fontWeight: "bold" }} variant="h6">

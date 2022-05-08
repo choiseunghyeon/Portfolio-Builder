@@ -4,6 +4,6 @@ import Project from "./project/Project";
 
 export const previewProvider: { [key: string]: any } = {
   Profile: Profile,
-  Carrer: Career,
+  Career: Career,
   Project: Project,
 };

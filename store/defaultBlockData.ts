@@ -10,8 +10,8 @@ export function createBlock(blockType: BlockType, title: string, style: IBlockTy
       return createProfileBlock(title, style);
     case "Project":
       return createProjectBlock(title, style);
-    // case "Career":
-    //   return createCareerBlock(title, style);
+    case "Career":
+      return createCareerBlock(title, style);
     default:
       break;
   }
@@ -60,6 +60,26 @@ function createProjectBlock(title: string, style: IBlockTypeStyle): IBlock {
   };
 }
 
-function createCareerBlock(title: string, style: IBlockTypeStyle) {
-  return {};
+function createCareerBlock(title: string, style: IBlockTypeStyle): IBlock {
+  return {
+    id: uuidv4(),
+    type: "Career",
+    title: title,
+    iconName: "AccountCircle",
+    style: {
+      styleType: style.styleType,
+      xs: 12,
+    },
+    fields: [
+      { id: uuidv4(), type: "Text", title: "소속", value: { input: "" } },
+      { id: uuidv4(), type: "Text", title: "역할", value: { input: "" } },
+      {
+        id: uuidv4(),
+        type: "Date",
+        title: "기간",
+        value: { from: "", to: "" },
+      },
+      { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "" } },
+    ],
+  };
 }

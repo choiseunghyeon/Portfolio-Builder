@@ -39,7 +39,7 @@ const root: TempState = {
     {
       id: uuidv4(),
       type: "Project",
-      title: "프로젝트",
+      title: "스마트 미러 프로젝트",
       iconName: "AccountCircle",
       style: {
         styleType: "default",
@@ -61,7 +61,7 @@ const root: TempState = {
     {
       id: uuidv4(),
       type: "Project",
-      title: "프로젝트",
+      title: "VSC 확장 프로그램",
       iconName: "AccountCircle",
       style: {
         styleType: "default",
@@ -78,6 +78,27 @@ const root: TempState = {
         },
         { id: uuidv4(), type: "MultiLineText", title: "배경 / 설명", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" } },
         { id: uuidv4(), type: "MultiLineText", title: "Skills", value: { multiLineInput: "View와 Data를 분리하고 모든 비즈니스" } },
+      ],
+    },
+    {
+      id: uuidv4(),
+      type: "Career",
+      title: "이카운트",
+      iconName: "AccountCircle",
+      style: {
+        styleType: "default",
+        xs: 12,
+      },
+      fields: [
+        { id: uuidv4(), type: "Text", title: "소속", value: { input: "이카운트" } },
+        { id: uuidv4(), type: "Text", title: "역할", value: { input: "Front End Framework 개발 및 유지 보수" } },
+        {
+          id: uuidv4(),
+          type: "Date",
+          title: "기간",
+          value: { from: "2022-04-07", to: "2022-04-30" },
+        },
+        { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" } },
       ],
     },
   ],
