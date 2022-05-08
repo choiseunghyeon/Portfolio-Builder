@@ -1,7 +1,7 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import SetupPanel from "@components/SetupPanel";
+import SetupGroupPanel from "@components/SetupGroupPanel";
 import type { GetStaticProps, NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,8 @@ import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/sele
 import TabPanel from "@components/setup/panel/TabPanel";
 import StylePanel from "@components/StylePanel";
 import IconComponent from "@components/common/IconComponent";
-import { getAddableBlockDefaultNameAndLabel, isAddableBlock } from "@store/utils";
+import { getGroupBlockDefaultNameAndLabel, isGroupBlock } from "@store/utils";
+import SetupPanel from "@components/SetupPanel";
 
 function a11yProps(index: number) {
   return {
@@ -91,8 +92,11 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
       </Tabs>
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel currentTabValue={currentTabValue} tabValue="block">
-          {winReady && <SetupPanel blocks={blocks} handleField={handleField} swapBlockPosition={swapBlockPosition} onRemoveBlock={onRemoveBlock} />}
-          {isAddableBlock(blockType) && <NewBlockName blockType={blockType} onAddBlock={onAddBlock} />}
+          {isGroupBlock(blockType) ? (
+            winReady && <SetupGroupPanel blocks={blocks} handleField={handleField} onAddBlock={onAddBlock} swapBlockPosition={swapBlockPosition} onRemoveBlock={onRemoveBlock} />
+          ) : (
+            <SetupPanel blocks={blocks} handleField={handleField} />
+          )}
         </TabPanel>
         <TabPanel currentTabValue={currentTabValue} tabValue="style">
           <StylePanel
@@ -117,7 +121,7 @@ interface INewBlockNameProps {
 }
 
 function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
-  const { defaultBlockName, blockLabel } = getAddableBlockDefaultNameAndLabel(blockType);
+  const { defaultBlockName, blockLabel } = getGroupBlockDefaultNameAndLabel(blockType);
   const [newBlockName, setProjectName] = useState(defaultBlockName);
   const handleNewBlockName = (event: any) => {
     setProjectName(event.target.value);

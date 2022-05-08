@@ -11,9 +11,9 @@ import { Box } from "@mui/material";
 interface IBlockProps {
   blockInfo: IBlock;
   handleField: Function;
-  draggableProps: any;
-  dragHandleProps: any;
-  onRemoveBlock: Function;
+  draggableProps?: any;
+  dragHandleProps?: any;
+  onRemoveBlock?: Function;
 }
 
 // eslint-disable-next-line react/display-name
@@ -25,16 +25,20 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
   }, []);
   const removeBlock = useCallback(
     (event: any) => {
-      onRemoveBlock(id);
+      if (onRemoveBlock) {
+        onRemoveBlock(id);
+      }
     },
     [id]
   );
   return (
     <Accordion expanded={needExpand} onChange={handleAccordion} disableGutters ref={ref} {...draggableProps}>
       <AccordionSummary expandIcon={<IconComponent icon={"ExpandMore"} />} aria-controls="panel1a-content">
-        <span {...dragHandleProps}>
-          <IconComponent icon={"DragIndicator"} />
-        </span>
+        {dragHandleProps && (
+          <span {...dragHandleProps}>
+            <IconComponent icon={"DragIndicator"} />
+          </span>
+        )}
         <span>
           <IconComponent icon={iconName} />
         </span>

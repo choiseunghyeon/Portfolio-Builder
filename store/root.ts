@@ -107,7 +107,7 @@ interface ItemValuePayload {
   blockId: string;
   fieldId: string;
   valueId: string;
-  value: any;
+  value: { [key: string]: any };
 }
 
 interface ISwapBlockPayload {

@@ -5,12 +5,12 @@ export function convertColumnCountIntoXS(columnCount: ColumnCountType): BlockXST
   return (12 / columnCount) as BlockXSType;
 }
 
-export function isAddableBlock(blockType: BlockType): boolean {
-  if (blockType === "Project" || blockType === "Profile") return true;
+export function isGroupBlock(blockType: BlockType): boolean {
+  if (blockType === "Project" || blockType === "Career") return true;
   else return false;
 }
 
-export function getAddableBlockDefaultNameAndLabel(blockType: BlockType) {
+export function getGroupBlockDefaultNameAndLabel(blockType: BlockType) {
   switch (blockType) {
     case "Project":
       return { defaultBlockName: "프로젝트", blockLabel: "프로젝트 이름" };

@@ -45,7 +45,6 @@ function DefaultProfile({ title, subtitle, imageSrc }: IProfileProps) {
           </Typography>
         </Grid>
       </Grid>
-      <Divider />
     </Box>
   );
 }
@@ -75,7 +74,6 @@ function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
           </Typography>
         </Grid>
       </Grid>
-      <Divider />
     </Box>
   );
 }
