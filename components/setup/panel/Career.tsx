@@ -13,7 +13,7 @@ interface IProfileProps {
 export default function Career({ value }: IProfileProps) {
   return (
     <>
-      <BlockContainer blockType={value} />
+      <BlockContainer blockType={"Career"} />
     </>
   );
 }

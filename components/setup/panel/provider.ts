@@ -1,6 +1,7 @@
 import { EN_TAB_VALUE, TabType } from "@type/tab";
 import Career from "./Career";
 import MiniMap from "./MiniMap";
+import Portfolio from "./Portfolio";
 import Profile from "./Profile";
 import Project from "./Project";
 
@@ -12,4 +13,5 @@ export const panelProvider: IPanelProvider = {
   Project: Project,
   Career: Career,
   Profile: Profile,
+  Portfolio: Portfolio,
 };

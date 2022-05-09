@@ -18,7 +18,12 @@ interface TempState {
   blockLayout: LayoutBlock[][];
 }
 const root: TempState = {
-  blockLayout: [[{ title: "프로필", id: "aasdfs" }], [{ title: "커리어", groupBlockType: "Career" }], [{ title: "프로젝트", groupBlockType: "Project" }]],
+  blockLayout: [
+    [{ title: "프로필", id: "aasdfs" }],
+    [{ title: "커리어", groupBlockType: "Career" }],
+    [{ title: "프로젝트", groupBlockType: "Project" }],
+    [{ title: "포트폴리오", groupBlockType: "Portfolio" }],
+  ],
   tabFold: false,
   blocks: [
     {
@@ -101,6 +106,22 @@ const root: TempState = {
         { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" } },
       ],
     },
+    {
+      id: uuidv4(),
+      type: "Portfolio",
+      title: "포트폴리오1",
+      iconName: "AccountCircle",
+      style: {
+        styleType: "default",
+        xs: 12,
+      },
+      fields: [
+        { id: uuidv4(), type: "Image", title: "이미지 / 동영상", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" } },
+        { id: uuidv4(), type: "Text", title: "제목", value: { input: "Front End Framework 개발 및 유지 보수" } },
+        { id: uuidv4(), type: "MultiLineText", title: "내용", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" } },
+        { id: uuidv4(), type: "MultiLineText", title: "링크", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" } },
+      ],
+    },
   ],
   blockTypeStyle: {
     Profile: {
@@ -116,6 +137,12 @@ const root: TempState = {
       changableColumnCount: [1, 2, 3, 4],
     },
     Career: {
+      styleType: "default",
+      changableStyleTypes: ["default"],
+      columnCount: 1,
+      changableColumnCount: [1, 2, 3, 4],
+    },
+    Portfolio: {
       styleType: "default",
       changableStyleTypes: ["default"],
       columnCount: 1,

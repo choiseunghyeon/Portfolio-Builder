@@ -20,7 +20,7 @@ function a11yProps(value: TabType) {
     value,
   };
 }
-const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Fold"];
+const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold"];
 export default function SetupContainer() {
   const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap");
   const dispatch = useDispatch();
@@ -46,6 +46,7 @@ export default function SetupContainer() {
           <Tab label={"Project"} {...a11yProps("Project")} />
           <Tab label={"Career"} {...a11yProps("Career")} />
           <Tab label={"Profile"} {...a11yProps("Profile")} />
+          <Tab label={"Portfolio"} {...a11yProps("Portfolio")} />
           <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
         </Tabs>
       </Grid>

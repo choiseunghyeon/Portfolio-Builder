@@ -12,6 +12,8 @@ export function createBlock(blockType: BlockType, title: string, style: IBlockTy
       return createProjectBlock(title, style);
     case "Career":
       return createCareerBlock(title, style);
+    case "Portfolio":
+      return createPortfolioBlock(title, style);
     default:
       break;
   }
@@ -80,6 +82,25 @@ function createCareerBlock(title: string, style: IBlockTypeStyle): IBlock {
         value: { from: "", to: "" },
       },
       { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "" } },
+    ],
+  };
+}
+
+function createPortfolioBlock(title: string, style: IBlockTypeStyle): IBlock {
+  return {
+    id: uuidv4(),
+    type: "Portfolio",
+    title: title,
+    iconName: "AccountCircle",
+    style: {
+      styleType: "default",
+      xs: 12,
+    },
+    fields: [
+      { id: uuidv4(), type: "Image", title: "이미지 / 동영상", value: { imageSrc: "" } },
+      { id: uuidv4(), type: "Text", title: "제목", value: { input: "" } },
+      { id: uuidv4(), type: "MultiLineText", title: "내용", value: { multiLineInput: "" } },
+      { id: uuidv4(), type: "MultiLineText", title: "링크", value: { multiLineInput: "" } },
     ],
   };
 }

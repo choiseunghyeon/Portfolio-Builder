@@ -6,7 +6,7 @@ export function convertColumnCountIntoXS(columnCount: ColumnCountType): BlockXST
 }
 
 export function isGroupBlock(blockType: BlockType): boolean {
-  if (blockType === "Project" || blockType === "Career") return true;
+  if (blockType === "Project" || blockType === "Career" || blockType === "Portfolio") return true;
   else return false;
 }
 
@@ -16,6 +16,8 @@ export function getGroupBlockDefaultNameAndLabel(blockType: BlockType) {
       return { defaultBlockName: "프로젝트", blockLabel: "프로젝트 이름" };
     case "Career":
       return { defaultBlockName: "커리어", blockLabel: "커리어 이름" };
+    case "Portfolio":
+      return { defaultBlockName: "포트폴리오", blockLabel: "포트폴리오 이름" };
     default:
       return { defaultBlockName: "새 이름", blockLabel: "새 이름" };
   }
@@ -38,4 +40,8 @@ export function validateValue(value: string | number, validation: IFieldValidati
   }
 
   return { pass: true, errorMessage: null };
+}
+
+export function splitMultiLineText(multiLineText: string): string[] {
+  return multiLineText.split("\n");
 }

@@ -11,5 +11,5 @@ interface IProfileProps {
 }
 
 export default function Profile({ value }: IProfileProps) {
-  return <BlockContainer blockType={value} />;
+  return <BlockContainer blockType={"Profile"} />;
 }

@@ -15,7 +15,7 @@ interface IProjectProps {
 export default function Project({ value }: IProjectProps) {
   return (
     <>
-      <BlockContainer blockType={value} />
+      <BlockContainer blockType={"Project"} />
     </>
   );
 }

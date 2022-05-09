@@ -1,4 +1,5 @@
 import { ICareerProps } from "@components/preview/career/Career";
+import { IPortfolioProps } from "@components/preview/portfolio/Portfolio";
 import { IProfileProps } from "@components/preview/profile/Profile";
 import { IProjectProps } from "@components/preview/project/Project";
 import { createSelector } from "@reduxjs/toolkit";
@@ -65,8 +66,28 @@ const selectCareerProps = createSelector(
   }
 );
 
-export const previewSelectorProvider = {
+const selectPortfolioProps = createSelector(
+  (block: IBlock) => block,
+  (block: IBlock): IPortfolioProps => {
+    const [mediaField, titleField, contentField, linkField] = block.fields;
+    return {
+      mediaSrc: mediaField.value.imageSrc,
+      title: titleField.value.input,
+      content: contentField.value.multiLineInput,
+      link: linkField.value.multiLineInput,
+      attributes: {
+        styleType: block.style.styleType,
+      },
+    };
+  }
+);
+
+type PreviewSelectorProviderType = {
+  [key in BlockType]: Function;
+};
+export const previewSelectorProvider: PreviewSelectorProviderType = {
   Profile: selectProfileProps,
   Project: selectProjectProps,
   Career: selectCareerProps,
+  Portfolio: selectPortfolioProps,
 };

@@ -1,4 +1,4 @@
-export type BlockType = "Profile" | "Career" | "Project";
+export type BlockType = "Profile" | "Career" | "Project" | "Portfolio";
 export interface IBlock {
   id: string;
   type: BlockType;
@@ -20,7 +20,7 @@ export interface IFieldValidation {
   limit?: number;
   includeSpecialChar?: boolean;
 }
-type FieldType = "Text" | "MultiLineText" | "Link" | "Image" | "Video" | "Date" | "Style" | "SampleDoubleText";
+type FieldType = "Text" | "MultiLineText" | "Link" | "Image" | "Video" | "Date" | "Style";
 export interface IField {
   id: string;
   type: FieldType;

@@ -12,12 +12,12 @@ export default function TabPanel(props: TabPanelProps) {
   const { children, currentTabValue, tabValue } = props;
 
   return (
-    <div role="tabpanel" hidden={currentTabValue !== tabValue}>
+    <Box hidden={currentTabValue !== tabValue} sx={{ overflow: "scroll" }}>
       {currentTabValue === tabValue && (
         <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
