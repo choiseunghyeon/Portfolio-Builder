@@ -12,7 +12,7 @@ export default function TabPanel(props: TabPanelProps) {
   const { children, currentTabValue, tabValue } = props;
 
   return (
-    <Box hidden={currentTabValue !== tabValue} sx={{ overflow: "scroll" }}>
+    <Box hidden={currentTabValue !== tabValue}>
       {currentTabValue === tabValue && (
         <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>

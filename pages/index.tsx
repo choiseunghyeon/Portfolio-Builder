@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const setupWidthRatio = needTabFold ? 2 : 4;
   return (
     <>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{ overflow: "hidden" }}>
         <Grid item xs={12}>
           <AppBar position="static">
             <Toolbar>
@@ -32,12 +32,14 @@ const Home: NextPage = () => {
             </Toolbar>
           </AppBar>
         </Grid>
-        <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider" }}>
+        <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider", height: "calc(100vh - 64px)", overflowY: "auto" }}>
           <SetupContainer />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={6} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
           <PreviewContainer />
         </Grid>
+        <Grid item xs={1}></Grid>
       </Grid>
     </>
   );
