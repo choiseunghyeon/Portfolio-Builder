@@ -76,7 +76,7 @@ function createPortfolioBlock(title: string, style: IBlockTypeStyle): IBlock {
   };
 }
 
-function createField(fieldType: FieldType, title: string, defaultValue?: FieldValueType | undefined): IField {
+export function createField(fieldType: FieldType, title: string, defaultValue?: FieldValueType | undefined): IField {
   const value = defaultValue ? defaultValue : createDefaultFieldValue(fieldType);
   const fieldData = { id: uuidv4(), type: fieldType, title: title, value: value, attributes: {} };
 

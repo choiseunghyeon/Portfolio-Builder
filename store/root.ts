@@ -4,7 +4,8 @@ import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks,
 import { v4 as uuidv4 } from "uuid";
 import { EachBlockTypeStyle, ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
 import { convertColumnCountIntoXS } from "./utils";
-import { createBlock } from "./defaultBlockData";
+import { createBlock, createField } from "./defaultBlockData";
+import { ISelectFiedlValue } from "@type/field";
 
 export interface LayoutBlock {
   id?: string;
@@ -39,6 +40,32 @@ const root: TempState = {
         { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" }, attributes: {} },
         { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "Front End Developer" }, attributes: {} },
         { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "프론트 엔드 개발자 입니다." }, attributes: {} },
+        {
+          id: uuidv4(),
+          type: "Select",
+          title: "(선택) 추가 정보",
+          value: {
+            selectList: [
+              { label: "None", value: "" },
+              { label: "Apply", value: "apply" },
+              { label: "Contact", value: "contact" },
+              { label: "Github", value: "github" },
+              { label: "Keyword", value: "keyword" },
+            ],
+            selectedValue: "",
+          },
+          attributes: {},
+        },
+        { id: uuidv4(), type: "Text", title: "지원회사", value: { input: "" }, attributes: { relatedSelectValue: "apply", display: false } },
+        { id: uuidv4(), type: "Text", title: "지원직무 / 지원파트", value: { input: "" }, attributes: { relatedSelectValue: "apply", display: false } },
+        { id: uuidv4(), type: "Text", title: "휴대폰 번호", value: { input: "" }, attributes: { relatedSelectValue: "contact", display: false } },
+        { id: uuidv4(), type: "Text", title: "이메일", value: { input: "" }, attributes: { relatedSelectValue: "contact", display: false } },
+        { id: uuidv4(), type: "Text", title: "GitHub 주소", value: { input: "" }, attributes: { relatedSelectValue: "github", display: false } },
+        { id: uuidv4(), type: "Text", title: "키워드 1", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
+        { id: uuidv4(), type: "Text", title: "키워드 2", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
+        { id: uuidv4(), type: "Text", title: "키워드 3", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
+        { id: uuidv4(), type: "Text", title: "키워드 4", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
+        { id: uuidv4(), type: "Text", title: "키워드 5", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
       ],
     },
     {
@@ -186,13 +213,19 @@ export interface IAddBlockPayload {
   blockType: BlockType;
   title: string;
 }
+
+interface IChangedSelectedValuePayload {
+  blockId: string;
+  fieldId: string;
+  value: string;
+}
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
 export const foldTab = createAction<boolean>("setup/foldTab");
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType");
 export const addBlock = createAction<IAddBlockPayload>("setup/addBlock");
 export const removeBlock = createAction<string>("setup/removeBlock");
-
+export const changeSelectedValue = createAction<IChangedSelectedValuePayload>("setup/changedSelectedValue");
 // layout
 export const swapBlockLayout = createAction<any>("setup/swapBlockLayout");
 export const addBlockLayout = createAction<void>("setup/addBlockLayout");
@@ -207,7 +240,33 @@ const rootReducer = createReducer(root, builder => {
       const targetField = targetBlock.fields.find(field => field.id === fieldId);
       if (!targetField) return;
 
-      targetField.value[valueId] = value;
+      switch (targetField.type) {
+        case "Select":
+          changeSelectItemValue(targetBlock, targetField, value);
+          break;
+
+        default:
+          targetField.value[valueId] = value;
+          break;
+      }
+
+      function changeSelectItemValue(targetBlock, targetField, value) {
+        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue;
+        // 기존 selectedValue로 보여주던 field 숨김
+        targetBlock.fields
+          .filter(field => field.attributes?.relatedSelectValue === selectedValue)
+          .forEach(field => {
+            field.attributes.display = false;
+          });
+
+        // select와 연결된 field 보여주기
+        targetBlock.fields
+          .filter(field => field.attributes?.relatedSelectValue === value)
+          .forEach(field => {
+            field.attributes.display = true;
+          });
+        (targetField.value as ISelectFiedlValue).selectedValue = value;
+      }
     })
     .addCase(swapBlock, (state, action) => {
       const { sourceBlockId, destinationBlockId } = action.payload;
@@ -286,6 +345,34 @@ const rootReducer = createReducer(root, builder => {
       const blocks = selectBlocks(state);
       const targetBlockIndex = selectBlockIndexById(state, blockId);
       blocks.splice(targetBlockIndex, 1);
+    })
+    .addCase(changeSelectedValue, (state, action) => {
+      const { blockId, fieldId, value } = action.payload;
+      const targetBlock = selectBlockById(state, blockId);
+
+      if (!targetBlock) return;
+
+      const targetField = targetBlock.fields.find(field => field.id === fieldId);
+
+      if (!targetField) return;
+
+      if (targetField.type === "Select") {
+        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue;
+        // 기존 selectedValue로 보여주던 field 숨김
+        targetBlock.fields
+          .filter(field => field.attributes?.relatedSelectValue === selectedValue)
+          .forEach(field => {
+            field.attributes.display = false;
+          });
+
+        // select와 연결된 field 보여주기
+        targetBlock.fields
+          .filter(field => field.attributes?.relatedSelectValue === value)
+          .forEach(field => {
+            field.attributes.display = true;
+          });
+        (targetField.value as ISelectFiedlValue).selectedValue = value;
+      }
     });
 });
 

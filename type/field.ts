@@ -10,7 +10,7 @@ export interface IField {
 
 interface IFieldAttributes {
   validation?: IFieldValidation;
-  selectValue?: string;
+  relatedSelectValue?: string;
   display?: boolean;
 }
 
