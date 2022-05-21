@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { BlockType, IBlock, IBlockStyle } from "@type/block";
+import { BlockType, IBlock } from "@type/block";
 import { IBlockTypeStyle } from "@type/blockStyle";
+import { FieldType, FieldValueType, IField } from "@type/field";
 import { v4 as uuidv4 } from "uuid";
 import { convertColumnCountIntoXS } from "./utils";
 
@@ -29,11 +30,7 @@ function createProfileBlock(title: string, style: IBlockTypeStyle): IBlock {
       styleType: style.styleType,
       xs: convertColumnCountIntoXS(style.columnCount),
     },
-    fields: [
-      { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "" } },
-      { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "" } },
-      { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "" } },
-    ],
+    fields: [createField("Image", "이미지 업로드"), createField("Text", "메인 텍스트"), createField("Text", "서브 텍스트")],
   };
 }
 
@@ -47,18 +44,7 @@ function createProjectBlock(title: string, style: IBlockTypeStyle): IBlock {
       styleType: style.styleType,
       xs: convertColumnCountIntoXS(style.columnCount),
     },
-    fields: [
-      { id: uuidv4(), type: "Text", title: "프로젝트", value: { input: "" } },
-      { id: uuidv4(), type: "Text", title: "소속 / 기관", value: { input: "" } },
-      {
-        id: uuidv4(),
-        type: "Date",
-        title: "기간",
-        value: { from: "", to: "" },
-      },
-      { id: uuidv4(), type: "MultiLineText", title: "배경 / 설명", value: { multiLineInput: "" } },
-      { id: uuidv4(), type: "MultiLineText", title: "Skills", value: { multiLineInput: "" } },
-    ],
+    fields: [createField("Text", "프로젝트"), createField("Text", "소속 / 기관"), createField("Date", "기간"), createField("MultiLineText", "배경 / 설명"), createField("MultiLineText", "Skills")],
   };
 }
 
@@ -72,17 +58,7 @@ function createCareerBlock(title: string, style: IBlockTypeStyle): IBlock {
       styleType: style.styleType,
       xs: 12,
     },
-    fields: [
-      { id: uuidv4(), type: "Text", title: "소속", value: { input: "" } },
-      { id: uuidv4(), type: "Text", title: "역할", value: { input: "" } },
-      {
-        id: uuidv4(),
-        type: "Date",
-        title: "기간",
-        value: { from: "", to: "" },
-      },
-      { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "" } },
-    ],
+    fields: [createField("Text", "소속"), createField("Text", "역할"), createField("Date", "기간"), createField("MultiLineText", "설명")],
   };
 }
 
@@ -96,11 +72,28 @@ function createPortfolioBlock(title: string, style: IBlockTypeStyle): IBlock {
       styleType: "default",
       xs: 12,
     },
-    fields: [
-      { id: uuidv4(), type: "Image", title: "이미지 / 동영상", value: { imageSrc: "" } },
-      { id: uuidv4(), type: "Text", title: "제목", value: { input: "" } },
-      { id: uuidv4(), type: "MultiLineText", title: "내용", value: { multiLineInput: "" } },
-      { id: uuidv4(), type: "MultiLineText", title: "링크", value: { multiLineInput: "" } },
-    ],
+    fields: [createField("Image", "이미지 / 동영상"), createField("Text", "제목"), createField("MultiLineText", "내용"), createField("MultiLineText", "링크")],
   };
+}
+
+function createField(fieldType: FieldType, title: string, defaultValue?: FieldValueType | undefined): IField {
+  const value = defaultValue ? defaultValue : createDefaultFieldValue(fieldType);
+  const fieldData = { id: uuidv4(), type: fieldType, title: title, value: value, attributes: {} };
+
+  return fieldData;
+
+  function createDefaultFieldValue(fieldType: FieldType): FieldValueType {
+    switch (fieldType) {
+      case "Text":
+        return { input: "" };
+      case "MultiLineText":
+        return { multiLineInput: "" };
+      case "Image":
+        return { imageSrc: "" };
+      case "Date":
+        return { from: "", to: "" };
+      case "Select":
+        return { selectList: [], selectedValue: "" };
+    }
+  }
 }

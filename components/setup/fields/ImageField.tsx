@@ -1,8 +1,13 @@
 import { ChangeEvent, useCallback } from "react";
-import { IFieldProps } from "@type/block";
+import { IFieldProps, IImageFieldValue } from "@type/field";
 
-export default function ImageField({ blockId, id, type, value, title, handleField }: IFieldProps) {
+interface IImageFieldProps extends IFieldProps {
+  value: IImageFieldValue;
+}
+
+export default function ImageField({ blockId, id, type, value, title, handleField, attributes }: IImageFieldProps) {
   const { imageSrc } = value;
+  const { display } = attributes;
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
       const valueId = event.target.dataset.valueid;
@@ -11,6 +16,9 @@ export default function ImageField({ blockId, id, type, value, title, handleFiel
     },
     [blockId, id, handleField]
   );
+  if (display === false) {
+    return null;
+  }
   return (
     <>
       <div>{title}</div>

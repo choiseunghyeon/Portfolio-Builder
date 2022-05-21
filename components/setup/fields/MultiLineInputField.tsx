@@ -1,9 +1,14 @@
 import { ChangeEvent, useCallback } from "react";
-import { IFieldProps } from "@type/block";
+import { IFieldProps, IMultiLineTextFieldValue } from "@type/field";
 import { Box, TextField } from "@mui/material";
 
-export default function MultiLineInputField({ blockId, id, type, value, title, handleField }: IFieldProps) {
+interface IMultiLineInputFieldProps extends IFieldProps {
+  value: IMultiLineTextFieldValue;
+}
+
+export default function MultiLineInputField({ blockId, id, type, value, title, handleField, attributes }: IMultiLineInputFieldProps) {
   const { multiLineInput } = value;
+  const { display } = attributes;
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
       const valueId = event.target.dataset.valueid;
@@ -12,6 +17,10 @@ export default function MultiLineInputField({ blockId, id, type, value, title, h
     },
     [blockId, id, handleField]
   );
+
+  if (display === false) {
+    return null;
+  }
   return (
     <>
       <TextField inputProps={{ "data-valueid": "multiLineInput" }} label={title} multiline value={multiLineInput} onChange={handleInput} />

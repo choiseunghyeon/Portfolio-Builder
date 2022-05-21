@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from "react";
-import { IFieldProps } from "@type/block";
+import { IDateFieldValue, IFieldProps } from "@type/field";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -15,8 +15,13 @@ function getToday(date) {
   return year + "-" + month + "-" + day;
 }
 
-export default function DateField({ blockId, id, type, value, title, handleField }: IFieldProps) {
+interface IDateFieldProps extends IFieldProps {
+  value: IDateFieldValue;
+}
+
+export default function DateField({ blockId, id, type, value, title, handleField, attributes }: IDateFieldProps) {
   const { from, to } = value;
+  const { display } = attributes;
   const handleFromDate = useCallback(
     (newDate): void => {
       const newValue = getToday(newDate);
@@ -31,6 +36,10 @@ export default function DateField({ blockId, id, type, value, title, handleField
     },
     [blockId, id, handleField]
   );
+
+  if (display === false) {
+    return null;
+  }
   return (
     <>
       <div>{title}</div>
