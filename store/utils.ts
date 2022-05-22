@@ -1,5 +1,6 @@
-import { BlockType, BlockXSType, IFieldValidation } from "@type/block";
+import { BlockType, BlockXSType } from "@type/block";
 import { ColumnCountType } from "@type/blockStyle";
+import { IFieldValidation } from "@type/field";
 
 export function convertColumnCountIntoXS(columnCount: ColumnCountType): BlockXSType {
   return (12 / columnCount) as BlockXSType;
@@ -40,6 +41,13 @@ export function validateValue(value: string | number, validation: IFieldValidati
   }
 
   return { pass: true, errorMessage: null };
+}
+
+export function getValidationLimitMessage(validation: IFieldValidation | undefined, str: string) {
+  if (!validation) return "";
+
+  const { limit } = validation;
+  return `(${str.length}/${limit})`;
 }
 
 export function splitMultiLineText(multiLineText: string): string[] {

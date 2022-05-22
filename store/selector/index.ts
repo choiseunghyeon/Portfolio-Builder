@@ -37,11 +37,12 @@ const selectProjectProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock): IProjectProps => {
     const [nameField, organigationField, termField, descriptionField, skillsFeild] = block.fields;
+    const termValue = getTermValue(termField.value.from, termField.value.to);
     return {
       name: nameField.value.input,
       organigation: organigationField.value.input,
       description: descriptionField.value.multiLineInput,
-      term: `${termField.value.from} ~ ${termField.value.to}`,
+      term: termValue,
       skills: skillsFeild.value.multiLineInput,
       attributes: {
         styleType: block.style.styleType,
@@ -54,10 +55,11 @@ const selectCareerProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock): ICareerProps => {
     const [organigationField, roleField, termField, descriptionField] = block.fields;
+    const termValue = getTermValue(termField.value.from, termField.value.to);
     return {
       organigation: organigationField.value.input,
       role: roleField.value.input,
-      term: `${termField.value.from} ~ ${termField.value.to}`,
+      term: termValue,
       description: descriptionField.value.multiLineInput,
       attributes: {
         styleType: block.style.styleType,
@@ -91,3 +93,13 @@ export const previewSelectorProvider: PreviewSelectorProviderType = {
   Career: selectCareerProps,
   Portfolio: selectPortfolioProps,
 };
+
+function getTermValue(from, to) {
+  if (from && to) {
+    return `${from} ~ ${to}`;
+  } else if (from) {
+    return `${from} ~ 현재 진행 중`;
+  } else {
+    return "";
+  }
+}

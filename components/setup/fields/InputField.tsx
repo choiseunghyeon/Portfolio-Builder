@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
-import { IFieldProps, ITextFieldValue } from "@type/field";
-import { Box, TextField } from "@mui/material";
-import { validateValue } from "@store/utils";
+import { IFieldProps, IFieldValidation, ITextFieldValue } from "@type/field";
+import { Box, InputAdornment, TextField } from "@mui/material";
+import { getValidationLimitMessage, validateValue } from "@store/utils";
 
 interface IInputFieldProps extends IFieldProps {
   value: ITextFieldValue;
@@ -10,7 +10,7 @@ interface IInputFieldProps extends IFieldProps {
 function InputField({ blockId, id, type, value, title, handleField, attributes }: IInputFieldProps) {
   console.log("re-render input field");
   const { input } = value;
-  const { validation, display } = attributes;
+  const { validation, display, placeholder } = attributes;
   const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" });
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
@@ -21,7 +21,7 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
         const { pass, errorMessage } = validateValue(value, validation);
         setErrorInfo({ pass: pass, errorMessage: errorMessage });
       }
-      const valueId = event.target.dataset.valueid;
+      const valueId = "input";
       handleField(blockId, id, valueId, value);
     },
     [blockId, id, handleField]
@@ -32,7 +32,18 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
   }
   return (
     <>
-      <TextField error={!errorInfo.pass} helperText={errorInfo.errorMessage} inputProps={{ "data-valueid": "input" }} value={input} label={title} variant="standard" onChange={handleInput} />
+      <TextField
+        placeholder={placeholder?.input}
+        error={!errorInfo.pass}
+        helperText={errorInfo.errorMessage}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, input)}</InputAdornment>,
+        }}
+        value={input}
+        label={title}
+        variant="standard"
+        onChange={handleInput}
+      />
     </>
   );
 }

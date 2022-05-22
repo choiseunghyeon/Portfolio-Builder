@@ -21,7 +21,7 @@ interface IDateFieldProps extends IFieldProps {
 
 export default function DateField({ blockId, id, type, value, title, handleField, attributes }: IDateFieldProps) {
   const { from, to } = value;
-  const { display } = attributes;
+  const { display, placeholder } = attributes;
   const handleFromDate = useCallback(
     (newDate): void => {
       const newValue = getToday(newDate);
@@ -44,8 +44,8 @@ export default function DateField({ blockId, id, type, value, title, handleField
     <>
       <div>{title}</div>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker label="시작 날짜" value={from} onChange={handleFromDate} renderInput={params => <TextField {...params} />} />
-        <DatePicker label="종료 날짜" value={to} onChange={handleToDate} renderInput={params => <TextField {...params} />} />
+        <DatePicker label={placeholder?.from} value={from} onChange={handleFromDate} renderInput={params => <TextField {...params} />} />
+        <DatePicker label={placeholder?.to} value={to} onChange={handleToDate} renderInput={params => <TextField {...params} />} />
       </LocalizationProvider>
     </>
   );

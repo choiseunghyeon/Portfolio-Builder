@@ -8,7 +8,7 @@ interface IMultiLineInputFieldProps extends IFieldProps {
 
 export default function MultiLineInputField({ blockId, id, type, value, title, handleField, attributes }: IMultiLineInputFieldProps) {
   const { multiLineInput } = value;
-  const { display } = attributes;
+  const { display, placeholder } = attributes;
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
       const valueId = event.target.dataset.valueid;
@@ -23,7 +23,7 @@ export default function MultiLineInputField({ blockId, id, type, value, title, h
   }
   return (
     <>
-      <TextField inputProps={{ "data-valueid": "multiLineInput" }} label={title} multiline value={multiLineInput} onChange={handleInput} />
+      <TextField placeholder={placeholder?.multiLineInput} inputProps={{ "data-valueid": "multiLineInput" }} label={title} multiline value={multiLineInput} onChange={handleInput} />
     </>
   );
 }

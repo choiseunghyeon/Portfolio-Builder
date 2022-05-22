@@ -18,152 +18,25 @@ interface TempState {
   tabFold: boolean;
   blockLayout: LayoutBlock[][];
 }
+const profileFieldValues = {
+  profileImage: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
+  profileMainText: { input: "Front End Developer" },
+};
+
 const root: TempState = {
   blockLayout: [
-    [{ title: "프로필", id: "aasdfs" }],
+    [{ title: "프로필", id: "profile_id" }],
     [{ title: "커리어", groupBlockType: "Career" }],
     [{ title: "프로젝트", groupBlockType: "Project" }],
     [{ title: "포트폴리오", groupBlockType: "Portfolio" }],
   ],
   tabFold: false,
   blocks: [
-    {
-      id: "aasdfs",
-      type: "Profile",
-      title: "프로필",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        { id: uuidv4(), type: "Image", title: "이미지 업로드", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" }, attributes: {} },
-        { id: uuidv4(), type: "Text", title: "메인 텍스트", value: { input: "Front End Developer" }, attributes: {} },
-        { id: uuidv4(), type: "Text", title: "서브 텍스트", value: { input: "프론트 엔드 개발자 입니다." }, attributes: {} },
-        {
-          id: uuidv4(),
-          type: "Select",
-          title: "(선택) 추가 정보",
-          value: {
-            selectList: [
-              { label: "None", value: "" },
-              { label: "Apply", value: "apply" },
-              { label: "Contact", value: "contact" },
-              { label: "Github", value: "github" },
-              { label: "Keyword", value: "keyword" },
-            ],
-            selectedValue: "",
-          },
-          attributes: {},
-        },
-        { id: uuidv4(), type: "Text", title: "지원회사", value: { input: "" }, attributes: { relatedSelectValue: "apply", display: false } },
-        { id: uuidv4(), type: "Text", title: "지원직무 / 지원파트", value: { input: "" }, attributes: { relatedSelectValue: "apply", display: false } },
-        { id: uuidv4(), type: "Text", title: "휴대폰 번호", value: { input: "" }, attributes: { relatedSelectValue: "contact", display: false } },
-        { id: uuidv4(), type: "Text", title: "이메일", value: { input: "" }, attributes: { relatedSelectValue: "contact", display: false } },
-        { id: uuidv4(), type: "Text", title: "GitHub 주소", value: { input: "" }, attributes: { relatedSelectValue: "github", display: false } },
-        { id: uuidv4(), type: "Text", title: "키워드 1", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
-        { id: uuidv4(), type: "Text", title: "키워드 2", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
-        { id: uuidv4(), type: "Text", title: "키워드 3", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
-        { id: uuidv4(), type: "Text", title: "키워드 4", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
-        { id: uuidv4(), type: "Text", title: "키워드 5", value: { input: "" }, attributes: { relatedSelectValue: "keyword", display: false } },
-      ],
-    },
-    {
-      id: uuidv4(),
-      type: "Project",
-      title: "스마트 미러 프로젝트",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        { id: uuidv4(), type: "Text", title: "프로젝트", attributes: { validation: { includeSpecialChar: true, limit: 10 } }, value: { input: "대출 추천 재개발" } },
-        { id: uuidv4(), type: "Text", title: "소속 / 기관", value: { input: "Banksalad" }, attributes: {} },
-        {
-          id: uuidv4(),
-          type: "Date",
-          title: "기간",
-          value: { from: "2022-04-07", to: "2022-04-30" },
-          attributes: {},
-        },
-        {
-          id: uuidv4(),
-          type: "MultiLineText",
-          title: "배경 / 설명",
-          value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" },
-          attributes: {},
-        },
-        { id: uuidv4(), type: "MultiLineText", title: "Skills", value: { multiLineInput: "View와 Data를 분리하고 모든 비즈니스" }, attributes: {} },
-      ],
-    },
-    {
-      id: uuidv4(),
-      type: "Project",
-      title: "VSC 확장 프로그램",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        { id: uuidv4(), type: "Text", title: "프로젝트", value: { input: "대출 추천 재개발" }, attributes: {} },
-        { id: uuidv4(), type: "Text", title: "소속 / 기관", value: { input: "Banksalad" }, attributes: {} },
-        {
-          id: uuidv4(),
-          type: "Date",
-          title: "기간",
-          value: { from: "2022-04-07", to: "2022-04-30" },
-          attributes: {},
-        },
-        {
-          id: uuidv4(),
-          type: "MultiLineText",
-          title: "배경 / 설명",
-          value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" },
-          attributes: {},
-        },
-        { id: uuidv4(), type: "MultiLineText", title: "Skills", value: { multiLineInput: "View와 Data를 분리하고 모든 비즈니스" }, attributes: {} },
-      ],
-    },
-    {
-      id: uuidv4(),
-      type: "Career",
-      title: "이카운트",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        { id: uuidv4(), type: "Text", title: "소속", value: { input: "이카운트" }, attributes: {} },
-        { id: uuidv4(), type: "Text", title: "역할", value: { input: "Front End Framework 개발 및 유지 보수" }, attributes: {} },
-        {
-          id: uuidv4(),
-          type: "Date",
-          title: "기간",
-          value: { from: "2022-04-07", to: "2022-04-30" },
-          attributes: {},
-        },
-        { id: uuidv4(), type: "MultiLineText", title: "설명", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" }, attributes: {} },
-      ],
-    },
-    {
-      id: uuidv4(),
-      type: "Portfolio",
-      title: "포트폴리오1",
-      iconName: "AccountCircle",
-      style: {
-        styleType: "default",
-        xs: 12,
-      },
-      fields: [
-        { id: uuidv4(), type: "Image", title: "이미지 / 동영상", value: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" }, attributes: {} },
-        { id: uuidv4(), type: "Text", title: "제목", value: { input: "Front End Framework 개발 및 유지 보수" }, attributes: {} },
-        { id: uuidv4(), type: "MultiLineText", title: "내용", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" }, attributes: {} },
-        { id: uuidv4(), type: "MultiLineText", title: "링크", value: { multiLineInput: "기존의 노후된 설정, 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다" }, attributes: {} },
-      ],
-    },
+    createBlock({ blockType: "Profile", fieldValues: profileFieldValues }),
+    createBlock({ blockType: "Project", title: "스마트 미러 프로젝트" }),
+    createBlock({ blockType: "Project", title: "VSC 확장 프로그램" }),
+    createBlock({ blockType: "Career", title: "이카운트" }),
+    createBlock({ blockType: "Portfolio" }),
   ],
   blockTypeStyle: {
     Profile: {
@@ -193,6 +66,7 @@ const root: TempState = {
   },
 };
 
+console.log(root);
 interface ItemValuePayload {
   blockId: string;
   fieldId: string;
@@ -244,7 +118,6 @@ const rootReducer = createReducer(root, builder => {
         case "Select":
           changeSelectItemValue(targetBlock, targetField, value);
           break;
-
         default:
           targetField.value[valueId] = value;
           break;
@@ -335,7 +208,7 @@ const rootReducer = createReducer(root, builder => {
         }
       }
       if (!lastBlockIndexInBlockType) return;
-      const blockData = createBlock(blockType, title, blockTypeStyle);
+      const blockData = createBlock({ blockType, title, style: blockTypeStyle });
 
       if (!blockData) return;
       blocks.splice(lastBlockIndexInBlockType + 1, 0, blockData);

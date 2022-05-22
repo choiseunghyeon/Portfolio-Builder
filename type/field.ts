@@ -4,14 +4,18 @@ export interface IField {
   id: string;
   type: FieldType;
   title: string;
+  // reference:
   attributes: IFieldAttributes;
-  value: FieldValueType;
+  value: { [key: string]: any };
 }
 
-interface IFieldAttributes {
-  validation?: IFieldValidation;
-  relatedSelectValue?: string;
-  display?: boolean;
+// System에서 field를 인식하기 위한 reference
+type FieldRefereceType = "profileImage" | "profileMainText" | "profileSubText" | "profileAdditionalnfo";
+export interface IFieldAttributes {
+  placeholder?: { [key: string]: string }; // UI에 보이는 설명 글
+  validation?: IFieldValidation; // 값 검증
+  relatedSelectValue?: string; // 관련된 selectValue 값
+  display?: boolean; // 보이기 / 숨김
 }
 
 export interface IFieldValidation {
