@@ -1,5 +1,6 @@
 export interface IBaseProps {
-  attributes: {
-    layoutType: string;
+  attributes?: {
+    layoutType?: string;
+    color?: string;
   };
 }

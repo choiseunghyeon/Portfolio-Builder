@@ -8,7 +8,7 @@ export interface IProfileProps extends IBaseProps {
   imageSrc: string;
 }
 const Profile = (props: IProfileProps) => {
-  switch (props.attributes.layoutType) {
+  switch (props.attributes?.layoutType) {
     case "default":
       return <DefaultProfile {...props} />;
     case "second":

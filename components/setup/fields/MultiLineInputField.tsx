@@ -8,12 +8,12 @@ interface IMultiLineInputFieldProps extends IFieldProps {
 }
 
 export default function MultiLineInputField({ blockId, id, type, value, title, handleField, attributes }: IMultiLineInputFieldProps) {
-  const { multiLineInput } = value;
+  const { multiLineText } = value;
   const { display, placeholder, validation } = attributes;
   const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" });
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
-      const valueId = "multiLineInput";
+      const valueId = "multiLineText";
       const value = event.target.value;
       if (validation) {
         const { pass, canValueChange, errorMessage } = validateValue(value, validation);
@@ -31,13 +31,13 @@ export default function MultiLineInputField({ blockId, id, type, value, title, h
   return (
     <>
       <TextField
-        placeholder={placeholder?.multiLineInput}
+        placeholder={placeholder?.multiLineText}
         InputProps={{
-          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, multiLineInput)}</InputAdornment>,
+          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, multiLineText)}</InputAdornment>,
         }}
         label={title}
         multiline
-        value={multiLineInput}
+        value={multiLineText}
         onChange={handleInput}
       />
     </>

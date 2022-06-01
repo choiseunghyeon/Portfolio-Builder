@@ -38,8 +38,8 @@ const selectProfileProps = createSelector(
     }
     return {
       imageSrc: imageField.value.imageSrc,
-      title: mainTextField.value.input,
-      subtitle: subTextField.value.input,
+      title: mainTextField.value.text,
+      subtitle: subTextField.value.text,
       attributes: {
         layoutType: block.style.layoutType,
       },
@@ -51,7 +51,7 @@ const selectProjectProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock, needDummyData?: boolean) => needDummyData,
   (block: IBlock, needDummyData?: boolean): IProjectProps => {
-    const [nameField, organigationField, termField, descriptionField, skillsFeild] = block.fields;
+    const [nameField, organigationField, termField, descriptionField, skillsFeild, skillSetField] = block.fields;
     const termValue = getTermValue(termField.value.from, termField.value.to);
     if (needDummyData) {
       return {
@@ -62,17 +62,19 @@ const selectProjectProps = createSelector(
         term: "2021.04 ~ 2021.08",
         skills: `- View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
         - redux, redux-saga 적용 및 가이드 공유`,
+        skillSet: ["React", "Redux"],
         attributes: {
           layoutType: block.style.layoutType,
         },
       };
     }
     return {
-      name: nameField.value.input,
-      organigation: organigationField.value.input,
-      description: descriptionField.value.multiLineInput,
+      name: nameField.value.text,
+      organigation: organigationField.value.text,
+      description: descriptionField.value.multiLineText,
       term: termValue,
-      skills: skillsFeild.value.multiLineInput,
+      skills: skillsFeild.value.multiLineText,
+      skillSet: skillSetField.value.selectedTextList,
       attributes: {
         layoutType: block.style.layoutType,
       },
@@ -99,10 +101,10 @@ const selectCareerProps = createSelector(
       };
     }
     return {
-      organigation: organigationField.value.input,
-      role: roleField.value.input,
+      organigation: organigationField.value.text,
+      role: roleField.value.text,
       term: termValue,
-      description: descriptionField.value.multiLineInput,
+      description: descriptionField.value.multiLineText,
       attributes: {
         layoutType: block.style.layoutType,
       },
@@ -128,9 +130,9 @@ const selectPortfolioProps = createSelector(
     }
     return {
       mediaSrc: mediaField.value.imageSrc,
-      link: linkField.value.input,
-      title: titleField.value.input,
-      content: contentField.value.multiLineInput,
+      link: linkField.value.text,
+      title: titleField.value.text,
+      content: contentField.value.multiLineText,
       attributes: {
         layoutType: block.style.layoutType,
       },

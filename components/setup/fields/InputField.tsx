@@ -8,21 +8,18 @@ interface IInputFieldProps extends IFieldProps {
 }
 
 function InputField({ blockId, id, type, value, title, handleField, attributes }: IInputFieldProps) {
-  console.log("re-render input field");
-  const { input } = value;
+  const { text } = value;
   const { validation, display, placeholder } = attributes;
   const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" });
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
-      // setTimeout(() => {
-      // }, 100);
       const value = event.target.value;
       if (validation) {
         const { pass, canValueChange, errorMessage } = validateValue(value, validation);
         setErrorInfo({ pass: pass, errorMessage: errorMessage });
         if (canValueChange === false) return;
       }
-      const valueId = "input";
+      const valueId = "text";
       handleField(blockId, id, valueId, value);
     },
     [blockId, id, handleField]
@@ -34,13 +31,13 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
   return (
     <>
       <TextField
-        placeholder={placeholder?.input}
+        placeholder={placeholder?.text}
         error={!errorInfo.pass}
         helperText={errorInfo.errorMessage}
         InputProps={{
-          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, input)}</InputAdornment>,
+          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, text)}</InputAdornment>,
         }}
-        value={input}
+        value={text}
         label={title}
         variant="standard"
         onChange={handleInput}

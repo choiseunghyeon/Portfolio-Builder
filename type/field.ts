@@ -1,5 +1,5 @@
-export type FieldType = "Text" | "MultiLineText" | "Image" | "Date" | "Select";
-export type FieldValueType = ITextFieldValue | IMultiLineTextFieldValue | IImageFieldValue | IDateFieldValue | ISelectFiedlValue;
+export type FieldType = "Text" | "MultiLineText" | "Image" | "Date" | "Select" | "AutoCompleteText";
+export type FieldValueType = ITextFieldValue | IMultiLineTextFieldValue | IImageFieldValue | IDateFieldValue | ISelectFiedlValue | IAutoCompleteValue;
 export interface IField {
   id: string;
   type: FieldType;
@@ -24,11 +24,11 @@ export interface IFieldValidation {
 }
 
 export interface ITextFieldValue {
-  input: string;
+  text: string;
 }
 
 export interface IMultiLineTextFieldValue {
-  multiLineInput: string;
+  multiLineText: string;
 }
 
 export interface IImageFieldValue {
@@ -45,6 +45,10 @@ export interface ISelectFiedlValue {
   selectedValue: string;
 }
 
+export interface IAutoCompleteValue {
+  textList: string[];
+  selectedTextList: string[];
+}
 export interface IFieldProps extends IField {
   blockId: number;
   handleField: Function;
