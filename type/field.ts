@@ -10,7 +10,6 @@ export interface IField {
 }
 
 // System에서 field를 인식하기 위한 reference
-type FieldRefereceType = "profileImage" | "profileMainText" | "profileSubText" | "profileAdditionalnfo";
 export interface IFieldAttributes {
   placeholder?: { [key: string]: string }; // UI에 보이는 설명 글
   validation?: IFieldValidation; // 값 검증

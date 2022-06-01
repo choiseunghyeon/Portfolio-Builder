@@ -11,7 +11,7 @@ export interface IPortfolioProps extends IBaseProps {
 }
 const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioProps) => {
   return (
-    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
+    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <img
@@ -35,7 +35,8 @@ const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioPro
         </Grid>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <Typography variant="h5" component="h3">
-            {link && splitMultiLineText(link).map((text, index) => <div key={index}>{text}</div>)}
+            {link}
+            {/* {link && splitMultiLineText(link).map((text, index) => <div key={index}>{text}</div>)} */}
           </Typography>
         </Grid>
       </Grid>

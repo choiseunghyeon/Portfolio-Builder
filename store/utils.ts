@@ -51,8 +51,8 @@ export function validateValue(value: string | number, validation: IFieldValidati
   return { pass: true, errorMessage: null };
 }
 
-export function getValidationLimitMessage(validation: IFieldValidation | undefined, str: string) {
-  if (!validation) return "";
+export function getValidationLimitMessage(validation: IFieldValidation | undefined, str: string | undefined) {
+  if (!validation || !str) return "";
 
   const { limit } = validation;
   return `(${str.length}/${limit})`;

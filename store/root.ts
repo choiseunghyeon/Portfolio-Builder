@@ -21,6 +21,40 @@ interface TempState {
 const profileFieldValues = {
   profileImage: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
   profileMainText: { input: "Front End Developer" },
+  profileSubText: { input: `안녕하세요 :) 서핏 팀의 디자이너 박소연입니다. 저는 좋은 디자인이 사용자의 삶을 달라지게 하고 나아가서는 사회를 더 나아가서는 세상을 바꿀 수 있다고 생각합니다.` },
+};
+
+const projectFileValues = {
+  projectName: { input: "대출 추천 재개발" },
+  projectOrganigation: { input: "현대 자동차" },
+  projectDescription: {
+    multiLineInput: `도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통
+  호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표`,
+  },
+  projectTerm: { from: "2022-04-01", to: "2022-05-30" },
+  projectSkills: {
+    multiLineInput: `View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
+  redux, redux-saga 적용 및 가이드 공유`,
+  },
+};
+const careerFileValues = {
+  careerMainText: { input: "현대 자동차" },
+  careerSubText: { input: "Front-End" },
+  careerDescription: {
+    multiLineInput: `View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
+    redux, redux-saga 적용 및 가이드 공유`,
+  },
+  careerTerm: { from: "2022-04-01", to: "2022-05-30" },
+};
+const portfolioFileValues = {
+  portfolioThumbnail: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
+  portfolioName: { input: "MZ세대 언어" },
+  portfolioDescription: {
+    multiLineInput: `어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고한 류진과 폭풍 성장한 두 아들 찬형X찬호 형제 삼부자가 출사표를 던졌다.`,
+  },
+  portfolioURL: {
+    input: `http://sports.hankooki.com/news/articleView.html?idxno=6798068`,
+  },
 };
 
 const root: TempState = {
@@ -33,10 +67,12 @@ const root: TempState = {
   tabFold: false,
   blocks: [
     createBlock({ blockType: "Profile", fieldValues: profileFieldValues }),
-    createBlock({ blockType: "Project", title: "스마트 미러 프로젝트" }),
-    createBlock({ blockType: "Project", title: "VSC 확장 프로그램" }),
-    createBlock({ blockType: "Career", title: "이카운트" }),
-    createBlock({ blockType: "Portfolio" }),
+    createBlock({ blockType: "Project", title: "스마트 미러 프로젝트", fieldValues: projectFileValues }),
+    createBlock({ blockType: "Project", title: "VSC 확장 프로그램", fieldValues: projectFileValues }),
+    createBlock({ blockType: "Career", title: "이카운트", fieldValues: careerFileValues }),
+    createBlock({ blockType: "Portfolio", fieldValues: portfolioFileValues }),
+    createBlock({ blockType: "Portfolio", fieldValues: portfolioFileValues }),
+    createBlock({ blockType: "Portfolio", fieldValues: portfolioFileValues }),
   ],
   blockTypeStyle: {
     Profile: {

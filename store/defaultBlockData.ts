@@ -282,7 +282,7 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
       createField({ fieldType: "Image", title: "썸네일", defaultValue: fieldValues.portfolioThumbnail }),
       createField({ fieldType: "Text", title: "URL / 동영상 / 파일", defaultValue: fieldValues.portfolioURL, attributes: { placeholder: { input: "링크 주소" } } }),
       createField({
-        fieldType: "MultiLineText",
+        fieldType: "Text",
         title: "포트폴리오 / 작품 제목",
         defaultValue: fieldValues.portfolioName,
         attributes: { placeholder: { multiLineInput: "예) MZ세대 언어" }, validation: { limit: 50 } },

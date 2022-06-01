@@ -1,4 +1,5 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
+import { splitMultiLineText } from "@store/utils";
 import { IBlockStyle } from "@type/block";
 import { IBaseProps } from "@type/preview";
 
@@ -27,7 +28,7 @@ const Career = ({ organigation, role, term, description, attributes }: ICareerPr
         </Grid>
         <Grid item xs={12}>
           <Typography gutterBottom variant="body1" color={"textSecondary"}>
-            {description}
+            <ul>{description && splitMultiLineText(description).map((text, index) => <li key={index}>{text}</li>)}</ul>
           </Typography>
         </Grid>
       </Grid>

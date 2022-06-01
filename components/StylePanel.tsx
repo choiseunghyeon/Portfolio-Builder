@@ -18,7 +18,7 @@ interface IStylePanel extends IBlockTypeStyle {
 const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changableColumnCount, handleBlockStyleType }: IStylePanel) => {
   const currentStyleType = styleType;
   const PreviewComponent = previewProvider[block.type];
-  const previewProps = previewSelectorProvider[block.type](block);
+  const previewProps = previewSelectorProvider[block.type](block, true);
 
   const handleChange = (event: SelectChangeEvent) => {
     const newColumnCount = parseInt(event.target.value);
