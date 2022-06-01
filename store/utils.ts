@@ -24,20 +24,28 @@ export function getGroupBlockDefaultNameAndLabel(blockType: BlockType) {
   }
 }
 
-export function validateValue(value: string | number, validation: IFieldValidation): { pass: boolean; errorMessage: string | null } {
+export function validateValue(value: string | number, validation: IFieldValidation): { pass: boolean; canValueChange?: boolean; errorMessage: string | null } {
   const { dataType, includeSpecialChar, limit } = validation;
   if (typeof value === "number") value = "" + value;
 
-  if (limit && value.length > limit) return { pass: false, errorMessage: `제한 글자${limit}자를 초과합니다.` };
+  if (limit && value.length > limit) return { pass: false, canValueChange: false, errorMessage: `제한 글자${limit}자를 초과합니다.` };
 
-  if (!includeSpecialChar) {
-    const specialCharIndex = value.search(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim);
-    return { pass: false, errorMessage: `특수 문자 ${value[specialCharIndex]}를 포함하고 있습니다.` };
-  }
+  // if (!includeSpecialChar) {
+  //   const specialCharIndex = value.search(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim);
+  //   return { pass: false, errorMessage: `특수 문자 ${value[specialCharIndex]}를 포함하고 있습니다.` };
+  // }
 
   if (dataType === "numeric") {
     const notNumericIndex = value.search(/[^0-9]/gi);
-    return { pass: false, errorMessage: `숫자가 아닌 ${value[notNumericIndex]}를 포함하고 있습니다.` };
+    return { pass: false, canValueChange: true, errorMessage: `숫자가 아닌 ${value[notNumericIndex]}를 포함하고 있습니다.` };
+  } else if (dataType === "email") {
+    if (value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/) === null) {
+      return { pass: false, canValueChange: true, errorMessage: `${value}는 올바른 이메일 주소가 아닙니다.` };
+    }
+  } else if (dataType === "phoneNumber") {
+    if (value.match(/^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/) === null) {
+      return { pass: false, canValueChange: true, errorMessage: `${value}는 올바른 전화번호가 아닙니다.` };
+    }
   }
 
   return { pass: true, errorMessage: null };

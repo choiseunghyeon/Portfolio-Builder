@@ -9,6 +9,8 @@ type ProfileReferenceType =
   | "profileMainText"
   | "profileSubText"
   | "profileAdditionalnfo"
+  | "profileApplyCompany"
+  | "profileApplyPosition"
   | "profilePhoneNumber"
   | "profileEmail"
   | "profileGitHubURL"
@@ -66,8 +68,13 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
     },
     fields: [
       createField({ fieldType: "Image", title: "이미지 업로드", defaultValue: fieldValues.profileImage || "" }),
-      createField({ fieldType: "Text", title: "메인 텍스트", defaultValue: fieldValues.profileMainText, attributes: { placeholder: { input: "이름, 닉네임" } } }),
-      createField({ fieldType: "Text", title: "서브 텍스트", defaultValue: fieldValues.profileSubText, attributes: { placeholder: { input: "직무, 전공, 나를 소개하는 한 마디" } } }),
+      createField({ fieldType: "Text", title: "메인 텍스트", defaultValue: fieldValues.profileMainText, attributes: { placeholder: { input: "이름, 닉네임" }, validation: { limit: 25 } } }),
+      createField({
+        fieldType: "Text",
+        title: "서브 텍스트",
+        defaultValue: fieldValues.profileSubText,
+        attributes: { placeholder: { input: "직무, 전공, 나를 소개하는 한 마디" }, validation: { limit: 50 } },
+      }),
       createField({
         fieldType: "Select",
         title: "(선택) 추가 정보",
@@ -85,15 +92,27 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
       }),
       createField({
         fieldType: "Text",
+        title: "지원회사",
+        defaultValue: fieldValues.profileApplyCompany,
+        attributes: { relatedSelectValue: "apply", display: false, placeholder: { input: "예) 당근마켓" }, validation: { limit: 25 } },
+      }),
+      createField({
+        fieldType: "Text",
+        title: "지원직무 / 지원파트",
+        defaultValue: fieldValues.profileApplyPosition,
+        attributes: { relatedSelectValue: "apply", display: false, placeholder: { input: "예) 프론트엔드 개발자 / 당근페이" }, validation: { limit: 25 } },
+      }),
+      createField({
+        fieldType: "Text",
         title: "휴대폰 번호",
         defaultValue: fieldValues.profilePhoneNumber,
-        attributes: { relatedSelectValue: "contact", display: false, placeholder: { input: "예) 010-1234-5678" } },
+        attributes: { relatedSelectValue: "contact", display: false, placeholder: { input: "예) 010-1234-5678" }, validation: { limit: 25, dataType: "phoneNumber" } },
       }),
       createField({
         fieldType: "Text",
         title: "이메일",
         defaultValue: fieldValues.profileEmail,
-        attributes: { relatedSelectValue: "contact", display: false, placeholder: { input: "예) ppb@naver.com" } },
+        attributes: { relatedSelectValue: "contact", display: false, placeholder: { input: "예) ppb@naver.com" }, validation: { limit: 25, dataType: "email" } },
       }),
       createField({
         fieldType: "Text",
@@ -163,9 +182,9 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
         fieldType: "Text",
         title: "프로젝트",
         defaultValue: fieldValues.projectName,
-        attributes: { validation: { includeSpecialChar: true, limit: 10 }, placeholder: { input: "예) 대출 추천 재개발" } },
+        attributes: { placeholder: { input: "예) 대출 추천 재개발" }, validation: { limit: 50 } },
       }),
-      createField({ fieldType: "Text", title: "소속 / 기관", defaultValue: fieldValues.projectOrganigation, attributes: { placeholder: { input: "예) Banksalad" } } }),
+      createField({ fieldType: "Text", title: "소속 / 기관", defaultValue: fieldValues.projectOrganigation, attributes: { placeholder: { input: "예) Banksalad" }, validation: { limit: 50 } } }),
       createField({ fieldType: "Date", title: "기간", defaultValue: fieldValues.projectTerm, attributes: { placeholder: { from: "시작 날짜", to: "종료 날짜" } } }),
       createField({
         fieldType: "MultiLineText",
@@ -176,13 +195,14 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
             multiLineInput:
               "예) 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다. 이에 재개발을 제안하여 비즈니스 로직을 좀 더 파악하기 쉽고 빠르게 임팩를 낼 수 있도록 하는데 기여하였습니다.",
           },
+          validation: { limit: 200 },
         },
       }),
       createField({
         fieldType: "MultiLineText",
         title: "Skills",
         defaultValue: fieldValues.projectSkills,
-        attributes: { placeholder: { multiLineInput: "- View와 Data를 분리하고 모든 비즈니스 로직을 redux, middleware에서 처리" } },
+        attributes: { placeholder: { multiLineInput: "- View와 Data를 분리하고 모든 비즈니스 로직을 redux, middleware에서 처리" }, validation: { limit: 100 } },
       }),
     ],
   };
@@ -212,14 +232,24 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
       xs: 12,
     },
     fields: [
-      createField({ fieldType: "Text", title: "메인 텍스트", defaultValue: fieldValues.careerMainText, attributes: { placeholder: { input: "학교명, 직장명, 컨퍼런스명, 대회명" } } }),
-      createField({ fieldType: "Text", title: "서브 텍스트", defaultValue: fieldValues.careerSubText, attributes: { placeholder: { input: "학과, 역할, 발표 주제, 수상 내역" } } }),
+      createField({
+        fieldType: "Text",
+        title: "메인 텍스트",
+        defaultValue: fieldValues.careerMainText,
+        attributes: { placeholder: { input: "학교명, 직장명, 컨퍼런스명, 대회명" }, validation: { limit: 50 } },
+      }),
+      createField({
+        fieldType: "Text",
+        title: "서브 텍스트",
+        defaultValue: fieldValues.careerSubText,
+        attributes: { placeholder: { input: "학과, 역할, 발표 주제, 수상 내역" }, validation: { limit: 50 } },
+      }),
       createField({ fieldType: "Date", title: "기간", defaultValue: fieldValues.careerTerm, attributes: { placeholder: { from: "시작 날짜", to: "종료 날짜" } } }),
       createField({
         fieldType: "MultiLineText",
         title: "설명",
         defaultValue: fieldValues.careerDescription,
-        attributes: { placeholder: { input: "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용" } },
+        attributes: { placeholder: { input: "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용" }, validation: { limit: 200 } },
       }),
     ],
   };
@@ -251,12 +281,17 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
     fields: [
       createField({ fieldType: "Image", title: "썸네일", defaultValue: fieldValues.portfolioThumbnail }),
       createField({ fieldType: "Text", title: "URL / 동영상 / 파일", defaultValue: fieldValues.portfolioURL, attributes: { placeholder: { input: "링크 주소" } } }),
-      createField({ fieldType: "MultiLineText", title: "포트폴리오 / 작품 제목", defaultValue: fieldValues.portfolioName, attributes: { placeholder: { multiLineInput: "예) MZ세대 언어" } } }),
+      createField({
+        fieldType: "MultiLineText",
+        title: "포트폴리오 / 작품 제목",
+        defaultValue: fieldValues.portfolioName,
+        attributes: { placeholder: { multiLineInput: "예) MZ세대 언어" }, validation: { limit: 50 } },
+      }),
       createField({
         fieldType: "MultiLineText",
         title: "포트폴리오 / 작품 설명",
         defaultValue: fieldValues.portfolioDescription,
-        attributes: { placeholder: { multiLineInput: "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다." } },
+        attributes: { placeholder: { multiLineInput: "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다." }, validation: { limit: 200 } },
       }),
     ],
   };

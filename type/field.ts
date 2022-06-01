@@ -19,7 +19,7 @@ export interface IFieldAttributes {
 }
 
 export interface IFieldValidation {
-  dataType?: "numeric";
+  dataType?: "numeric" | "phoneNumber" | "email";
   limit?: number;
   includeSpecialChar?: boolean;
 }

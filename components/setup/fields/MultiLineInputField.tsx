@@ -1,6 +1,7 @@
-import { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { IFieldProps, IMultiLineTextFieldValue } from "@type/field";
-import { Box, TextField } from "@mui/material";
+import { Box, InputAdornment, TextField } from "@mui/material";
+import { getValidationLimitMessage, validateValue } from "@store/utils";
 
 interface IMultiLineInputFieldProps extends IFieldProps {
   value: IMultiLineTextFieldValue;
@@ -8,11 +9,17 @@ interface IMultiLineInputFieldProps extends IFieldProps {
 
 export default function MultiLineInputField({ blockId, id, type, value, title, handleField, attributes }: IMultiLineInputFieldProps) {
   const { multiLineInput } = value;
-  const { display, placeholder } = attributes;
+  const { display, placeholder, validation } = attributes;
+  const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" });
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
-      const valueId = event.target.dataset.valueid;
+      const valueId = "multiLineInput";
       const value = event.target.value;
+      if (validation) {
+        const { pass, canValueChange, errorMessage } = validateValue(value, validation);
+        setErrorInfo({ pass: pass, errorMessage: errorMessage });
+        if (canValueChange === false) return;
+      }
       handleField(blockId, id, valueId, value);
     },
     [blockId, id, handleField]
@@ -23,7 +30,16 @@ export default function MultiLineInputField({ blockId, id, type, value, title, h
   }
   return (
     <>
-      <TextField placeholder={placeholder?.multiLineInput} inputProps={{ "data-valueid": "multiLineInput" }} label={title} multiline value={multiLineInput} onChange={handleInput} />
+      <TextField
+        placeholder={placeholder?.multiLineInput}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">{getValidationLimitMessage(validation, multiLineInput)}</InputAdornment>,
+        }}
+        label={title}
+        multiline
+        value={multiLineInput}
+        onChange={handleInput}
+      />
     </>
   );
 }

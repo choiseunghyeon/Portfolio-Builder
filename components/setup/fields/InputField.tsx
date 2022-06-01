@@ -17,9 +17,10 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
       // setTimeout(() => {
       // }, 100);
       const value = event.target.value;
-      if (validation !== undefined) {
-        const { pass, errorMessage } = validateValue(value, validation);
+      if (validation) {
+        const { pass, canValueChange, errorMessage } = validateValue(value, validation);
         setErrorInfo({ pass: pass, errorMessage: errorMessage });
+        if (canValueChange === false) return;
       }
       const valueId = "input";
       handleField(blockId, id, valueId, value);
