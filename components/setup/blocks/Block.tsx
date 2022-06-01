@@ -44,7 +44,7 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
         </span>
         <Typography>{title}</Typography>
         <span onClick={removeBlock}>
-          <IconComponent icon="Remove" />
+          <IconComponent icon="Delete" />
         </span>
       </AccordionSummary>
       <AccordionDetails>

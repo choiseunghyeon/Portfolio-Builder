@@ -32,7 +32,7 @@ const selectProfileProps = createSelector(
         저는 좋은 디자인이 사용자의 삶을 달라지게 하고 나아가서는 사회를
         더 나아가서는 세상을 바꿀 수 있다고 생각합니다.`,
         attributes: {
-          styleType: block.style.styleType,
+          layoutType: block.style.layoutType,
         },
       };
     }
@@ -41,7 +41,7 @@ const selectProfileProps = createSelector(
       title: mainTextField.value.input,
       subtitle: subTextField.value.input,
       attributes: {
-        styleType: block.style.styleType,
+        layoutType: block.style.layoutType,
       },
     };
   }
@@ -63,7 +63,7 @@ const selectProjectProps = createSelector(
         skills: `- View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
         - redux, redux-saga 적용 및 가이드 공유`,
         attributes: {
-          styleType: block.style.styleType,
+          layoutType: block.style.layoutType,
         },
       };
     }
@@ -74,7 +74,7 @@ const selectProjectProps = createSelector(
       term: termValue,
       skills: skillsFeild.value.multiLineInput,
       attributes: {
-        styleType: block.style.styleType,
+        layoutType: block.style.layoutType,
       },
     };
   }
@@ -94,7 +94,7 @@ const selectCareerProps = createSelector(
         description: `- PC/모바일/인공지능 스피커 등 다양한 기기에 맞는 일관된 디자인 구축에시 말말말말
       - 어린이, 중장년 등 모든 연령대의 사용자를 고려한 인터렉선 재설계 몰라몰라 아아아아`,
         attributes: {
-          styleType: block.style.styleType,
+          layoutType: block.style.layoutType,
         },
       };
     }
@@ -104,7 +104,7 @@ const selectCareerProps = createSelector(
       term: termValue,
       description: descriptionField.value.multiLineInput,
       attributes: {
-        styleType: block.style.styleType,
+        layoutType: block.style.layoutType,
       },
     };
   }
@@ -122,7 +122,7 @@ const selectPortfolioProps = createSelector(
         content: `어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고한 류진과 폭풍 성장한 두 아들 찬형X찬호 형제 삼부자가 출사표를 던졌다.`,
         link: `http://sports.hankooki.com/news/articleView.html?idxno=6798068`,
         attributes: {
-          styleType: block.style.styleType,
+          layoutType: block.style.layoutType,
         },
       };
     }
@@ -132,7 +132,7 @@ const selectPortfolioProps = createSelector(
       title: titleField.value.input,
       content: contentField.value.multiLineInput,
       attributes: {
-        styleType: block.style.styleType,
+        layoutType: block.style.layoutType,
       },
     };
   }

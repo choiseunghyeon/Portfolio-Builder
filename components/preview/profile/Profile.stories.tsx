@@ -15,6 +15,6 @@ Default.args = {
   subtitle: "최승현",
   imageSrc: `https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg`,
   attributes: {
-    styleType: "default",
+    layoutType: "default",
   },
 };

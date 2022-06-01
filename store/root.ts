@@ -76,28 +76,20 @@ const root: TempState = {
   ],
   blockTypeStyle: {
     Profile: {
-      styleType: "default",
-      changableStyleTypes: ["default", "second"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [],
     },
     Project: {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [1, 2, 3, 4],
     },
     Career: {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [1, 2, 3, 4],
     },
     Portfolio: {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [1, 2, 3, 4],
     },
   },
 };
@@ -217,13 +209,13 @@ const rootReducer = createReducer(root, builder => {
       state.tabFold = needFold;
     })
     .addCase(changeBlockTypeStyle, (state, action) => {
-      const { blockType, styleType, columnCount } = action.payload;
+      const { blockType, layoutType: layoutType, columnCount } = action.payload;
       const blocks = selectBlocksByType(state, blockType);
       const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
 
-      if (styleType !== undefined) {
-        targetBlockTypeStyle.styleType = styleType;
-        blocks.forEach(block => (block.style.styleType = styleType));
+      if (layoutType !== undefined) {
+        targetBlockTypeStyle.layoutType = layoutType;
+        blocks.forEach(block => (block.style.layoutType = layoutType));
       }
 
       if (columnCount !== undefined) {

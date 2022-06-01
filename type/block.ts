@@ -11,7 +11,7 @@ export interface IBlock {
 }
 
 export interface IBlockStyle {
-  styleType: string;
+  layoutType: string;
   xs: BlockXSType;
 }
 

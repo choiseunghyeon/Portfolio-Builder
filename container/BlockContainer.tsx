@@ -9,10 +9,11 @@ import { addBlock, changeBlockTypeStyle, changeItemValue, IAddBlockPayload, ICha
 import { BlockType } from "@type/block";
 import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/selector";
 import TabPanel from "@components/setup/panel/TabPanel";
-import StylePanel from "@components/StylePanel";
+import LayoutPanel from "@components/LayoutPanel";
 import IconComponent from "@components/common/IconComponent";
 import { getGroupBlockDefaultNameAndLabel, isGroupBlock } from "@store/utils";
 import SetupPanel from "@components/SetupPanel";
+import { DefaultBlockTypeStyle } from "@store/defaultBlockLayout";
 
 function a11yProps(index: number) {
   return {
@@ -21,14 +22,16 @@ function a11yProps(index: number) {
   };
 }
 
-type TabValueType = "block" | "style";
+type TabValueType = "block" | "layout";
 interface ISetupBlockContainer {
   blockType: BlockType;
 }
 
 const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
   const blocks = useSelector(state => selectBlocksByType(state, blockType));
-  const { styleType, changableStyleTypes, columnCount, changableColumnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType));
+  const { layoutType, columnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType));
+  const changableLayoutTypes = DefaultBlockTypeStyle[blockType].changableLayoutTypes;
+  const changableColumnCount = DefaultBlockTypeStyle[blockType].changableColumnCount;
   const [currentTabValue, setCurrentTabValue] = useState<TabValueType>("block");
   const handleChange = (event: React.SyntheticEvent, newValue: TabValueType) => {
     setCurrentTabValue(newValue);
@@ -88,7 +91,7 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
     <Box>
       <Tabs value={currentTabValue} onChange={handleChange} aria-label="basic tabs example">
         <Tab label="내용" value="block" {...a11yProps(0)} />
-        <Tab label="스타일" value="style" {...a11yProps(1)} />
+        <Tab label="레이아웃" value="layout" {...a11yProps(1)} />
       </Tabs>
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel currentTabValue={currentTabValue} tabValue="block">
@@ -98,14 +101,14 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
             <SetupPanel blocks={blocks} handleField={handleField} />
           )}
         </TabPanel>
-        <TabPanel currentTabValue={currentTabValue} tabValue="style">
-          <StylePanel
+        <TabPanel currentTabValue={currentTabValue} tabValue="layout">
+          <LayoutPanel
             block={blocks[0]}
-            styleType={styleType}
+            layoutType={layoutType}
             handleBlockStyleType={handleBlockStyleType}
-            changableStyleTypes={changableStyleTypes}
-            columnCount={columnCount}
+            changableLayoutTypes={changableLayoutTypes}
             changableColumnCount={changableColumnCount}
+            columnCount={columnCount}
           />
         </TabPanel>
       </Box>

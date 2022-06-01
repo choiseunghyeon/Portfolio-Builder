@@ -7,7 +7,5 @@ export type EachBlockTypeStyle = {
 
 export interface IBlockTypeStyle {
   columnCount: ColumnCountType;
-  changableColumnCount: number[];
-  changableStyleTypes: string[];
-  styleType: string;
+  layoutType: string;
 }

@@ -7,16 +7,18 @@ import { previewProvider } from "./preview/provider";
 import { previewSelectorProvider } from "@store/selector";
 import { Checkbox, Divider, FormControl, Grid, InputLabel, ListItem, MenuItem, OutlinedInput, Paper, Select, SelectChangeEvent } from "@mui/material";
 import IconComponent from "./common/IconComponent";
-import { ColumnCountType, IBlockTypeStyle } from "@type/blockStyle";
-import { changeBlockTypeStyle } from "@store/root";
+import { IBlockTypeStyle } from "@type/blockStyle";
 
 interface IStylePanel extends IBlockTypeStyle {
   block: IBlock;
+  changableColumnCount: number[];
+  changableLayoutTypes: string[];
   handleBlockStyleType: Function;
 }
+
 // 드래그 요소 생성
-const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changableColumnCount, handleBlockStyleType }: IStylePanel) => {
-  const currentStyleType = styleType;
+const LayoutPanel = ({ block, layoutType, changableLayoutTypes, columnCount, changableColumnCount, handleBlockStyleType }: IStylePanel) => {
+  const currentStyleType = layoutType;
   const PreviewComponent = previewProvider[block.type];
   const previewProps = previewSelectorProvider[block.type](block, true);
 
@@ -44,19 +46,14 @@ const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changa
             </FormControl>
           </Grid>
         )}
-        {changableStyleTypes.map((changableStyleType, index) => {
+        {changableLayoutTypes.map((layoutType, index) => {
           const attributes = {
-            styleType: changableStyleType,
+            layoutType: layoutType,
           };
+          const isSelectd = layoutType === currentStyleType;
           return (
             <>
-              <Grid item xs={12} key={index}>
-                <Checkbox
-                  checked={changableStyleType === currentStyleType}
-                  onChange={() => handleBlockStyleType({ styleType: changableStyleType })}
-                  icon={<IconComponent icon="FavoriteBorder" />}
-                  checkedIcon={<IconComponent icon="Favorite" />}
-                />
+              <Grid item xs={12} key={index} sx={{ opacity: isSelectd ? 1 : 0.5, ":hover": { opacity: 1 } }} onClick={() => handleBlockStyleType({ layoutType: layoutType })}>
                 <PreviewComponent key={block.id} {...previewProps} attributes={attributes} />
               </Grid>
             </>
@@ -67,4 +64,4 @@ const StylePanel = ({ block, styleType, changableStyleTypes, columnCount, changa
   );
 };
 
-export default StylePanel;
+export default LayoutPanel;

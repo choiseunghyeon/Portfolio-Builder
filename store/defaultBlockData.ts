@@ -52,18 +52,16 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
   if (!title) title = "프로필";
   if (!style)
     style = {
-      styleType: "default",
-      changableStyleTypes: ["default", "second"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [],
     };
   return {
     id: "profile_id",
     type: "Profile",
     title: title,
-    iconName: "AccountCircle",
+    iconName: "PersonOutline",
     style: {
-      styleType: style.styleType,
+      layoutType: style.layoutType,
       xs: convertColumnCountIntoXS(style.columnCount),
     },
     fields: [
@@ -163,18 +161,16 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
   if (!title) title = "프로젝트";
   if (!style)
     style = {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [],
     };
   return {
-    id: uuidv4(),
+    id: `project_${uuidv4()}`,
     type: "Project",
     title: title,
-    iconName: "AccountCircle",
+    iconName: "Computer",
     style: {
-      styleType: style.styleType,
+      layoutType: style.layoutType,
       xs: convertColumnCountIntoXS(style.columnCount),
     },
     fields: [
@@ -217,19 +213,17 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
   if (!title) title = "경력";
   if (!style)
     style = {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [],
     };
   return {
-    id: uuidv4(),
+    id: `career_${uuidv4()}`,
     type: "Career",
     title: title,
-    iconName: "AccountCircle",
+    iconName: "Computer",
     style: {
-      styleType: style.styleType,
-      xs: 12,
+      layoutType: style.layoutType,
+      xs: convertColumnCountIntoXS(style.columnCount),
     },
     fields: [
       createField({
@@ -264,19 +258,17 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
   if (!title) title = "포트폴리오";
   if (!style)
     style = {
-      styleType: "default",
-      changableStyleTypes: ["default"],
+      layoutType: "default",
       columnCount: 1,
-      changableColumnCount: [],
     };
   return {
-    id: uuidv4(),
+    id: `portfolio_${uuidv4()}`,
     type: "Portfolio",
     title: title,
-    iconName: "AccountCircle",
+    iconName: "PersonOutline",
     style: {
-      styleType: "default",
-      xs: 12,
+      layoutType: "default",
+      xs: convertColumnCountIntoXS(style.columnCount),
     },
     fields: [
       createField({ fieldType: "Image", title: "썸네일", defaultValue: fieldValues.portfolioThumbnail }),

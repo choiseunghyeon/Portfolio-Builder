@@ -18,6 +18,6 @@ Default.args = {
   - 프론트 엔드를 맡아서
   - 테스트 코드 설계 및 작성`,
   attributes: {
-    styleType: "default",
+    layoutType: "default",
   },
 };
