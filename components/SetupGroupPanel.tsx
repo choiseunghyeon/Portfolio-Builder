@@ -1,47 +1,47 @@
-import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import List from "@mui/material/List";
-import Block from "./setup/blocks/Block";
-import { BlockType, IBlock } from "@type/block";
-import { Button, Grid, TextField } from "@mui/material";
-import IconComponent from "./common/IconComponent";
-import { getGroupBlockDefaultNameAndLabel } from "@store/utils";
+import React, { useState } from "react"
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
+import List from "@mui/material/List"
+import Block from "./setup/blocks/Block"
+import { BlockType, IBlock } from "@type/block"
+import { Button, Grid, TextField } from "@mui/material"
+import IconComponent from "./common/IconComponent"
+import { getGroupBlockDefaultNameAndLabel } from "@store/utils"
 
 interface ISetupPanel {
-  blocks: IBlock[];
-  handleField: Function;
-  swapBlockPosition: Function;
-  onRemoveBlock: Function;
-  onAddBlock: Function;
+  blocks: IBlock[]
+  blockType: BlockType
+  handleField: Function
+  swapBlockPosition: Function
+  onRemoveBlock: Function
+  onAddBlock: Function
 }
 // 드래그 요소 생성
-const SetupGroupPanel = ({ blocks, handleField, swapBlockPosition, onRemoveBlock, onAddBlock }: ISetupPanel) => {
-  const blockType = blocks[0].type;
+const SetupGroupPanel = ({ blocks, blockType, handleField, swapBlockPosition, onRemoveBlock, onAddBlock }: ISetupPanel) => {
   const onDragEnd = (result, provided) => {
     if (!result) {
-      console.log("result가 null인 경우");
-      return;
+      console.log("result가 null인 경우")
+      return
     }
 
     // 드래그 결과
     // source : 원본
     // destination : 변경
-    const { destination, source } = result;
+    const { destination, source } = result
 
     // 동일한 위치에서 놓은 경우
     if (destination.index === source.index) {
-      console.log("초기 위치 index 동일한 경우");
-      return;
+      console.log("초기 위치 index 동일한 경우")
+      return
     }
 
     // 빈 공간에 놓은 경우
     if (!destination) {
-      return;
+      return
     }
-    const sourceBlockId = blocks[source.index].id;
-    const destinationBlockId = blocks[destination.index].id;
-    swapBlockPosition(sourceBlockId, destinationBlockId);
-  };
+    const sourceBlockId = blocks[source.index].id
+    const destinationBlockId = blocks[destination.index].id
+    swapBlockPosition(sourceBlockId, destinationBlockId)
+  }
 
   return (
     <>
@@ -73,27 +73,27 @@ const SetupGroupPanel = ({ blocks, handleField, swapBlockPosition, onRemoveBlock
       </DragDropContext>
       <NewBlockName blockType={blockType} onAddBlock={onAddBlock} />
     </>
-  );
-};
+  )
+}
 
-export default SetupGroupPanel;
+export default SetupGroupPanel
 
-interface INewBlockNameProps {
-  blockType: BlockType;
-  onAddBlock: Function;
+export interface INewBlockNameProps {
+  blockType: BlockType
+  onAddBlock: Function
 }
 
 function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
-  const { defaultBlockName, blockLabel } = getGroupBlockDefaultNameAndLabel(blockType);
-  const [newBlockName, setProjectName] = useState(defaultBlockName);
+  const { defaultBlockName, blockLabel } = getGroupBlockDefaultNameAndLabel(blockType)
+  const [newBlockName, setProjectName] = useState(defaultBlockName)
   const handleNewBlockName = (event: any) => {
-    setProjectName(event.target.value);
-  };
+    setProjectName(event.target.value)
+  }
 
   const handleAddBlock = (event: any) => {
-    setProjectName(defaultBlockName);
-    onAddBlock(blockType, newBlockName);
-  };
+    setProjectName(defaultBlockName)
+    onAddBlock(blockType, newBlockName)
+  }
 
   return (
     <>
@@ -108,5 +108,5 @@ function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }

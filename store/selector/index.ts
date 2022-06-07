@@ -1,28 +1,43 @@
-import { ICareerProps } from "@components/preview/career/Career";
-import { IPortfolioProps } from "@components/preview/portfolio/Portfolio";
-import { IProfileProps } from "@components/preview/profile/Profile";
-import { IProjectProps } from "@components/preview/project/Project";
-import { createSelector } from "@reduxjs/toolkit";
-import { BlockType, IBlock } from "@type/block";
-import { RootState } from "..";
-export const selectBlocks = (state: RootState) => state.blocks;
-export const selectBlockStyle = (state: RootState) => state.blockTypeStyle;
+import { ICareerProps } from "@components/preview/career/Career"
+import { IPortfolioProps } from "@components/preview/portfolio/Portfolio"
+import { IProfileProps } from "@components/preview/profile/Profile"
+import { IProjectProps } from "@components/preview/project/Project"
+import { createSelector } from "@reduxjs/toolkit"
+import { BlockType, IBlock } from "@type/block"
+import { RootState } from ".."
+export const selectBlocks = (state: RootState) => state.blocks
+export const selectBlockStyle = (state: RootState) => state.blockTypeStyle
 
-export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.findIndex(block => block.id === blockId));
-export const selectBlockById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.find(block => block.id === blockId));
-export const tabFold = (state: RootState) => state.tabFold;
+export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.findIndex(block => block.id === blockId))
+export const selectBlockById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.find(block => block.id === blockId))
+export const tabFold = (state: RootState) => state.tabFold
 
-export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, blockType: BlockType) => blockType], (blocks, blockType) => blocks.filter(block => block.type === blockType));
-export const selectBlockTypeStyleByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType]);
+export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, blockType: BlockType) => blockType], (blocks, blockType) => blocks.filter(block => block.type === blockType))
+export const selectBlockTypeStyleByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType])
 
-export const selectBlockLayout = (state: RootState) => state.blockLayout;
+export const selectBlockLayout = (state: RootState) => state.blockLayout
 
 // for memoization
 const selectProfileProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock, needDummyData?: boolean) => needDummyData,
   (block: IBlock, needDummyData?: boolean): IProfileProps => {
-    const [imageField, mainTextField, subTextField] = block.fields;
+    const [
+      imageField,
+      mainTextField,
+      subTextField,
+      additionalInfoField,
+      applyCompanyField,
+      applyPositionField,
+      phoneNumberField,
+      emailField,
+      githubUrlField,
+      keyword1Field,
+      keyword2Field,
+      keyword3Field,
+      keyword4Field,
+      keyword5Field,
+    ] = block.fields
 
     if (needDummyData) {
       return {
@@ -34,25 +49,61 @@ const selectProfileProps = createSelector(
         attributes: {
           layoutType: block.style.layoutType,
         },
-      };
+      }
     }
-    return {
+
+    const payload = {
       imageSrc: imageField.value.imageSrc,
       title: mainTextField.value.text,
       subtitle: subTextField.value.text,
       attributes: {
         layoutType: block.style.layoutType,
       },
-    };
+    }
+
+    if (additionalInfoField.value.selectedValue === "apply") {
+      payload["apply"] = {
+        applyCompany: applyCompanyField.value.text,
+        applyPosition: applyPositionField.value.text,
+      }
+    }
+
+    if (additionalInfoField.value.selectedValue === "contact") {
+      payload["contact"] = {
+        phoneNumber: phoneNumberField.value.text,
+        email: emailField.value.text,
+      }
+    }
+
+    if (additionalInfoField.value.selectedValue === "github") {
+      payload["github"] = {
+        url: githubUrlField.value.text,
+      }
+    }
+
+    if (additionalInfoField.value.selectedValue === "keyword") {
+      const keywordFieldList = [keyword1Field, keyword2Field, keyword3Field, keyword4Field, keyword5Field]
+
+      const keywordList = keywordFieldList.reduce((acc: string[], keywordField) => {
+        if (keywordField.value.text) acc.push(keywordField.value.text)
+        return acc
+      }, [])
+
+      payload["keyword"] = {
+        keywordList,
+      }
+    }
+
+    return payload
   }
-);
+)
 
 const selectProjectProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock, needDummyData?: boolean) => needDummyData,
   (block: IBlock, needDummyData?: boolean): IProjectProps => {
-    const [nameField, organigationField, termField, descriptionField, skillsFeild, skillSetField] = block.fields;
-    const termValue = getTermValue(termField.value.from, termField.value.to);
+    const [nameField, organigationField, termField, descriptionField, skillsFeild, skillSetField] = block.fields
+    const termValue = getTermValue(termField.value.from, termField.value.to)
     if (needDummyData) {
       return {
         name: "대출 추천 재개발",
@@ -66,7 +117,7 @@ const selectProjectProps = createSelector(
         attributes: {
           layoutType: block.style.layoutType,
         },
-      };
+      }
     }
     return {
       name: nameField.value.text,
@@ -78,16 +129,16 @@ const selectProjectProps = createSelector(
       attributes: {
         layoutType: block.style.layoutType,
       },
-    };
+    }
   }
-);
+)
 
 const selectCareerProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock, needDummyData?: boolean) => needDummyData,
   (block: IBlock, needDummyData?: boolean): ICareerProps => {
-    const [organigationField, roleField, termField, descriptionField] = block.fields;
-    const termValue = getTermValue(termField.value.from, termField.value.to);
+    const [organigationField, roleField, termField, descriptionField] = block.fields
+    const termValue = getTermValue(termField.value.from, termField.value.to)
     if (needDummyData) {
       return {
         organigation: "현대 자동차",
@@ -98,7 +149,7 @@ const selectCareerProps = createSelector(
         attributes: {
           layoutType: block.style.layoutType,
         },
-      };
+      }
     }
     return {
       organigation: organigationField.value.text,
@@ -108,15 +159,15 @@ const selectCareerProps = createSelector(
       attributes: {
         layoutType: block.style.layoutType,
       },
-    };
+    }
   }
-);
+)
 
 const selectPortfolioProps = createSelector(
   (block: IBlock) => block,
   (block: IBlock, needDummyData?: boolean) => needDummyData,
   (block: IBlock, needDummyData?: boolean): IPortfolioProps => {
-    const [mediaField, linkField, titleField, contentField] = block.fields;
+    const [mediaField, linkField, titleField, contentField] = block.fields
     if (needDummyData) {
       return {
         mediaSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
@@ -126,7 +177,7 @@ const selectPortfolioProps = createSelector(
         attributes: {
           layoutType: block.style.layoutType,
         },
-      };
+      }
     }
     return {
       mediaSrc: mediaField.value.imageSrc,
@@ -136,26 +187,26 @@ const selectPortfolioProps = createSelector(
       attributes: {
         layoutType: block.style.layoutType,
       },
-    };
+    }
   }
-);
+)
 
 type PreviewSelectorProviderType = {
-  [key in BlockType]: Function;
-};
+  [key in BlockType]: Function
+}
 export const previewSelectorProvider: PreviewSelectorProviderType = {
   Profile: selectProfileProps,
   Project: selectProjectProps,
   Career: selectCareerProps,
   Portfolio: selectPortfolioProps,
-};
+}
 
 function getTermValue(from, to) {
   if (from && to) {
-    return `${from} ~ ${to}`;
+    return `${from} ~ ${to}`
   } else if (from) {
-    return `${from} ~ 현재 진행 중`;
+    return `${from} ~ 현재 진행 중`
   } else {
-    return "";
+    return ""
   }
 }

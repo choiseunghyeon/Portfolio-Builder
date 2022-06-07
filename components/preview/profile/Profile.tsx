@@ -1,26 +1,43 @@
-import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
-import { IBlockStyle } from "@type/block";
-import { IBaseProps } from "@type/preview";
+import IconComponent from "@components/common/IconComponent"
+import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
+import { IBaseProps } from "@type/preview"
 
-export interface IProfileProps extends IBaseProps {
-  title: string;
-  subtitle: string;
-  imageSrc: string;
+interface IProfileAdditionalInformation {
+  apply?: {
+    applyCompany: string
+    applyPosition: string
+  }
+  contact?: {
+    phoneNumber: string
+    email: string
+  }
+  github?: {
+    url: string
+  }
+  keyword?: {
+    keywordList: string[]
+  }
 }
+export interface IProfileProps extends IBaseProps, IProfileAdditionalInformation {
+  title: string
+  subtitle: string
+  imageSrc: string
+}
+
 const Profile = (props: IProfileProps) => {
   switch (props.attributes?.layoutType) {
     case "default":
-      return <DefaultProfile {...props} />;
+      return <DefaultProfile {...props} />
     case "second":
-      return <SecondProfile {...props} />;
+      return <SecondProfile {...props} />
     default:
-      return null;
+      return null
   }
-};
+}
 
-export default Profile;
+export default Profile
 
-function DefaultProfile({ title, subtitle, imageSrc }: IProfileProps) {
+function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, keyword }: IProfileProps) {
   return (
     <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
       <Grid container spacing={1}>
@@ -44,9 +61,65 @@ function DefaultProfile({ title, subtitle, imageSrc }: IProfileProps) {
             {subtitle}
           </Typography>
         </Grid>
+        <Grid item xs={12} sx={{ margin: "0 10px" }}>
+          <Typography variant="h5" component="h3">
+            {subtitle}
+          </Typography>
+        </Grid>
+        <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} />
       </Grid>
     </Box>
-  );
+  )
+}
+
+function DefaultAdditionalInformation({ apply, contact, github, keyword }: IProfileAdditionalInformation) {
+  if (apply) {
+    const { applyCompany, applyPosition } = apply
+    return (
+      <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Typography variant="h5" component="h3">
+          {applyPosition}
+        </Typography>
+        <Typography variant="h5" component="h3">
+          {applyCompany}
+        </Typography>
+      </Grid>
+    )
+  } else if (contact) {
+    const { phoneNumber, email } = contact
+    return (
+      <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Typography variant="h5" component="h3">
+          <IconComponent icon="LocalPhone" />
+          {phoneNumber}
+          <IconComponent icon="Email" />
+          {email}
+        </Typography>
+      </Grid>
+    )
+  } else if (github) {
+    const { url } = github
+    return (
+      <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Typography variant="h5" component="h3">
+          {`GitHub ${url}`}
+        </Typography>
+      </Grid>
+    )
+  } else if (keyword) {
+    const { keywordList } = keyword
+    return (
+      <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Typography variant="h5" component="h3">
+          <Stack direction="row" spacing={1}>
+            {keywordList && keywordList.map(keyword => <Chip key={keyword} label={keyword} color="primary" />)}
+          </Stack>
+        </Typography>
+      </Grid>
+    )
+  } else {
+    return null
+  }
 }
 
 function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
@@ -75,5 +148,5 @@ function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }

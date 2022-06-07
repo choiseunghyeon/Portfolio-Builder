@@ -1,27 +1,27 @@
-import { createAction, createReducer } from "@reduxjs/toolkit";
-import { BlockType, IBlock } from "@type/block";
-import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector";
-import { EachBlockTypeStyle, IBlockTypeStyle } from "@type/blockStyle";
-import { convertColumnCountIntoXS } from "./utils";
-import { createBlock, createField } from "./defaultBlockData";
-import { ISelectFiedlValue } from "@type/field";
+import { createAction, createReducer } from "@reduxjs/toolkit"
+import { BlockType, IBlock } from "@type/block"
+import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector"
+import { EachBlockTypeStyle, IBlockTypeStyle } from "@type/blockStyle"
+import { convertColumnCountIntoXS } from "./utils"
+import { createBlock, createField } from "./defaultBlockData"
+import { ISelectFiedlValue } from "@type/field"
 
 export interface LayoutBlock {
-  id?: string;
-  groupBlockType?: BlockType;
-  title: string;
+  id?: string
+  groupBlockType?: BlockType
+  title: string
 }
 interface TempState {
-  blocks: IBlock[];
-  blockTypeStyle: EachBlockTypeStyle;
-  tabFold: boolean;
-  blockLayout: LayoutBlock[][];
+  blocks: IBlock[]
+  blockTypeStyle: EachBlockTypeStyle
+  tabFold: boolean
+  blockLayout: LayoutBlock[][]
 }
 const profileFieldValues = {
   profileImage: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
   profileMainText: { text: "Front End Developer" },
   profileSubText: { text: `안녕하세요 :) 서핏 팀의 디자이너 박소연입니다. 저는 좋은 디자인이 사용자의 삶을 달라지게 하고 나아가서는 사회를 더 나아가서는 세상을 바꿀 수 있다고 생각합니다.` },
-};
+}
 
 const projectFiledValues = {
   projectName: { text: "대출 추천 재개발" },
@@ -39,7 +39,7 @@ const projectFiledValues = {
     textList: ["React", "Redux", "Immer"],
     selectedTextList: ["React"],
   },
-};
+}
 const careerFiledValues = {
   careerMainText: { text: "현대 자동차" },
   careerSubText: { text: "Front-End" },
@@ -48,7 +48,7 @@ const careerFiledValues = {
     redux, redux-saga 적용 및 가이드 공유`,
   },
   careerTerm: { from: "2022-04-01", to: "2022-05-30" },
-};
+}
 const portfolioFiledValues = {
   portfolioThumbnail: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
   portfolioName: { text: "MZ세대 언어" },
@@ -58,7 +58,31 @@ const portfolioFiledValues = {
   portfolioURL: {
     text: `http://sports.hankooki.com/news/articleView.html?idxno=6798068`,
   },
-};
+}
+
+/*
+blocks: {
+    Profile: [createBlock({ blockType: "Profile", fieldValues: profileFieldValues })],
+    Career: [createBlock({ blockType: "Career", fieldValues: careerFiledValues })],
+    Project: [createBlock({ blockType: "Project", fieldValues: projectFiledValues }), createBlock({ blockType: "Project", fieldValues: projectFiledValues })],
+    Portfolio: [
+      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
+      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
+      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
+    ],
+  },
+
+interface TempState {
+  blocks: MappedBlocks
+  blockTypeStyle: EachBlockTypeStyle
+  tabFold: boolean
+  blockLayout: LayoutBlock[][]
+}
+
+type MappedBlocks = {
+  [key in BlockType]: IBlock[]
+}
+*/
 
 const root: TempState = {
   blockLayout: [
@@ -70,9 +94,9 @@ const root: TempState = {
   tabFold: false,
   blocks: [
     createBlock({ blockType: "Profile", fieldValues: profileFieldValues }),
-    createBlock({ blockType: "Project", title: "스마트 미러 프로젝트", fieldValues: projectFiledValues }),
-    createBlock({ blockType: "Project", title: "VSC 확장 프로그램", fieldValues: projectFiledValues }),
-    createBlock({ blockType: "Career", title: "이카운트", fieldValues: careerFiledValues }),
+    createBlock({ blockType: "Project", fieldValues: projectFiledValues }),
+    createBlock({ blockType: "Project", fieldValues: projectFiledValues }),
+    createBlock({ blockType: "Career", fieldValues: careerFiledValues }),
     createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
     createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
     createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
@@ -95,197 +119,200 @@ const root: TempState = {
       columnCount: 1,
     },
   },
-};
+}
 
-console.log(root);
 interface ItemValuePayload {
-  blockId: string;
-  fieldId: string;
-  valueId: string;
-  value: { [key: string]: any };
+  blockId: string
+  fieldId: string
+  valueId: string
+  value: { [key: string]: any }
 }
 
 interface ISwapBlockPayload {
-  sourceBlockId: string;
-  destinationBlockId: string;
+  sourceBlockId: string
+  destinationBlockId: string
 }
 
 export interface IChangeBlockTypeStylePayload extends Partial<IBlockTypeStyle> {
-  blockType: BlockType;
+  blockType: BlockType
 }
 
 export interface IAddBlockPayload {
-  blockType: BlockType;
-  title: string;
+  blockType: BlockType
+  title: string
 }
 
 interface IChangedSelectedValuePayload {
-  blockId: string;
-  fieldId: string;
-  value: string;
+  blockId: string
+  fieldId: string
+  value: string
 }
-export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue");
-export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock");
-export const foldTab = createAction<boolean>("setup/foldTab");
-export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType");
-export const addBlock = createAction<IAddBlockPayload>("setup/addBlock");
-export const removeBlock = createAction<string>("setup/removeBlock");
-export const changeSelectedValue = createAction<IChangedSelectedValuePayload>("setup/changedSelectedValue");
+export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue")
+export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock")
+export const foldTab = createAction<boolean>("setup/foldTab")
+export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType")
+export const addBlock = createAction<IAddBlockPayload>("setup/addBlock")
+export const removeBlock = createAction<string>("setup/removeBlock")
+export const changeSelectedValue = createAction<IChangedSelectedValuePayload>("setup/changedSelectedValue")
 // layout
-export const swapBlockLayout = createAction<any>("setup/swapBlockLayout");
-export const addBlockLayout = createAction<void>("setup/addBlockLayout");
+export const swapBlockLayout = createAction<any>("setup/swapBlockLayout")
+export const addBlockLayout = createAction<void>("setup/addBlockLayout")
 const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changeItemValue, (state, action) => {
-      console.log("called changeItemValue");
-      const { blockId, fieldId, valueId, value } = action.payload;
-      const targetBlock = selectBlockById(state, blockId);
-      if (!targetBlock) return;
+      console.log("called changeItemValue")
+      const { blockId, fieldId, valueId, value } = action.payload
+      const targetBlock = selectBlockById(state, blockId)
+      if (!targetBlock) return
 
-      const targetField = targetBlock.fields.find(field => field.id === fieldId);
-      if (!targetField) return;
+      const targetField = targetBlock.fields.find(field => field.id === fieldId)
+      if (!targetField) return
 
       switch (targetField.type) {
         case "Select":
-          changeSelectItemValue(targetBlock, targetField, value);
-          break;
+          changeSelectItemValue(targetBlock, targetField, value)
+          break
         default:
-          targetField.value[valueId] = value;
-          break;
+          targetField.value[valueId] = value
+          break
       }
 
       function changeSelectItemValue(targetBlock, targetField, value) {
-        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue;
+        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
         // 기존 selectedValue로 보여주던 field 숨김
         targetBlock.fields
           .filter(field => field.attributes?.relatedSelectValue === selectedValue)
           .forEach(field => {
-            field.attributes.display = false;
-          });
+            field.attributes.display = false
+          })
 
         // select와 연결된 field 보여주기
         targetBlock.fields
           .filter(field => field.attributes?.relatedSelectValue === value)
           .forEach(field => {
-            field.attributes.display = true;
-          });
-        (targetField.value as ISelectFiedlValue).selectedValue = value;
+            field.attributes.display = true
+          })
+        ;(targetField.value as ISelectFiedlValue).selectedValue = value
       }
     })
     .addCase(swapBlock, (state, action) => {
-      const { sourceBlockId, destinationBlockId } = action.payload;
-      const sourceIndex = selectBlockIndexById(state, sourceBlockId);
-      const destinationIndex = selectBlockIndexById(state, destinationBlockId);
-      const blocks = selectBlocks(state);
+      const { sourceBlockId, destinationBlockId } = action.payload
+      const sourceIndex = selectBlockIndexById(state, sourceBlockId)
+      const destinationIndex = selectBlockIndexById(state, destinationBlockId)
+      const blocks = selectBlocks(state)
 
       //swap two items
-      [blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]];
+      ;[blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]]
     })
     .addCase(swapBlockLayout, (state, action) => {
-      const { source, destination } = action.payload;
-      const blockLayout = selectBlockLayout(state);
-      const current: any[] = blockLayout[source.droppableId];
-      const next: any[] = blockLayout[destination.droppableId];
-      const target: any = current[source.index];
+      const { source, destination } = action.payload
+      const blockLayout = selectBlockLayout(state)
+      const current: any[] = blockLayout[source.droppableId]
+      const next: any[] = blockLayout[destination.droppableId]
+      const target: any = current[source.index]
 
       // moving to same list
       if (source.droppableId === destination.droppableId) {
-        const reordered: any[] = reorder(current, source.index, destination.index);
-        blockLayout[source.droppableId] = reordered;
+        const reordered: any[] = reorder(current, source.index, destination.index)
+        blockLayout[source.droppableId] = reordered
       }
       // moving to different list
 
       // remove from original
-      current.splice(source.index, 1);
+      current.splice(source.index, 1)
       // insert into next
-      next.splice(destination.index, 0, target);
+      next.splice(destination.index, 0, target)
 
-      blockLayout[source.droppableId] = current;
-      blockLayout[destination.droppableId] = next;
+      blockLayout[source.droppableId] = current
+      blockLayout[destination.droppableId] = next
     })
     .addCase(addBlockLayout, (state, action) => {
-      const blockLayout = selectBlockLayout(state);
-      blockLayout.push([]);
+      const blockLayout = selectBlockLayout(state)
+      blockLayout.push([])
     })
     .addCase(foldTab, (state, action) => {
-      const needFold = action.payload;
-      state.tabFold = needFold;
+      const needFold = action.payload
+      state.tabFold = needFold
     })
     .addCase(changeBlockTypeStyle, (state, action) => {
-      const { blockType, layoutType: layoutType, columnCount } = action.payload;
-      const blocks = selectBlocksByType(state, blockType);
-      const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
+      const { blockType, layoutType: layoutType, columnCount } = action.payload
+      const blocks = selectBlocksByType(state, blockType)
+      const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType)
 
       if (layoutType !== undefined) {
-        targetBlockTypeStyle.layoutType = layoutType;
-        blocks.forEach(block => (block.style.layoutType = layoutType));
+        targetBlockTypeStyle.layoutType = layoutType
+        blocks.forEach(block => (block.style.layoutType = layoutType))
       }
 
       if (columnCount !== undefined) {
-        targetBlockTypeStyle.columnCount = columnCount;
-        const xs = convertColumnCountIntoXS(columnCount);
-        blocks.forEach(block => (block.style.xs = xs));
+        targetBlockTypeStyle.columnCount = columnCount
+        const xs = convertColumnCountIntoXS(columnCount)
+        blocks.forEach(block => (block.style.xs = xs))
       }
     })
     .addCase(addBlock, (state, action) => {
-      const { blockType, title } = action.payload;
-      const blockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType);
-      const blocks = selectBlocks(state);
-      let lastBlockIndexInBlockType;
+      const { blockType, title } = action.payload
+      const blockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType)
+      const blocks = selectBlocks(state)
+      let lastBlockIndexInBlockType
       for (let lastIndex = blocks.length - 1; lastIndex >= 0; lastIndex--) {
         if (blocks[lastIndex].type === blockType) {
-          lastBlockIndexInBlockType = lastIndex;
-          break;
+          lastBlockIndexInBlockType = lastIndex
+          break
         }
       }
-      if (!lastBlockIndexInBlockType) return;
-      const blockData = createBlock({ blockType, title, style: blockTypeStyle });
 
-      if (!blockData) return;
-      blocks.splice(lastBlockIndexInBlockType + 1, 0, blockData);
+      const blockData = createBlock({ blockType, title, style: blockTypeStyle })
+      if (!blockData) return
+
+      if (lastBlockIndexInBlockType) {
+        blocks.splice(lastBlockIndexInBlockType + 1, 0, blockData)
+      } else {
+        blocks.push(blockData)
+      }
     })
     .addCase(removeBlock, (state, action) => {
-      const blockId = action.payload;
-      const blocks = selectBlocks(state);
-      const targetBlockIndex = selectBlockIndexById(state, blockId);
-      blocks.splice(targetBlockIndex, 1);
+      const blockId = action.payload
+      const blocks = selectBlocks(state)
+      const targetBlockIndex = selectBlockIndexById(state, blockId)
+      blocks.splice(targetBlockIndex, 1)
     })
     .addCase(changeSelectedValue, (state, action) => {
-      const { blockId, fieldId, value } = action.payload;
-      const targetBlock = selectBlockById(state, blockId);
+      const { blockId, fieldId, value } = action.payload
+      const targetBlock = selectBlockById(state, blockId)
 
-      if (!targetBlock) return;
+      if (!targetBlock) return
 
-      const targetField = targetBlock.fields.find(field => field.id === fieldId);
+      const targetField = targetBlock.fields.find(field => field.id === fieldId)
 
-      if (!targetField) return;
+      if (!targetField) return
 
       if (targetField.type === "Select") {
-        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue;
+        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
         // 기존 selectedValue로 보여주던 field 숨김
         targetBlock.fields
           .filter(field => field.attributes?.relatedSelectValue === selectedValue)
           .forEach(field => {
-            field.attributes.display = false;
-          });
+            field.attributes.display = false
+          })
 
         // select와 연결된 field 보여주기
         targetBlock.fields
           .filter(field => field.attributes?.relatedSelectValue === value)
           .forEach(field => {
-            field.attributes.display = true;
-          });
-        (targetField.value as ISelectFiedlValue).selectedValue = value;
+            field.attributes.display = true
+          })
+        ;(targetField.value as ISelectFiedlValue).selectedValue = value
       }
-    });
-});
+    })
+})
 
 const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
 
-  return result;
-};
+  return result
+}
 
-export default rootReducer;
+export default rootReducer
