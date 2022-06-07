@@ -3,6 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import store from "@store/index";
+// import aws from '@lib/aws/aws-sdk';
 
 const queryClient = new QueryClient();
 const App = (props: AppProps) => {

@@ -117,36 +117,3 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
 };
 
 export default BlockContainer;
-
-interface INewBlockNameProps {
-  blockType: BlockType;
-  onAddBlock: Function;
-}
-
-function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
-  const { defaultBlockName, blockLabel } = getGroupBlockDefaultNameAndLabel(blockType);
-  const [newBlockName, setProjectName] = useState(defaultBlockName);
-  const handleNewBlockName = (event: any) => {
-    setProjectName(event.target.value);
-  };
-
-  const handleAddBlock = (event: any) => {
-    setProjectName(defaultBlockName);
-    onAddBlock(blockType, newBlockName);
-  };
-
-  return (
-    <>
-      <Grid sx={{ marginTop: "10px" }} container justifyContent="center" alignItems="center">
-        <Grid item xs={8}>
-          <TextField id="standard-basic" label={blockLabel} value={newBlockName} onChange={handleNewBlockName} variant="standard" />
-        </Grid>
-        <Grid item xs={4}>
-          <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock}>
-            추가
-          </Button>
-        </Grid>
-      </Grid>
-    </>
-  );
-}

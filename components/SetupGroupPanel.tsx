@@ -98,9 +98,9 @@ function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
   return (
     <>
       <Grid sx={{ marginTop: "10px" }} container justifyContent="center" alignItems="center">
-        <Grid item xs={8}>
+        {/* <Grid item xs={8}>
           <TextField id="standard-basic" label={blockLabel} value={newBlockName} onChange={handleNewBlockName} variant="standard" />
-        </Grid>
+        </Grid> */}
         <Grid item xs={4}>
           <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock}>
             추가

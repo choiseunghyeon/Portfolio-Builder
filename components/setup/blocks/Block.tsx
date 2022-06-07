@@ -39,11 +39,11 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
             <IconComponent icon={"DragIndicator"} />
           </span>
         )}
-        <span>
+        <span style={{ marginRight: "5px" }}>
           <IconComponent icon={iconName} />
         </span>
         <Typography>{title}</Typography>
-        <span onClick={removeBlock}>
+        <span style={{ marginLeft: "5px" }} onClick={removeBlock}>
           <IconComponent icon="Delete" />
         </span>
       </AccordionSummary>

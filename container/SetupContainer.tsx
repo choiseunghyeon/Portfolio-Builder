@@ -43,10 +43,10 @@ export default function SetupContainer() {
       <Grid item xs={4}>
         <Tabs orientation="vertical" variant="fullWidth" value={currentTabValue} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
           <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
-          <Tab label={"Project"} {...a11yProps("Project")} />
-          <Tab label={"Career"} {...a11yProps("Career")} />
           <Tab label={"Profile"} {...a11yProps("Profile")} />
+          <Tab label={"Project"} {...a11yProps("Project")} />
           <Tab label={"Portfolio"} {...a11yProps("Portfolio")} />
+          <Tab label={"Career"} {...a11yProps("Career")} />
           <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
         </Tabs>
       </Grid>
