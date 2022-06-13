@@ -1,17 +1,17 @@
-import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
-import { splitMultiLineText } from "@store/utils";
-import { IBlockStyle } from "@type/block";
-import { IBaseProps } from "@type/preview";
+import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
+import { splitMultiLineText } from "@store/utils"
+import { IBlockStyle } from "@type/block"
+import { IBaseProps } from "@type/preview"
 
 export interface ICareerProps extends IBaseProps {
-  organigation: string;
-  role: string;
-  term: string;
-  description: string;
+  organigation: string
+  role: string
+  term: string
+  description: string
 }
 const Career = ({ organigation, role, term, description, attributes }: ICareerProps) => {
   return (
-    <Box sx={{ p: 1 }}>
+    <Box data-testid="careerPriview" sx={{ p: 1 }}>
       <Grid container>
         <Grid item xs={12}>
           <Typography sx={{ fontWeight: "bold" }} variant="h6">
@@ -33,7 +33,7 @@ const Career = ({ organigation, role, term, description, attributes }: ICareerPr
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default Career;
+export default Career

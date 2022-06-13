@@ -2,7 +2,7 @@ import { BlockType, IBlock } from "@type/block";
 import { IBlockTypeStyle } from "@type/blockStyle";
 import { FieldType, FieldValueType, IField, IFieldAttributes, ITextFieldValue } from "@type/field";
 import { v4 as uuidv4 } from "uuid";
-import { convertColumnCountIntoXS } from "./utils";
+import { convertColumnCountIntoXS } from "../utils";
 
 type ProfileReferenceType =
   | "profileImage"

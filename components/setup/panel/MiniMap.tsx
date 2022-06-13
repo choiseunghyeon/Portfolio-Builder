@@ -1,46 +1,46 @@
-import Tab from "@mui/material/Tab";
-import { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import TabPanel from "./TabPanel";
-import { DragDropContext, Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DropResult } from "react-beautiful-dnd";
-import { Button, colors, Grid } from "@mui/material";
-import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "react-redux";
-import { selectBlockLayout } from "@store/selector";
-import { addBlockLayout, LayoutBlock, swapBlockLayout } from "@store/root";
-import IconComponent from "@components/common/IconComponent";
+import Tab from "@mui/material/Tab"
+import { useState, useEffect } from "react"
+import Tabs from "@mui/material/Tabs"
+import Typography from "@mui/material/Typography"
+import Box from "@mui/material/Box"
+import TabPanel from "./TabPanel"
+import { DragDropContext, Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DropResult } from "react-beautiful-dnd"
+import { Button, colors, Grid } from "@mui/material"
+import styled from "@emotion/styled"
+import { useDispatch, useSelector } from "react-redux"
+import { selectBlockLayout } from "@store/selector"
+import { addBlockLayout, LayoutBlock, swapBlockLayout } from "@store/root"
+import IconComponent from "@components/common/IconComponent"
 
 interface IMiniMapProps {
-  value: "MiniMap";
+  value: "MiniMap"
 }
 
 export default function MiniMap({ value }: IMiniMapProps) {
-  const [winReady, setWinReady] = useState(false);
-  const init = useSelector(selectBlockLayout);
-  const dispatch = useDispatch();
+  const [winReady, setWinReady] = useState(false)
+  const init = useSelector(selectBlockLayout)
+  const dispatch = useDispatch()
   const handleBlockLayout = payload => {
-    dispatch(swapBlockLayout(payload));
-  };
+    dispatch(swapBlockLayout(payload))
+  }
   const handleAddBlockLayout = () => {
-    dispatch(addBlockLayout());
-  };
+    dispatch(addBlockLayout())
+  }
   useEffect(() => {
-    setWinReady(true);
-  }, []);
+    setWinReady(true)
+  }, [])
 
   const onDragEnd = (result: DropResult) => {
     // // dropped outside the list
     if (!result.destination) {
-      return;
+      return
     }
 
     handleBlockLayout({
       source: result.source,
       destination: result.destination,
-    });
-  };
+    })
+  }
 
   if (winReady) {
     return (
@@ -52,7 +52,7 @@ export default function MiniMap({ value }: IMiniMapProps) {
                 <Grid item xs={12} key={index}>
                   <MiniBlockList listId={index} listType="CARD" MiniBlockMap={miniBlockList} />
                 </Grid>
-              );
+              )
             })}
             <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlockLayout}>
               추가
@@ -60,9 +60,9 @@ export default function MiniMap({ value }: IMiniMapProps) {
           </DragDropContext>
         </Grid>
       </>
-    );
+    )
   }
-  return null;
+  return null
 }
 
 const Wrapper = styled.div`
@@ -87,26 +87,26 @@ const Wrapper = styled.div`
 
   /* stop the list collapsing when it has no items */
   min-height: 60px;
-`;
+`
 
 function MiniBlockList({ MiniBlockMap, listId, listType, isCombineEnabled = false }): any {
   return (
-    <Droppable droppableId={"" + listId} type={listType} direction="horizontal" isCombineEnabled={isCombineEnabled}>
+    <Droppable data-testid="miniBlock" droppableId={"" + listId} type={listType} direction="horizontal" isCombineEnabled={isCombineEnabled}>
       {(dropProvided: DroppableProvided, dropSnapshot: DroppableStateSnapshot) => (
         <Wrapper ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
           {MiniBlockMap.map((blockInfo: LayoutBlock, index: number) => {
-            const key = blockInfo.id ? blockInfo.id : blockInfo.groupBlockType ? blockInfo.groupBlockType : blockInfo.title;
+            const key = blockInfo.id ? blockInfo.id : blockInfo.groupBlockType ? blockInfo.groupBlockType : blockInfo.title
             return (
               <Draggable key={key} draggableId={key} index={index}>
                 {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => <MiniBlock blockName={blockInfo.title} provided={dragProvided} snapshot={dragSnapshot} />}
               </Draggable>
-            );
+            )
           })}
           {dropProvided.placeholder}
         </Wrapper>
       )}
     </Droppable>
-  );
+  )
 }
 
 // $ExpectError - not sure why
@@ -129,12 +129,12 @@ const StyledMiniBlock = styled.div`
     /* use our own awesome one */
     /* border-color: ${({ isDragging }: { isDragging: boolean }) => (isDragging ? "black" : "white")}; */
   }
-`;
+`
 
 function MiniBlock({ blockName, provided, snapshot }: any) {
   return (
     <StyledMiniBlock ref={ref => provided.innerRef(ref)} {...provided.draggableProps} {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
       {blockName}
     </StyledMiniBlock>
-  );
+  )
 }

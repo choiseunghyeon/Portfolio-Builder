@@ -1,17 +1,17 @@
-import { Grid, Divider, Typography, Theme, Box } from "@mui/material";
-import { splitMultiLineText } from "@store/utils";
-import { IBlockStyle } from "@type/block";
-import { IBaseProps } from "@type/preview";
+import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
+import { splitMultiLineText } from "@store/utils"
+import { IBlockStyle } from "@type/block"
+import { IBaseProps } from "@type/preview"
 
 export interface IPortfolioProps extends IBaseProps {
-  mediaSrc: string;
-  title: string;
-  content: string;
-  link: string;
+  mediaSrc: string
+  title: string
+  content: string
+  link: string
 }
 const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioProps) => {
   return (
-    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
+    <Box data-testid="portfolioPriview" sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <img
@@ -41,7 +41,7 @@ const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioPro
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default Portfolio;
+export default Portfolio

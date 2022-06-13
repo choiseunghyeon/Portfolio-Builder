@@ -39,7 +39,7 @@ export default Profile
 
 function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, keyword }: IProfileProps) {
   return (
-    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
+    <Box data-testid="profilePriview" sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <img
@@ -124,7 +124,7 @@ function DefaultAdditionalInformation({ apply, contact, github, keyword }: IProf
 
 function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
   return (
-    <Box sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
+    <Box data-testid="profilePriview" sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <Typography variant="h5" component="h3">

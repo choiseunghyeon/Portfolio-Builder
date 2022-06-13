@@ -13,7 +13,7 @@ import LayoutPanel from "@components/LayoutPanel"
 import IconComponent from "@components/common/IconComponent"
 import { getGroupBlockDefaultNameAndLabel, isGroupBlock } from "@store/utils"
 import SetupPanel from "@components/SetupPanel"
-import { DefaultBlockTypeStyle } from "@store/defaultBlockLayout"
+import { DefaultBlockTypeStyle } from "@store/defaultData/defaultBlockStyle"
 
 function a11yProps(index: number) {
   return {

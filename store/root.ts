@@ -3,7 +3,7 @@ import { BlockType, IBlock } from "@type/block"
 import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector"
 import { EachBlockTypeStyle, IBlockTypeStyle } from "@type/blockStyle"
 import { convertColumnCountIntoXS } from "./utils"
-import { createBlock, createField } from "./defaultBlockData"
+import { createBlock, createField } from "./defaultData/defaultBlockData"
 import { ISelectFiedlValue } from "@type/field"
 
 export interface LayoutBlock {

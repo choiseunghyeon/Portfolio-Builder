@@ -1,42 +1,43 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useDispatch, useSelector } from "react-redux";
-import { addBlock, foldTab, IAddBlockPayload } from "@store/root";
-import { tabFold } from "@store/selector";
-import { EN_TAB_VALUE, TabType } from "@type/tab";
-import { panelProvider } from "@components/setup/panel/provider";
-import TabPanel from "@components/setup/panel/TabPanel";
-import IconComponent from "@components/common/IconComponent";
-import { Grid } from "@mui/material";
-import { BlockType } from "@type/block";
+import * as React from "react"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Typography from "@mui/material/Typography"
+import Box from "@mui/material/Box"
+import { useDispatch, useSelector } from "react-redux"
+import { addBlock, foldTab, IAddBlockPayload } from "@store/root"
+import { tabFold } from "@store/selector"
+import { EN_TAB_VALUE, TabType } from "@type/tab"
+import { panelProvider } from "@components/setup/panel/provider"
+import TabPanel from "@components/setup/panel/TabPanel"
+import IconComponent from "@components/common/IconComponent"
+import { Grid } from "@mui/material"
+import { BlockType } from "@type/block"
 
 function a11yProps(value: TabType) {
   return {
+    "data-testid": value,
     id: `vertical-tab-${value}`,
     "aria-controls": `vertical-tabpanel-${value}`,
     value,
-  };
+  }
 }
-const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold"];
+const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold"]
 export default function SetupContainer() {
-  const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap");
-  const dispatch = useDispatch();
-  const needTabFold = useSelector(tabFold);
-  const CurrentTabPanel = panelProvider[currentTabValue];
+  const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap")
+  const dispatch = useDispatch()
+  const needTabFold = useSelector(tabFold)
+  const CurrentTabPanel = panelProvider[currentTabValue]
   const handleChange = (event: React.SyntheticEvent, newValue: TabType) => {
     if (newValue === "Fold") {
-      return;
+      return
     }
-    dispatch(foldTab(false));
-    setCurrentTabValue(newValue);
-  };
+    dispatch(foldTab(false))
+    setCurrentTabValue(newValue)
+  }
 
   const toggleTabPanel = () => {
-    dispatch(foldTab(!needTabFold));
-  };
+    dispatch(foldTab(!needTabFold))
+  }
 
   return (
     <Grid container spacing={1}>
@@ -60,5 +61,5 @@ export default function SetupContainer() {
         </Box>
       </Grid>
     </Grid>
-  );
+  )
 }
