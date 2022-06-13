@@ -91,7 +91,7 @@ const Wrapper = styled.div`
 
 function MiniBlockList({ MiniBlockMap, listId, listType, isCombineEnabled = false }): any {
   return (
-    <Droppable data-testid="miniBlock" droppableId={"" + listId} type={listType} direction="horizontal" isCombineEnabled={isCombineEnabled}>
+    <Droppable droppableId={"" + listId} type={listType} direction="horizontal" isCombineEnabled={isCombineEnabled}>
       {(dropProvided: DroppableProvided, dropSnapshot: DroppableStateSnapshot) => (
         <Wrapper ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
           {MiniBlockMap.map((blockInfo: LayoutBlock, index: number) => {
@@ -133,7 +133,7 @@ const StyledMiniBlock = styled.div`
 
 function MiniBlock({ blockName, provided, snapshot }: any) {
   return (
-    <StyledMiniBlock ref={ref => provided.innerRef(ref)} {...provided.draggableProps} {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
+    <StyledMiniBlock data-testid="miniBlock" ref={ref => provided.innerRef(ref)} {...provided.draggableProps} {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
       {blockName}
     </StyledMiniBlock>
   )

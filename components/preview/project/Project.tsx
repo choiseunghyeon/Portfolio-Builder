@@ -1,28 +1,28 @@
-import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material";
-import { splitMultiLineText } from "@store/utils";
-import { IBlockStyle } from "@type/block";
-import { IBaseProps } from "@type/preview";
+import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
+import { splitMultiLineText } from "@store/utils"
+import { IBlockStyle } from "@type/block"
+import { IBaseProps } from "@type/preview"
 
 export interface IProjectProps extends IBaseProps {
-  name: string;
-  organigation: string;
-  term: string;
-  description: string;
-  skills: string;
-  skillSet: string[];
+  name: string
+  organigation: string
+  term: string
+  description: string
+  skills: string
+  skillSet: string[]
 }
 
 const Project = (props: IProjectProps) => {
   switch (props.attributes?.layoutType) {
     case "default":
-      return <DefaultProject {...props} />;
+      return <DefaultProject {...props} />
     default:
-      return null;
+      return null
   }
-};
+}
 const DefaultProject = ({ name = "", organigation = "", term = "", description = "", skills = "", skillSet = [], attributes }: IProjectProps) => {
   return (
-    <Box sx={{ textAlign: "left", p: 1 }}>
+    <Box data-testid="projectPriview" sx={{ textAlign: "left", p: 1 }}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Typography sx={{ fontWeight: "bold" }} variant="h6">
@@ -58,7 +58,7 @@ const DefaultProject = ({ name = "", organigation = "", term = "", description =
       </Grid>
       <Divider sx={{ marginTop: 1 }} />
     </Box>
-  );
-};
+  )
+}
 
-export default Project;
+export default Project

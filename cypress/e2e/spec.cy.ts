@@ -28,14 +28,23 @@ describe("Builder", () => {
   describe("Rendering Test", () => {
     it("Minimap", () => {
       cy.getById("MiniMap").click()
+      // setup render 확인
       cy.getById("MiniMapPanel")
-        .findById("miniBlock")
+        .getById("miniBlock")
         .within($miniBlockList => {
           cy.wrap($miniBlockList[0]).contains("프로필")
-          cy.wrap($miniBlockList[2]).contains("커리어")
-          cy.wrap($miniBlockList[3]).contains("프로젝트")
-          cy.wrap($miniBlockList[4]).contains("포트폴리오")
+          cy.wrap($miniBlockList[1]).contains("커리어")
+          cy.wrap($miniBlockList[2]).contains("프로젝트")
+          cy.wrap($miniBlockList[3]).contains("포트폴리오")
         })
+
+      // preview render 확인
+      cy.getById("previewBlockContainer").within($previewBlockContainerList => {
+        cy.wrap($previewBlockContainerList[0]).getById("profilePriview")
+        cy.wrap($previewBlockContainerList[1]).getById("careerPriview")
+        cy.wrap($previewBlockContainerList[2]).getById("projectPriview")
+        cy.wrap($previewBlockContainerList[3]).getById("portfolioPriview")
+      })
     })
   })
   //   it("", () => {

@@ -17,9 +17,15 @@
 Cypress.Commands.add("getById", value => {
   return cy.get(`[data-testid=${value}]`)
 })
-Cypress.Commands.add("findById", value => {
-  return cy.find(`[data-testid=${value}]`)
-})
+Cypress.Commands.add(
+  "findById",
+  {
+    prevSubject: true,
+  },
+  (subject, value) => {
+    return subject.find(`[data-testid=${value}]`)
+  }
+)
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

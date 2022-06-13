@@ -29,7 +29,7 @@ describe("Builder", () => {
     it("Minimap", () => {
       cy.getById("MiniMap").click()
       cy.getById("MiniMapPanel")
-        .findById("miniBlock")
+        .getById("miniBlock")
         .within($miniBlockList => {
           cy.wrap($miniBlockList[0]).contains("프로필")
           cy.wrap($miniBlockList[2]).contains("커리어")
