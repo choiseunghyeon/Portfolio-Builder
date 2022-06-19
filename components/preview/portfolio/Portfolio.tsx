@@ -1,6 +1,7 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
 import { IBlockStyle } from "@type/block"
+import { PORTFOLIO_PREVIEW } from "@type/constants"
 import { IBaseProps } from "@type/preview"
 
 export interface IPortfolioProps extends IBaseProps {
@@ -11,7 +12,7 @@ export interface IPortfolioProps extends IBaseProps {
 }
 const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioProps) => {
   return (
-    <Box data-testid="portfolioPriview" sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
+    <Box data-testid={PORTFOLIO_PREVIEW} sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <img

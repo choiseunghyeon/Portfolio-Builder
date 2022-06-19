@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectBlockLayout } from "@store/selector"
 import { addBlockLayout, LayoutBlock, swapBlockLayout } from "@store/root"
 import IconComponent from "@components/common/IconComponent"
+import { MINI_BLOCK, MINI_MAP_PANEL } from "@type/constants"
 
 interface IMiniMapProps {
   value: "MiniMap"
@@ -45,7 +46,7 @@ export default function MiniMap({ value }: IMiniMapProps) {
   if (winReady) {
     return (
       <>
-        <Grid container justifyContent={"center"} alignItems={"center"}>
+        <Grid container justifyContent={"center"} alignItems={"center"} data-testid={MINI_MAP_PANEL}>
           <DragDropContext onDragEnd={onDragEnd}>
             {init.map((miniBlockList: LayoutBlock[], index: number) => {
               return (
@@ -133,7 +134,7 @@ const StyledMiniBlock = styled.div`
 
 function MiniBlock({ blockName, provided, snapshot }: any) {
   return (
-    <StyledMiniBlock data-testid="miniBlock" ref={ref => provided.innerRef(ref)} {...provided.draggableProps} {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
+    <StyledMiniBlock data-testid={MINI_BLOCK} ref={ref => provided.innerRef(ref)} {...provided.draggableProps} {...provided.dragHandleProps} isDragging={snapshot.isDragging}>
       {blockName}
     </StyledMiniBlock>
   )

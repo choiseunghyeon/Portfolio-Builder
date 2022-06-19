@@ -25,9 +25,10 @@ function a11yProps(index: number) {
 type TabValueType = "block" | "layout"
 interface ISetupBlockContainer {
   blockType: BlockType
+  dataTestId: string
 }
 
-const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
+const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
   const blocks = useSelector(state => selectBlocksByType(state, blockType))
   const { layoutType, columnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType))
   const changableLayoutTypes = DefaultBlockTypeStyle[blockType].changableLayoutTypes
@@ -88,7 +89,7 @@ const BlockContainer = ({ blockType }: ISetupBlockContainer) => {
   }, [])
 
   return (
-    <Box>
+    <Box data-testid={dataTestId}>
       <Tabs value={currentTabValue} onChange={handleChange} aria-label="basic tabs example">
         <Tab label="내용" value="block" {...a11yProps(0)} />
         <Tab label="레이아웃" value="layout" {...a11yProps(1)} />

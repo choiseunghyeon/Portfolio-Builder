@@ -1,6 +1,7 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
 import { IBlockStyle } from "@type/block"
+import { CAREER_PREVIEW } from "@type/constants"
 import { IBaseProps } from "@type/preview"
 
 export interface ICareerProps extends IBaseProps {
@@ -11,7 +12,7 @@ export interface ICareerProps extends IBaseProps {
 }
 const Career = ({ organigation, role, term, description, attributes }: ICareerProps) => {
   return (
-    <Box data-testid="careerPriview" sx={{ p: 1 }}>
+    <Box data-testid={CAREER_PREVIEW} sx={{ p: 1 }}>
       <Grid container>
         <Grid item xs={12}>
           <Typography sx={{ fontWeight: "bold" }} variant="h6">

@@ -1,5 +1,6 @@
 import IconComponent from "@components/common/IconComponent"
 import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
+import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@type/constants"
 import { IBaseProps } from "@type/preview"
 
 interface IProfileAdditionalInformation {
@@ -39,7 +40,7 @@ export default Profile
 
 function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, keyword }: IProfileProps) {
   return (
-    <Box data-testid="profilePriview" sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
+    <Box data-testid={PROFILE_PREVIEW} sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
       <Grid container spacing={1}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <img
@@ -52,12 +53,12 @@ function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, key
           />
         </Grid>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography color="textSecondary" gutterBottom>
+          <Typography color="textSecondary" gutterBottom data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
             {title}
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
+          <Typography variant="h5" component="h3" data-testid={PROFILE_PREVIEW_SUB_TEXT}>
             {subtitle}
           </Typography>
         </Grid>
@@ -120,7 +121,7 @@ function DefaultAdditionalInformation({ apply, contact, github, keyword }: IProf
 function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
   return (
     <Box data-testid="profilePriview" sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} data-testid={PROFILE_PREVIEW_SUB_TEXT}>
         <Grid item xs={12} sx={{ margin: "0 10px" }}>
           <Typography variant="h5" component="h3">
             {subtitle}
@@ -136,7 +137,7 @@ function SecondProfile({ title, subtitle, imageSrc }: IProfileProps) {
             alt="person"
           />
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Grid item xs={12} sx={{ margin: "0 10px" }} data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
           <Typography color="textSecondary" gutterBottom>
             {title}
           </Typography>

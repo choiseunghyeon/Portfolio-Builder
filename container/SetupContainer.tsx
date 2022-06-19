@@ -12,10 +12,10 @@ import TabPanel from "@components/setup/panel/TabPanel"
 import IconComponent from "@components/common/IconComponent"
 import { Grid } from "@mui/material"
 import { BlockType } from "@type/block"
+import { CAREER_TAB as CAREER_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@type/constants"
 
 function a11yProps(value: TabType) {
   return {
-    "data-testid": value,
     id: `vertical-tab-${value}`,
     "aria-controls": `vertical-tabpanel-${value}`,
     value,
@@ -43,11 +43,11 @@ export default function SetupContainer() {
     <Grid container spacing={1}>
       <Grid item xs={4}>
         <Tabs orientation="vertical" variant="fullWidth" value={currentTabValue} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderRight: 1, borderColor: "divider" }}>
-          <Tab label={"MiniMap"} {...a11yProps("MiniMap")} />
-          <Tab label={"Profile"} {...a11yProps("Profile")} />
-          <Tab label={"Project"} {...a11yProps("Project")} />
-          <Tab label={"Portfolio"} {...a11yProps("Portfolio")} />
-          <Tab label={"Career"} {...a11yProps("Career")} />
+          <Tab label={"MiniMap"} {...a11yProps("MiniMap")} data-testid={MINI_MAP_TAB} />
+          <Tab label={"Profile"} {...a11yProps("Profile")} data-testid={PROFILE_TAB} />
+          <Tab label={"Project"} {...a11yProps("Project")} data-testid={PROJECT_TAB} />
+          <Tab label={"Portfolio"} {...a11yProps("Portfolio")} data-testid={PORTFOLIO_TAB} />
+          <Tab label={"Career"} {...a11yProps("Career")} data-testid={CAREER_TAB} />
           <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
         </Tabs>
       </Grid>

@@ -1,36 +1,38 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
-import { IFieldProps, IFieldValidation, ITextFieldValue } from "@type/field";
-import { Box, InputAdornment, TextField } from "@mui/material";
-import { getValidationLimitMessage, validateValue } from "@store/utils";
+import React, { ChangeEvent, useCallback, useState } from "react"
+import { IFieldProps, IFieldValidation, ITextFieldValue } from "@type/field"
+import { Box, InputAdornment, TextField } from "@mui/material"
+import { getValidationLimitMessage, validateValue } from "@store/utils"
+import { INPUT_FIELD_TEST_ID } from "@type/constants"
 
 interface IInputFieldProps extends IFieldProps {
-  value: ITextFieldValue;
+  value: ITextFieldValue
 }
 
 function InputField({ blockId, id, type, value, title, handleField, attributes }: IInputFieldProps) {
-  const { text } = value;
-  const { validation, display, placeholder } = attributes;
-  const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" });
+  const { text } = value
+  const { validation, display, placeholder } = attributes
+  const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" })
   const handleInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>): void => {
-      const value = event.target.value;
+      const value = event.target.value
       if (validation) {
-        const { pass, canValueChange, errorMessage } = validateValue(value, validation);
-        setErrorInfo({ pass: pass, errorMessage: errorMessage });
-        if (canValueChange === false) return;
+        const { pass, canValueChange, errorMessage } = validateValue(value, validation)
+        setErrorInfo({ pass: pass, errorMessage: errorMessage })
+        if (canValueChange === false) return
       }
-      const valueId = "text";
-      handleField(blockId, id, valueId, value);
+      const valueId = "text"
+      handleField(blockId, id, valueId, value)
     },
     [blockId, id, handleField]
-  );
+  )
 
   if (display === false) {
-    return null;
+    return null
   }
   return (
     <>
       <TextField
+        data-testid={INPUT_FIELD_TEST_ID}
         placeholder={placeholder?.text}
         error={!errorInfo.pass}
         helperText={errorInfo.errorMessage}
@@ -43,7 +45,7 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
         onChange={handleInput}
       />
     </>
-  );
+  )
 }
 
-export default React.memo(InputField);
+export default React.memo(InputField)
