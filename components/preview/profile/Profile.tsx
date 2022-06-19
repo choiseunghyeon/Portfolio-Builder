@@ -61,11 +61,6 @@ function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, key
             {subtitle}
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
-            {subtitle}
-          </Typography>
-        </Grid>
         <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} />
       </Grid>
     </Box>
