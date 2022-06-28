@@ -8,6 +8,7 @@ import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
 import { Box } from "@mui/material"
 import { BLOCK_EXPAND_ICON } from "@type/constants"
+import { isGroupBlock } from "@store/utils"
 
 interface IBlockProps {
   blockInfo: IBlock
@@ -19,7 +20,7 @@ interface IBlockProps {
 
 // eslint-disable-next-line react/display-name
 const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleField, onRemoveBlock }: IBlockProps, ref: any) => {
-  const { iconName, title, fields, id } = blockInfo
+  const { iconName, title, fields, id, type } = blockInfo
   const [needExpand, setNeedExpand] = useState<boolean>(false)
   const handleAccordion = useCallback((event: React.SyntheticEvent, expanded: boolean) => {
     setNeedExpand(expanded)
@@ -44,9 +45,11 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
           <IconComponent icon={iconName} />
         </span>
         <Typography>{title}</Typography>
-        <span style={{ marginLeft: "5px" }} onClick={removeBlock}>
-          <IconComponent icon="Delete" />
-        </span>
+        {isGroupBlock(type) && (
+          <span style={{ marginLeft: "5px" }} onClick={removeBlock}>
+            <IconComponent icon="Delete" />
+          </span>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <Box

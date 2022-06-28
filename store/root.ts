@@ -20,7 +20,7 @@ interface TempState {
 const profileFieldValues = {
   profileImage: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
   profileMainText: { text: "Front End Developer" },
-  profileSubText: { text: `안녕하세요 :) 서핏 팀의 디자이너 박소연입니다. 저는 좋은 디자인이 사용자의 삶을 달라지게 하고 나아가서는 사회를 더 나아가서는 세상을 바꿀 수 있다고 생각합니다.` },
+  profileSubText: { text: `안녕하세요 :) 서핏 팀의 디자이너 박소연입니다.` },
 }
 
 const projectFiledValues = {

@@ -23,7 +23,7 @@ const PreviewContainer = () => {
               }
               return (
                 <Grid item xs={xs} key={block.id}>
-                  <Block key={block.id} id={block.id} />;
+                  <Block key={block.id} id={block.id} />
                 </Grid>
               )
             })}
