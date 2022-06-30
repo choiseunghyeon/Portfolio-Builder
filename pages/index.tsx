@@ -6,15 +6,14 @@ import SetupContainer from "@container/SetupContainer"
 import { useSelector } from "react-redux"
 import { tabFold } from "@store/selector"
 import { useSelect } from "@mui/base"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import IconComponent from "@components/common/IconComponent"
 import Header from "@components/common/Header"
 import HeaderContainer from "@container/HeaderContainer"
 import GridTemplate from "@components/common/LayoutTemplate"
 
-const drawerWidth = window?.innerWidth ? window.innerWidth / 2.4 : 320
-
 const Home: NextPage = () => {
+  const [drawerWidth, setDrawerWidth] = useState(320)
   const [toggleDrawer, setToggleDrawer] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedValue, setSelectedValue] = useState("")
@@ -29,6 +28,10 @@ const Home: NextPage = () => {
     setOpenDialog(false)
     setSelectedValue(value)
   }
+
+  useEffect(() => {
+    setDrawerWidth(window?.innerWidth ? window.innerWidth / 2.4 : 320)
+  })
   return (
     <>
       <GridTemplate>
