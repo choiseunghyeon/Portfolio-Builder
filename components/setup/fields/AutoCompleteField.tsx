@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useState } from "react"
 import { IAutoCompleteValue, IFieldProps, IFieldValidation, ITextFieldValue } from "@type/field"
 import { Autocomplete, Box, InputAdornment, TextField } from "@mui/material"
 import { getValidationLimitMessage, validateValue } from "@store/utils"
-import { AUTO_COMPLETE_FIELD_TEST_ID } from "@type/constants"
+import { AUTO_COMPLETE_FIELD_TEST_ID } from "@constants/testConstants"
 
 interface IInputFieldProps extends IFieldProps {
   value: IAutoCompleteValue

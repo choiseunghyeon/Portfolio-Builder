@@ -1,7 +1,7 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
 import { IBlockStyle } from "@type/block"
-import { PORTFOLIO_PREVIEW } from "@type/constants"
+import { PORTFOLIO_PREVIEW } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 
 export interface IPortfolioProps extends IBaseProps {

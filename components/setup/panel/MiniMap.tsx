@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectBlockLayout } from "@store/selector"
 import { addBlockLayout, LayoutBlock, swapBlockLayout } from "@store/root"
 import IconComponent from "@components/common/IconComponent"
-import { MINI_BLOCK, MINI_MAP_PANEL } from "@type/constants"
+import { MINI_BLOCK, MINI_MAP_PANEL } from "@constants/testConstants"
 
 interface IMiniMapProps {
   value: "MiniMap"

@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback } from "react"
 import { IFieldProps, IImageFieldValue } from "@type/field"
-import { IMAGE_FIELD_TEST_ID } from "@type/constants"
+import { IMAGE_FIELD_TEST_ID } from "@constants/testConstants"
 
 interface IImageFieldProps extends IFieldProps {
   value: IImageFieldValue

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useState } from "react"
 import { IFieldProps, IFieldValidation, ITextFieldValue } from "@type/field"
 import { Box, InputAdornment, TextField } from "@mui/material"
 import { getValidationLimitMessage, validateValue } from "@store/utils"
-import { INPUT_FIELD_TEST_ID } from "@type/constants"
+import { INPUT_FIELD_TEST_ID } from "@constants/testConstants"
 
 interface IInputFieldProps extends IFieldProps {
   value: ITextFieldValue

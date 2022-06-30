@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useState } from "react"
 import { IFieldProps, IMultiLineTextFieldValue } from "@type/field"
 import { Box, InputAdornment, TextField } from "@mui/material"
 import { getValidationLimitMessage, validateValue } from "@store/utils"
-import { MULTI_LINE_INPUT_FIELD_TEST_ID } from "@type/constants"
+import { MULTI_LINE_INPUT_FIELD_TEST_ID } from "@constants/testConstants"
 
 interface IMultiLineInputFieldProps extends IFieldProps {
   value: IMultiLineTextFieldValue

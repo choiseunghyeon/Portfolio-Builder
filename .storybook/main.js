@@ -28,6 +28,7 @@ module.exports = {
       "@store": path.resolve(__dirname, "../store"),
       "@type": path.resolve(__dirname, "../type"),
       "@lib": path.resolve(__dirname, "../lib"),
+      "@constants": path.resolve(__dirname, "../constants"),
     }
     return config
   },

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback, useState } from "react"
 import { IFieldProps, ISelectFiedlValue } from "@type/field"
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
-import { SELECT_FIELD_TEST_ID } from "@type/constants"
+import { SELECT_FIELD_TEST_ID } from "@constants/testConstants"
 
 interface ISelectFieldProps extends IFieldProps {
   value: ISelectFiedlValue

@@ -3,13 +3,11 @@ import type { NextPage } from "next"
 import HeaderContainer from "@container/HeaderContainer"
 import DirectoryNavigation from "@components/common/DirectoryNavigation"
 import UserCard from "@components/common/UserCard"
-const Home: NextPage = () => {
+import GridTemplate from "@components/common/LayoutTemplate"
+const Directory: NextPage = () => {
   return (
     <>
-      <Grid container spacing={1} sx={{ overflow: "hidden" }}>
-        <Grid item xs={12}>
-          <HeaderContainer />
-        </Grid>
+      <GridTemplate>
         <Grid item xs={4}>
           <DirectoryNavigation />
         </Grid>
@@ -20,9 +18,9 @@ const Home: NextPage = () => {
             </Grid>
           ))}
         </Grid>
-      </Grid>
+      </GridTemplate>
     </>
   )
 }
 
-export default Home
+export default Directory

@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 import TabPanel from "./TabPanel"
 import BlockContainer from "@container/BlockContainer"
-import { PROFILE_TAB_PANEL } from "@type/constants"
+import { PROFILE_TAB_PANEL } from "@constants/testConstants"
 
 interface IProfileProps {
   value: "Profile"

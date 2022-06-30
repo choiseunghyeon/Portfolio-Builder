@@ -24,7 +24,7 @@ import {
   PROJECT_PREVIEW_TERM,
   PROJECT_TAB,
   PROJECT_TAB_PANEL,
-} from "@type/constants"
+} from "@constants/testConstants"
 
 /**
  *

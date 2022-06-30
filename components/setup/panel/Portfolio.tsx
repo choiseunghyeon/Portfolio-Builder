@@ -1,5 +1,5 @@
 import BlockContainer from "@container/BlockContainer"
-import { PORTFOLIO_TAB_PANEL } from "@type/constants"
+import { PORTFOLIO_TAB_PANEL } from "@constants/testConstants"
 
 interface IPortfolioProps {
   value: "Portfolio"

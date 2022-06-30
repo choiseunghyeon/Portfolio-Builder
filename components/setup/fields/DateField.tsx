@@ -6,7 +6,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 // date-fns
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { Box } from "@mui/material"
-import { DATE_FIELD_FROM_TEST_ID, DATE_FIELD_TO_TEST_ID } from "@type/constants"
+import { DATE_FIELD_FROM_TEST_ID, DATE_FIELD_TO_TEST_ID } from "@constants/testConstants"
 
 function getToday(date) {
   if (!date || date === "") return ""

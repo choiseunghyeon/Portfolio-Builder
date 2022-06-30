@@ -1,4 +1,4 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
+import { AppBar, Button, IconButton, SwipeableDrawer, Toolbar, Typography } from "@mui/material"
 import IconComponent from "./IconComponent"
 
 interface IHeaderProps {
@@ -19,11 +19,11 @@ export default function Header({ handleNavigate }: IHeaderProps) {
           <Button color="inherit">채용</Button>
           <Button color="inherit">로그인</Button>
         </Typography>
-        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+        {/* <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <IconComponent icon="Search" />
-        </IconButton>
-        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-          <IconComponent icon="Menu" />
+        </IconButton> */}
+        <IconButton onClick={() => handleNavigate("settings")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          <IconComponent icon="Settings" />
         </IconButton>
       </Toolbar>
     </AppBar>

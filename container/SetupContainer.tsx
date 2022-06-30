@@ -12,7 +12,7 @@ import TabPanel from "@components/setup/panel/TabPanel"
 import IconComponent from "@components/common/IconComponent"
 import { Grid } from "@mui/material"
 import { BlockType } from "@type/block"
-import { CAREER_TAB as CAREER_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@type/constants"
+import { CAREER_TAB as CAREER_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
 
 function a11yProps(value: TabType) {
   return {

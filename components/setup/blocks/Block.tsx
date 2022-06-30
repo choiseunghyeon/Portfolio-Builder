@@ -7,7 +7,7 @@ import IconComponent from "../../common/IconComponent"
 import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
 import { Box } from "@mui/material"
-import { BLOCK_EXPAND_ICON } from "@type/constants"
+import { BLOCK_EXPAND_ICON } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 
 interface IBlockProps {

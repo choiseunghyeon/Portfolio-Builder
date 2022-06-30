@@ -1,6 +1,6 @@
 import IconComponent from "@components/common/IconComponent"
 import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
-import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@type/constants"
+import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 
 interface IProfileAdditionalInformation {

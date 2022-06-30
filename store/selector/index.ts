@@ -144,8 +144,8 @@ const selectCareerProps = createSelector(
         organigation: "현대 자동차",
         role: "Front-End",
         term: "2021.04 ~ 2021.08",
-        description: `- PC/모바일/인공지능 스피커 등 다양한 기기에 맞는 일관된 디자인 구축에시 말말말말
-      - 어린이, 중장년 등 모든 연령대의 사용자를 고려한 인터렉선 재설계 몰라몰라 아아아아`,
+        description: `PC/모바일/인공지능 스피커 등 다양한 기기에 맞는 일관된 디자인 구축에시 말말말말
+        어린이, 중장년 등 모든 연령대의 사용자를 고려한 인터렉선 재설계 몰라몰라 아아아아`,
         attributes: {
           layoutType: block.style.layoutType,
         },

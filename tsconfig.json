@@ -23,7 +23,8 @@
       "@container/*": ["container/*"],
       "@store/*": ["store/*"],
       "@type/*": ["type/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@constants/*": ["constants/*"]
     },
     "isolatedModules": true
   },
