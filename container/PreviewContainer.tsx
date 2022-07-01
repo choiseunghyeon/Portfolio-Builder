@@ -4,10 +4,11 @@ import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBloc
 import { Grid } from "@mui/material"
 import { convertColumnCountIntoXS } from "../store/utils"
 import { ColumnCountType } from "@type/blockStyle"
+import { PREVIEW_CONTAINER } from "@constants/testConstants"
 const PreviewContainer = () => {
   const blockLayout = useSelector(selectBlockLayout)
   return (
-    <Grid data-testid="previewContainer" container spacing={1}>
+    <Grid data-testid={PREVIEW_CONTAINER} container spacing={1}>
       {blockLayout.map((blockList, index) => {
         const columnCount = blockList.length as ColumnCountType
         const xs = convertColumnCountIntoXS(columnCount)
