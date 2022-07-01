@@ -1,13 +1,14 @@
-import type { AppProps } from "next/app";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "react-query";
-import store from "@store/index";
+import type { AppProps } from "next/app"
+import CssBaseline from "@mui/material/CssBaseline"
+import { Provider } from "react-redux"
+import { QueryClient, QueryClientProvider } from "react-query"
+import store from "@store/index"
+import "../styles/index.css"
 // import aws from '@lib/aws/aws-sdk';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 const App = (props: AppProps) => {
-  const { Component, pageProps } = props;
+  const { Component, pageProps } = props
 
   return (
     <>
@@ -18,7 +19,7 @@ const App = (props: AppProps) => {
         </QueryClientProvider>
       </Provider>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

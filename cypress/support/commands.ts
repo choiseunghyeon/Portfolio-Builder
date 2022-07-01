@@ -26,6 +26,8 @@ Cypress.Commands.add(
     return subject.find(`[data-testid=${value}]`)
   }
 )
+
+export {}
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

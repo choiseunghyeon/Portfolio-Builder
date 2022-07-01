@@ -3,7 +3,7 @@ import type { NextPage } from "next"
 import TabPanel from "@components/setup/panel/TabPanel"
 import { useState } from "react"
 import IconComponent from "@components/common/IconComponent"
-import GridTemplate from "@components/common/LayoutTemplate"
+import GridTemplate from "@components/common/GridTemplate"
 
 const defaultTabValue = "settings"
 const Settings: NextPage = () => {

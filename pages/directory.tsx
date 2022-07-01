@@ -3,7 +3,7 @@ import type { NextPage } from "next"
 import HeaderContainer from "@container/HeaderContainer"
 import DirectoryNavigation from "@components/common/DirectoryNavigation"
 import UserCard from "@components/common/UserCard"
-import GridTemplate from "@components/common/LayoutTemplate"
+import GridTemplate from "@components/common/GridTemplate"
 const Directory: NextPage = () => {
   return (
     <>

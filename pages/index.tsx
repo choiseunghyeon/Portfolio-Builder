@@ -1,20 +1,80 @@
-import { AppBar, Box, Button, Dialog, DialogTitle, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer, Toolbar, Typography } from "@mui/material"
-import PreviewContainer from "@container/PreviewContainer"
-import BlockContainer from "@container/BlockContainer"
-import type { GetStaticProps, NextPage } from "next"
+import { useEffect, useState } from "react"
+import { styled, useTheme } from "@mui/material/styles"
+import Box from "@mui/material/Box"
+import Drawer from "@mui/material/Drawer"
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
+import Toolbar from "@mui/material/Toolbar"
+import CssBaseline from "@mui/material/CssBaseline"
+import List from "@mui/material/List"
+import Typography from "@mui/material/Typography"
+import Divider from "@mui/material/Divider"
+import IconButton from "@mui/material/IconButton"
+import MenuIcon from "@mui/icons-material/Menu"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import { Button, Dialog, DialogTitle, Grid } from "@mui/material"
 import SetupContainer from "@container/SetupContainer"
+import PreviewContainer from "@container/PreviewContainer"
+import IconComponent from "@components/common/IconComponent"
 import { useSelector } from "react-redux"
 import { tabFold } from "@store/selector"
-import { useSelect } from "@mui/base"
-import { useEffect, useState } from "react"
-import IconComponent from "@components/common/IconComponent"
-import Header from "@components/common/Header"
 import HeaderContainer from "@container/HeaderContainer"
-import GridTemplate from "@components/common/LayoutTemplate"
 
-const Home: NextPage = () => {
+const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
+  open?: boolean
+  drawerWidth?: number
+}>(({ theme, open, drawerWidth = 0 }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(1),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  }),
+}))
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean
+  drawerWidth?: number
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: prop => prop !== "open",
+})<AppBarProps>(({ theme, open, drawerWidth = 320 }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  }),
+}))
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  //   padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  padding: 0,
+  justifyContent: "flex-start",
+}))
+
+export default function PersistentDrawerRight() {
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
   const [drawerWidth, setDrawerWidth] = useState(320)
-  const [toggleDrawer, setToggleDrawer] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedValue, setSelectedValue] = useState("")
   const needTabFold = useSelector(tabFold)
@@ -29,57 +89,76 @@ const Home: NextPage = () => {
     setSelectedValue(value)
   }
 
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
+
   useEffect(() => {
     setDrawerWidth(window?.innerWidth ? window.innerWidth / 2.4 : 320)
   })
+
   return (
     <>
-      <GridTemplate>
-        <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider", height: "calc(100vh - 64px)", overflowY: "auto" }}>
-          <SetupContainer />
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <HeaderContainer open={open} drawerWidth={drawerWidth} handleDrawerOpen={handleDrawerOpen} />
+        <Main open={open} drawerWidth={drawerWidth}>
+          <DrawerHeader />
+          <Grid container sx={{ overflow: "hidden" }}>
+            <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider", height: "calc(100vh - 64px)", overflowY: "auto" }}>
+              <SetupContainer />
+            </Grid>
+            <Grid item xs={8} sx={{ height: "calc(100vh - 64px)", overflowY: "auto", paddingX: 2 }}>
+              <PreviewContainer />
+            </Grid>
+          </Grid>
+        </Main>
+      </Box>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+          },
+        }}
+        variant="persistent"
+        anchor="right"
+        open={open}>
+        <DrawerHeader>
+          <Grid container>
+            <Grid item xs={2}>
+              <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+            </Grid>
+            <Grid item xs={7} sx={{ justifyContent: "center", alignItems: "center", display: "flex" }}>
+              <Typography component="div">포트폴리오 탐색 및 검색</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <IconButton onClick={() => {}} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                <IconComponent icon="Search" />
+              </IconButton>
+              <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                <IconComponent icon="ContentCopy" />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </DrawerHeader>
+        <Divider />
+        <Grid container spacing={1} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
+          <Grid item xs={12} sx={{ marginX: 1 }}>
+            {/* 다른 유저의 portfolio 검색 및 참고 */}
+            <PreviewContainer />
+          </Grid>
         </Grid>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={6} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
-          <PreviewContainer />
-        </Grid>
-        <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <IconButton onClick={() => setToggleDrawer(!toggleDrawer)} sx={{ position: "absolute", right: 0 }} size="large" color="inherit" aria-label="menu">
-            <IconComponent icon="ArrowBack" />
-            <SwipeableDrawer anchor={"right"} open={toggleDrawer} onClose={() => setToggleDrawer(false)} onOpen={() => setToggleDrawer(true)}>
-              <Grid container spacing={1} sx={{ overflow: "hidden", width: drawerWidth, height: "calc(100vh - 64px)", overflowY: "auto" }}>
-                <Grid item xs={12}>
-                  <AppBar position="static">
-                    <Toolbar>
-                      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        포트폴리오 탐색 및 검색
-                      </Typography>
-                      <IconButton onClick={() => {}} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <IconComponent icon="Search" />
-                      </IconButton>
-                      <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <IconComponent icon="ContentCopy" />
-                      </IconButton>
-                    </Toolbar>
-                  </AppBar>
-                </Grid>
-
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10}>
-                  {/* 다른 유저의 portfolio 검색 및 참고 */}
-                  <PreviewContainer />
-                </Grid>
-                <Grid item xs={1}></Grid>
-              </Grid>
-            </SwipeableDrawer>
-            <SimpleDialog selectedValue={selectedValue} open={openDialog} onClose={handleClose} />
-          </IconButton>
-        </Grid>
-      </GridTemplate>
+      </Drawer>
+      <SimpleDialog selectedValue={selectedValue} open={openDialog} onClose={handleClose} />
     </>
   )
 }
-
-export default Home
 
 export interface SimpleDialogProps {
   open: boolean

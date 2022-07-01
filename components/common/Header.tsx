@@ -1,12 +1,35 @@
-import { AppBar, Button, IconButton, SwipeableDrawer, Toolbar, Typography } from "@mui/material"
+import { Button, IconButton, SwipeableDrawer, Toolbar, Typography } from "@mui/material"
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import IconComponent from "./IconComponent"
+import { styled, useTheme } from "@mui/material/styles"
 
-interface IHeaderProps {
+interface IHeaderProps extends AppBarProps {
   handleNavigate: (href: string) => void
+  handleDrawerOpen: Function
 }
-export default function Header({ handleNavigate }: IHeaderProps) {
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean
+  drawerWidth?: number
+}
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: prop => prop !== "open",
+})<AppBarProps>(({ theme, open, drawerWidth = 320 }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  }),
+}))
+export default function Header({ handleNavigate, open, drawerWidth, handleDrawerOpen }: IHeaderProps) {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" open={open} drawerWidth={drawerWidth}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           PPB
@@ -24,6 +47,9 @@ export default function Header({ handleNavigate }: IHeaderProps) {
         </IconButton> */}
         <IconButton onClick={() => handleNavigate("settings")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <IconComponent icon="Settings" />
+        </IconButton>
+        <IconButton onClick={() => handleDrawerOpen()} size="large" edge="end" color="inherit" aria-label="menu" sx={{ ...(open && { display: "none" }) }}>
+          <IconComponent icon="Menu" />
         </IconButton>
       </Toolbar>
     </AppBar>
