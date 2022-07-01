@@ -5,7 +5,7 @@ import { styled, useTheme } from "@mui/material/styles"
 
 interface IHeaderProps extends AppBarProps {
   handleNavigate: (href: string) => void
-  handleDrawerOpen: Function
+  handleDrawerOpen?: Function
 }
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -27,6 +27,7 @@ const AppBar = styled(MuiAppBar, {
     marginRight: drawerWidth,
   }),
 }))
+
 export default function Header({ handleNavigate, open, drawerWidth, handleDrawerOpen }: IHeaderProps) {
   return (
     <AppBar position="fixed" open={open} drawerWidth={drawerWidth}>
@@ -42,15 +43,14 @@ export default function Header({ handleNavigate, open, drawerWidth, handleDrawer
           <Button color="inherit">채용</Button>
           <Button color="inherit">로그인</Button>
         </Typography>
-        {/* <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-          <IconComponent icon="Search" />
-        </IconButton> */}
         <IconButton onClick={() => handleNavigate("settings")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <IconComponent icon="Settings" />
         </IconButton>
-        <IconButton onClick={() => handleDrawerOpen()} size="large" edge="end" color="inherit" aria-label="menu" sx={{ ...(open && { display: "none" }) }}>
-          <IconComponent icon="Menu" />
-        </IconButton>
+        {handleDrawerOpen && (
+          <IconButton onClick={() => handleDrawerOpen()} size="large" edge="end" color="inherit" aria-label="menu" sx={{ ...(open && { display: "none" }) }}>
+            <IconComponent icon="Menu" />
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   )

@@ -19,60 +19,11 @@ import IconComponent from "@components/common/IconComponent"
 import { useSelector } from "react-redux"
 import { tabFold } from "@store/selector"
 import HeaderContainer from "@container/HeaderContainer"
-
-const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
-  open?: boolean
-  drawerWidth?: number
-}>(({ theme, open, drawerWidth = 0 }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(1),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  }),
-}))
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean
-  drawerWidth?: number
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== "open",
-})<AppBarProps>(({ theme, open, drawerWidth = 320 }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  }),
-}))
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  //   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  padding: 0,
-  justifyContent: "flex-start",
-}))
+import Main from "@components/common/Main"
+import AppbarHeader from "@components/common/AppbarHeader"
+import UserCard from "@components/common/UserCard"
 
 export default function PersistentDrawerRight() {
-  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [drawerWidth, setDrawerWidth] = useState(320)
   const [openDialog, setOpenDialog] = useState(false)
@@ -107,7 +58,7 @@ export default function PersistentDrawerRight() {
         <CssBaseline />
         <HeaderContainer open={open} drawerWidth={drawerWidth} handleDrawerOpen={handleDrawerOpen} />
         <Main open={open} drawerWidth={drawerWidth}>
-          <DrawerHeader />
+          <AppbarHeader />
           <Grid container sx={{ overflow: "hidden" }}>
             <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider", height: "calc(100vh - 64px)", overflowY: "auto" }}>
               <SetupContainer />
@@ -118,6 +69,18 @@ export default function PersistentDrawerRight() {
           </Grid>
         </Main>
       </Box>
+      <CustomDrawer open={open} drawerWidth={drawerWidth} handleDrawerClose={handleDrawerClose} handleClickOpen={handleClickOpen} />
+      <SimpleDialog selectedValue={selectedValue} open={openDialog} onClose={handleClose} />
+    </>
+  )
+}
+
+type DrawerStatusType = "list" | "portfolio"
+function CustomDrawer({ open, drawerWidth, handleDrawerClose, handleClickOpen }) {
+  const theme = useTheme()
+  const [status, setStatus] = useState<DrawerStatusType>("list")
+  return (
+    <>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -129,7 +92,7 @@ export default function PersistentDrawerRight() {
         variant="persistent"
         anchor="right"
         open={open}>
-        <DrawerHeader>
+        <AppbarHeader>
           <Grid container>
             <Grid item xs={2}>
               <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
@@ -138,28 +101,40 @@ export default function PersistentDrawerRight() {
               <Typography component="div">포트폴리오 탐색 및 검색</Typography>
             </Grid>
             <Grid item xs={3}>
-              <IconButton onClick={() => {}} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                <IconComponent icon="Search" />
+              <IconButton onClick={() => setStatus("list")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                <IconComponent icon="FolderShared" />
               </IconButton>
-              <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                <IconComponent icon="ContentCopy" />
-              </IconButton>
+              {status === "portfolio" && (
+                <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                  <IconComponent icon="ContentCopy" />
+                </IconButton>
+              )}
             </Grid>
           </Grid>
-        </DrawerHeader>
+        </AppbarHeader>
         <Divider />
         <Grid container spacing={1} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
-          <Grid item xs={12} sx={{ marginX: 1 }}>
-            {/* 다른 유저의 portfolio 검색 및 참고 */}
-            <PreviewContainer />
-          </Grid>
+          {status === "list" && (
+            <Grid container item xs={12} spacing={1} onClick={() => setStatus("portfolio")}>
+              {/* 제일 인기 많은 portfolio 보여주기 */}
+              {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((info, index) => (
+                <Grid item xs={6} key={index}>
+                  <UserCard key={index} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+          {status === "portfolio" && (
+            <Grid item xs={12} sx={{ marginX: 1 }}>
+              {/* 다른 유저의 portfolio 검색 및 참고 */}
+              <PreviewContainer />
+            </Grid>
+          )}
         </Grid>
       </Drawer>
-      <SimpleDialog selectedValue={selectedValue} open={openDialog} onClose={handleClose} />
     </>
   )
 }
-
 export interface SimpleDialogProps {
   open: boolean
   selectedValue: string
