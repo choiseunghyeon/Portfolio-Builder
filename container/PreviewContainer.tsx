@@ -1,12 +1,36 @@
 import { previewProvider } from "@components/preview/provider"
-import { useSelector } from "react-redux"
-import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockStyle } from "@store/selector"
+import { useDispatch, useSelector } from "react-redux"
+import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockStyle, selectBlockTypeStyleByBlockType } from "@store/selector"
 import { Grid } from "@mui/material"
-import { convertColumnCountIntoXS } from "../store/utils"
+import { convertColumnCountIntoXS, isGroupBlock } from "../store/utils"
 import { ColumnCountType } from "@type/blockStyle"
 import { PREVIEW_CONTAINER } from "@constants/testConstants"
-const PreviewContainer = () => {
-  const blockLayout = useSelector(selectBlockLayout)
+import { useQuery } from "react-query"
+import axios from "axios"
+import { useEffect } from "react"
+import { changePortfolioById, PortfolioPageType } from "@store/root"
+import { BlockType } from "@type/block"
+interface IPreviewContainer {
+  portfolioId: string
+  portfolioPageType?: PortfolioPageType
+}
+
+function usePortfolio(portfolioId: string) {
+  const { data } = useQuery(["portfolio", portfolioId], async () => {
+    const { data } = await axios.get(`http://localhost:4000/portfolio/${portfolioId}`)
+    return data
+  })
+  return data
+}
+const PreviewContainer = ({ portfolioId, portfolioPageType = "edit" }: IPreviewContainer) => {
+  const dispatch = useDispatch()
+  const blockLayout = useSelector(state => selectBlockLayout(state, portfolioPageType))
+  const portfolio = usePortfolio(portfolioId)
+  useEffect(() => {
+    if (portfolio) {
+      dispatch(changePortfolioById({ portfolioPageType, portfolio }))
+    }
+  }, [portfolio])
   return (
     <Grid data-testid={PREVIEW_CONTAINER} container spacing={1}>
       {blockLayout.map((blockList, index) => {
@@ -15,18 +39,19 @@ const PreviewContainer = () => {
         return (
           <Grid data-testid="previewBlockContainer" key={index} container>
             {blockList.map(block => {
-              if (block.groupBlockType) {
+              if (isGroupBlock(block.blockType)) {
                 return (
-                  <Grid container item xs={xs} key={block.groupBlockType}>
-                    <GroupBlock type={block.groupBlockType} />
+                  <Grid container item xs={xs} key={block.blockType}>
+                    <GroupBlock portfolioPageType={portfolioPageType} blockType={block.blockType} />
+                  </Grid>
+                )
+              } else {
+                return (
+                  <Grid item xs={xs} key={block.blockType}>
+                    <Block key={block.blockType} portfolioPageType={portfolioPageType} blockType={block.blockType} />
                   </Grid>
                 )
               }
-              return (
-                <Grid item xs={xs} key={block.id}>
-                  <Block key={block.id} id={block.id} />
-                </Grid>
-              )
             })}
           </Grid>
         )
@@ -35,15 +60,16 @@ const PreviewContainer = () => {
   )
 }
 
-const GroupBlock = ({ type }: any) => {
-  const blocks = useSelector(state => selectBlocksByType(state, type))
+const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; portfolioPageType: PortfolioPageType }) => {
+  const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
+  const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
   return (
     <>
       {blocks.map(block => {
         const PreviewComponent = previewProvider[block.type]
-        const previewProps = previewSelectorProvider[block.type](block)
+        const previewProps = previewSelectorProvider[block.type](block, blockStyle)
         return (
-          <Grid key={block.id} item xs={block.style.xs}>
+          <Grid key={block.id} item xs={convertColumnCountIntoXS(blockStyle.columnCount)}>
             <PreviewComponent key={block.id} {...previewProps} />
           </Grid>
         )
@@ -52,14 +78,17 @@ const GroupBlock = ({ type }: any) => {
   )
 }
 
-const Block = ({ id }: any) => {
-  const block = useSelector(state => selectBlockById(state, id))
-  if (block === undefined) return null
+const Block = ({ blockType, portfolioPageType }: { blockType: BlockType; portfolioPageType: PortfolioPageType }) => {
+  const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
+  const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
 
+  console.log(blocks)
+  const block = blocks[0]
+  if (!block) return null
   const PreviewComponent = previewProvider[block.type]
-  const previewProps = previewSelectorProvider[block.type](block)
+  const previewProps = previewSelectorProvider[block.type](block, blockStyle)
   return (
-    <Grid key={block.id} item xs={block.style.xs}>
+    <Grid key={block.id} item xs={convertColumnCountIntoXS(blockStyle.columnCount)}>
       <PreviewComponent key={block.id} {...previewProps} />
     </Grid>
   )

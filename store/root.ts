@@ -2,123 +2,113 @@ import { createAction, createReducer } from "@reduxjs/toolkit"
 import { BlockType, IBlock } from "@type/block"
 import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector"
 import { EachBlockTypeStyle, IBlockTypeStyle } from "@type/blockStyle"
-import { convertColumnCountIntoXS } from "./utils"
-import { createBlock, createField } from "./defaultData/defaultBlockData"
+import { createBlock } from "./defaultData/defaultBlockData"
 import { ISelectFiedlValue } from "@type/field"
+import { createDefaultBlockLayout } from "./defaultData/defaultBlockStyle"
 
 export interface LayoutBlock {
-  id?: string
-  groupBlockType?: BlockType
+  blockType: BlockType
   title: string
 }
+
+export type PortfolioPageType = "edit" | "search"
 interface TempState {
+  portfolio: {
+    [pageType: string]: IPortFolio
+  }
+  tabFold: boolean
+}
+interface IPortFolio {
   blocks: IBlock[]
   blockTypeStyle: EachBlockTypeStyle
-  tabFold: boolean
   blockLayout: LayoutBlock[][]
 }
-const profileFieldValues = {
-  profileImage: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
-  profileMainText: { text: "Front End Developer" },
-  profileSubText: { text: `안녕하세요 :) 서핏 팀의 디자이너 박소연입니다.` },
-}
-
-const projectFiledValues = {
-  projectName: { text: "대출 추천 재개발" },
-  projectOrganigation: { text: "현대 자동차" },
-  projectDescription: {
-    multiLineText: `도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통
-  호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표`,
-  },
-  projectTerm: { from: "2022-04-01", to: "2022-05-30" },
-  projectSkills: {
-    multiLineText: `View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
-  redux, redux-saga 적용 및 가이드 공유`,
-  },
-  projectSkillSet: {
-    textList: ["React", "Redux", "Immer"],
-    selectedTextList: ["React"],
-  },
-}
-const careerFiledValues = {
-  careerMainText: { text: "현대 자동차" },
-  careerSubText: { text: "Front-End" },
-  careerDescription: {
-    multiLineText: `View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리
-    redux, redux-saga 적용 및 가이드 공유`,
-  },
-  careerTerm: { from: "2022-04-01", to: "2022-05-30" },
-}
-const portfolioFiledValues = {
-  portfolioThumbnail: { imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
-  portfolioName: { text: "MZ세대 언어" },
-  portfolioDescription: {
-    multiLineText: `어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고한 류진과 폭풍 성장한 두 아들 찬형X찬호 형제 삼부자가 출사표를 던졌다.`,
-  },
-  portfolioURL: {
-    text: `http://sports.hankooki.com/news/articleView.html?idxno=6798068`,
-  },
-}
-
-/*
-blocks: {
-    Profile: [createBlock({ blockType: "Profile", fieldValues: profileFieldValues })],
-    Career: [createBlock({ blockType: "Career", fieldValues: careerFiledValues })],
-    Project: [createBlock({ blockType: "Project", fieldValues: projectFiledValues }), createBlock({ blockType: "Project", fieldValues: projectFiledValues })],
-    Portfolio: [
-      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-      createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-    ],
-  },
-
-interface TempState {
-  blocks: MappedBlocks
-  blockTypeStyle: EachBlockTypeStyle
-  tabFold: boolean
-  blockLayout: LayoutBlock[][]
-}
-
-type MappedBlocks = {
-  [key in BlockType]: IBlock[]
-}
-*/
 
 const root: TempState = {
-  blockLayout: [
-    [{ title: "프로필", id: "profile_id" }],
-    [{ title: "커리어", groupBlockType: "Career" }],
-    [{ title: "프로젝트", groupBlockType: "Project" }],
-    [{ title: "포트폴리오", groupBlockType: "Portfolio" }],
-  ],
   tabFold: false,
-  blocks: [
-    createBlock({ blockType: "Profile", fieldValues: profileFieldValues }),
-    createBlock({ blockType: "Project", fieldValues: projectFiledValues }),
-    createBlock({ blockType: "Project", fieldValues: projectFiledValues }),
-    createBlock({ blockType: "Career", fieldValues: careerFiledValues }),
-    createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-    createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-    createBlock({ blockType: "Portfolio", fieldValues: portfolioFiledValues }),
-  ],
-  blockTypeStyle: {
-    Profile: {
-      layoutType: "default",
-      columnCount: 1,
+  portfolio: {
+    edit: {
+      blockLayout: [
+        [{ title: "프로필", blockType: "Profile" }],
+        [{ title: "커리어", blockType: "Career" }],
+        [{ title: "프로젝트", blockType: "Project" }],
+        [{ title: "포트폴리오", blockType: "Portfolio" }],
+      ],
+      blocks: [],
+      blockTypeStyle: {
+        Profile: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Project: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Career: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Portfolio: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+      },
     },
-    Project: {
-      layoutType: "default",
-      columnCount: 1,
-    },
-    Career: {
-      layoutType: "default",
-      columnCount: 1,
-    },
-    Portfolio: {
-      layoutType: "default",
-      columnCount: 1,
+    search: {
+      blockLayout: [
+        [{ title: "프로필", blockType: "Profile" }],
+        [{ title: "커리어", blockType: "Career" }],
+        [{ title: "프로젝트", blockType: "Project" }],
+        [{ title: "포트폴리오", blockType: "Portfolio" }],
+      ],
+      blocks: [],
+      blockTypeStyle: {
+        Profile: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Project: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Career: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+        Portfolio: {
+          layoutType: "default",
+          columnCount: 1,
+        },
+      },
     },
   },
+  // editPortfolio: {
+  //   blockLayout: [
+  //     [{ title: "프로필", blockType: "Profile" }],
+  //     [{ title: "커리어", blockType: "Career" }],
+  //     [{ title: "프로젝트", blockType: "Project" }],
+  //     [{ title: "포트폴리오", blockType: "Portfolio" }],
+  //   ],
+  //   blocks: [],
+  //   blockTypeStyle: {
+  //     Profile: {
+  //       layoutType: "default",
+  //       columnCount: 1,
+  //     },
+  //     Project: {
+  //       layoutType: "default",
+  //       columnCount: 1,
+  //     },
+  //     Career: {
+  //       layoutType: "default",
+  //       columnCount: 1,
+  //     },
+  //     Portfolio: {
+  //       layoutType: "default",
+  //       columnCount: 1,
+  //     },
+  //   },
+  // },
 }
 
 interface ItemValuePayload {
@@ -147,6 +137,11 @@ interface IChangedSelectedValuePayload {
   fieldId: string
   value: string
 }
+interface IPorfolioPayload {
+  portfolioPageType: PortfolioPageType
+  portfolio: any // server response
+}
+export const changePortfolioById = createAction<IPorfolioPayload>("setup/changePortfolioById")
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue")
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock")
 export const foldTab = createAction<boolean>("setup/foldTab")
@@ -159,10 +154,20 @@ export const swapBlockLayout = createAction<any>("setup/swapBlockLayout")
 export const addBlockLayout = createAction<void>("setup/addBlockLayout")
 const rootReducer = createReducer(root, builder => {
   builder
+    .addCase(changePortfolioById, (state, action) => {
+      const { portfolioPageType, portfolio } = action.payload
+      const newPortfolio: IPortFolio = {
+        blockLayout: createDefaultBlockLayout(portfolio.blockLayout),
+        blockTypeStyle: portfolio.blockTypeStyle,
+        blocks: portfolio.blocks.map(block => createBlock({ blockType: block.blockType, fieldValues: block.fieldValues })),
+      }
+      console.log(newPortfolio)
+      state.portfolio[portfolioPageType] = newPortfolio
+    })
     .addCase(changeItemValue, (state, action) => {
       console.log("called changeItemValue")
       const { blockId, fieldId, valueId, value } = action.payload
-      const targetBlock = selectBlockById(state, blockId)
+      const targetBlock = selectBlockById(state, "edit", blockId)
       if (!targetBlock) return
 
       const targetField = targetBlock.fields.find(field => field.id === fieldId)
@@ -197,16 +202,16 @@ const rootReducer = createReducer(root, builder => {
     })
     .addCase(swapBlock, (state, action) => {
       const { sourceBlockId, destinationBlockId } = action.payload
-      const sourceIndex = selectBlockIndexById(state, sourceBlockId)
-      const destinationIndex = selectBlockIndexById(state, destinationBlockId)
-      const blocks = selectBlocks(state)
+      const sourceIndex = selectBlockIndexById(state, "edit", sourceBlockId)
+      const destinationIndex = selectBlockIndexById(state, "edit", destinationBlockId)
+      const blocks = selectBlocks(state, "edit")
 
       //swap two items
       ;[blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]]
     })
     .addCase(swapBlockLayout, (state, action) => {
       const { source, destination } = action.payload
-      const blockLayout = selectBlockLayout(state)
+      const blockLayout = selectBlockLayout(state, "edit")
       const current: any[] = blockLayout[source.droppableId]
       const next: any[] = blockLayout[destination.droppableId]
       const target: any = current[source.index]
@@ -227,7 +232,7 @@ const rootReducer = createReducer(root, builder => {
       blockLayout[destination.droppableId] = next
     })
     .addCase(addBlockLayout, (state, action) => {
-      const blockLayout = selectBlockLayout(state)
+      const blockLayout = selectBlockLayout(state, "edit")
       blockLayout.push([])
     })
     .addCase(foldTab, (state, action) => {
@@ -235,25 +240,25 @@ const rootReducer = createReducer(root, builder => {
       state.tabFold = needFold
     })
     .addCase(changeBlockTypeStyle, (state, action) => {
-      const { blockType, layoutType: layoutType, columnCount } = action.payload
-      const blocks = selectBlocksByType(state, blockType)
-      const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType)
+      const { blockType, layoutType, columnCount } = action.payload
+      const blocks = selectBlocksByType(state, "edit", blockType)
+      const targetBlockTypeStyle = selectBlockTypeStyleByBlockType(state, "edit", blockType)
 
       if (layoutType !== undefined) {
         targetBlockTypeStyle.layoutType = layoutType
-        blocks.forEach(block => (block.style.layoutType = layoutType))
+        // blocks.forEach(block => (block.style.layoutType = layoutType))
       }
 
       if (columnCount !== undefined) {
         targetBlockTypeStyle.columnCount = columnCount
-        const xs = convertColumnCountIntoXS(columnCount)
-        blocks.forEach(block => (block.style.xs = xs))
+        // const xs = convertColumnCountIntoXS(columnCount)
+        // blocks.forEach(block => (block.style.xs = xs))
       }
     })
     .addCase(addBlock, (state, action) => {
       const { blockType, title } = action.payload
-      const blockTypeStyle = selectBlockTypeStyleByBlockType(state, blockType)
-      const blocks = selectBlocks(state)
+      const blockTypeStyle = selectBlockTypeStyleByBlockType(state, "edit", blockType)
+      const blocks = selectBlocks(state, "edit")
       let lastBlockIndexInBlockType
       for (let lastIndex = blocks.length - 1; lastIndex >= 0; lastIndex--) {
         if (blocks[lastIndex].type === blockType) {
@@ -273,13 +278,13 @@ const rootReducer = createReducer(root, builder => {
     })
     .addCase(removeBlock, (state, action) => {
       const blockId = action.payload
-      const blocks = selectBlocks(state)
-      const targetBlockIndex = selectBlockIndexById(state, blockId)
+      const blocks = selectBlocks(state, "edit")
+      const targetBlockIndex = selectBlockIndexById(state, "edit", blockId)
       blocks.splice(targetBlockIndex, 1)
     })
     .addCase(changeSelectedValue, (state, action) => {
       const { blockId, fieldId, value } = action.payload
-      const targetBlock = selectBlockById(state, blockId)
+      const targetBlock = selectBlockById(state, "edit", blockId)
 
       if (!targetBlock) return
 

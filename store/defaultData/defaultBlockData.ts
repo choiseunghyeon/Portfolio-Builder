@@ -1,8 +1,8 @@
-import { BlockType, IBlock } from "@type/block";
-import { IBlockTypeStyle } from "@type/blockStyle";
-import { FieldType, FieldValueType, IField, IFieldAttributes, ITextFieldValue } from "@type/field";
-import { v4 as uuidv4 } from "uuid";
-import { convertColumnCountIntoXS } from "../utils";
+import { BlockType, IBlock } from "@type/block"
+import { IBlockTypeStyle } from "@type/blockStyle"
+import { FieldType, FieldValueType, IField, IFieldAttributes, ITextFieldValue } from "@type/field"
+import { v4 as uuidv4 } from "uuid"
+import { convertColumnCountIntoXS } from "../utils"
 
 type ProfileReferenceType =
   | "profileImage"
@@ -18,52 +18,52 @@ type ProfileReferenceType =
   | "profileKeyword2"
   | "profileKeyword3"
   | "profileKeyword4"
-  | "profileKeyword5";
-type ProjectRefereceType = "projectName" | "projectOrganigation" | "projectDescription" | "projectTerm" | "projectSkills" | "projectSkillSet";
-type CareerRefereceType = "careerMainText" | "careerSubText" | "careerTerm" | "careerDescription";
-type PortfolioRefereceType = "portfolioThumbnail" | "portfolioURL" | "portfolioName" | "portfolioDescription";
-type FieldRefereceType = ProfileReferenceType | ProjectRefereceType | CareerRefereceType | PortfolioRefereceType;
+  | "profileKeyword5"
+type ProjectRefereceType = "projectName" | "projectOrganigation" | "projectDescription" | "projectTerm" | "projectSkills" | "projectSkillSet"
+type CareerRefereceType = "careerMainText" | "careerSubText" | "careerTerm" | "careerDescription"
+type PortfolioRefereceType = "portfolioThumbnail" | "portfolioURL" | "portfolioName" | "portfolioDescription"
+type FieldRefereceType = ProfileReferenceType | ProjectRefereceType | CareerRefereceType | PortfolioRefereceType
 interface ICreateBlock {
-  blockType: BlockType;
-  title?: string;
-  style?: IBlockTypeStyle;
-  fieldValues?: { [key in FieldRefereceType]?: any };
+  blockType: BlockType
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues?: { [key in FieldRefereceType]?: any }
 }
 export function createBlock({ blockType, title, style, fieldValues }: ICreateBlock): IBlock {
-  if (!fieldValues) fieldValues = {};
+  if (!fieldValues) fieldValues = {}
   switch (blockType) {
     case "Profile":
-      return createProfileBlock({ title, style, fieldValues });
+      return createProfileBlock({ title, style, fieldValues })
     case "Project":
-      return createProjectBlock({ title, style, fieldValues });
+      return createProjectBlock({ title, style, fieldValues })
     case "Career":
-      return createCareerBlock({ title, style, fieldValues });
+      return createCareerBlock({ title, style, fieldValues })
     case "Portfolio":
-      return createPortfolioBlock({ title, style, fieldValues });
+      return createPortfolioBlock({ title, style, fieldValues })
   }
 }
 
 interface ICreateProfileBlock {
-  title?: string;
-  style?: IBlockTypeStyle;
-  fieldValues: { [key in ProfileReferenceType]?: any };
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues: { [key in ProfileReferenceType]?: any }
 }
 function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock): IBlock {
-  if (!title) title = "프로필";
+  if (!title) title = "프로필"
   if (!style)
     style = {
       layoutType: "default",
       columnCount: 1,
-    };
+    }
   return {
     id: "profile_id",
     type: "Profile",
     title: title,
     iconName: "PersonOutline",
-    style: {
-      layoutType: style.layoutType,
-      xs: convertColumnCountIntoXS(style.columnCount),
-    },
+    // style: {
+    //   layoutType: style.layoutType,
+    //   xs: convertColumnCountIntoXS(style.columnCount),
+    // },
     fields: [
       createField({ fieldType: "Image", title: "이미지 업로드", defaultValue: fieldValues.profileImage || "" }),
       createField({ fieldType: "Text", title: "메인 텍스트", defaultValue: fieldValues.profileMainText, attributes: { placeholder: { text: "이름, 닉네임" }, validation: { limit: 25 } } }),
@@ -149,30 +149,30 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
         attributes: { relatedSelectValue: "keyword", display: false, placeholder: { text: "키워드 5 입력" } },
       }),
     ],
-  };
+  }
 }
 
 interface ICreateProjectBlock {
-  title?: string;
-  style?: IBlockTypeStyle;
-  fieldValues: { [key in ProjectRefereceType]?: any };
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues: { [key in ProjectRefereceType]?: any }
 }
 function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock): IBlock {
-  if (!title) title = "프로젝트";
+  if (!title) title = "프로젝트"
   if (!style)
     style = {
       layoutType: "default",
       columnCount: 1,
-    };
+    }
   return {
     id: `project_${uuidv4()}`,
     type: "Project",
     title: title,
     iconName: "Computer",
-    style: {
-      layoutType: style.layoutType,
-      xs: convertColumnCountIntoXS(style.columnCount),
-    },
+    // style: {
+    //   layoutType: style.layoutType,
+    //   xs: convertColumnCountIntoXS(style.columnCount),
+    // },
     fields: [
       createField({
         fieldType: "Text",
@@ -207,30 +207,30 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
         attributes: { placeholder: { text: "React" } },
       }),
     ],
-  };
+  }
 }
 
 interface ICreateCareerBlock {
-  title?: string;
-  style?: IBlockTypeStyle;
-  fieldValues: { [key in CareerRefereceType]?: any };
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues: { [key in CareerRefereceType]?: any }
 }
 function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): IBlock {
-  if (!title) title = "경력";
+  if (!title) title = "경력"
   if (!style)
     style = {
       layoutType: "default",
       columnCount: 1,
-    };
+    }
   return {
     id: `career_${uuidv4()}`,
     type: "Career",
     title: title,
     iconName: "Computer",
-    style: {
-      layoutType: style.layoutType,
-      xs: convertColumnCountIntoXS(style.columnCount),
-    },
+    // style: {
+    //   layoutType: style.layoutType,
+    //   xs: convertColumnCountIntoXS(style.columnCount),
+    // },
     fields: [
       createField({
         fieldType: "Text",
@@ -252,30 +252,30 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
         attributes: { placeholder: { text: "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용" }, validation: { limit: 200 } },
       }),
     ],
-  };
+  }
 }
 
 interface ICreatePortfolioBlock {
-  title?: string;
-  style?: IBlockTypeStyle;
-  fieldValues: { [key in PortfolioRefereceType]?: any };
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues: { [key in PortfolioRefereceType]?: any }
 }
 function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlock): IBlock {
-  if (!title) title = "포트폴리오";
+  if (!title) title = "포트폴리오"
   if (!style)
     style = {
       layoutType: "default",
       columnCount: 1,
-    };
+    }
   return {
     id: `portfolio_${uuidv4()}`,
     type: "Portfolio",
     title: title,
     iconName: "PersonOutline",
-    style: {
-      layoutType: "default",
-      xs: convertColumnCountIntoXS(style.columnCount),
-    },
+    // style: {
+    //   layoutType: "default",
+    //   xs: convertColumnCountIntoXS(style.columnCount),
+    // },
     fields: [
       createField({ fieldType: "Image", title: "썸네일", defaultValue: fieldValues.portfolioThumbnail }),
       createField({ fieldType: "Text", title: "URL / 동영상 / 파일", defaultValue: fieldValues.portfolioURL, attributes: { placeholder: { text: "링크 주소" } } }),
@@ -292,37 +292,37 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
         attributes: { placeholder: { multiLineText: "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다." }, validation: { limit: 200 } },
       }),
     ],
-  };
+  }
 }
 
 interface ICreateField {
-  fieldType: FieldType;
-  title: string;
-  defaultValue?: FieldValueType | undefined;
-  attributes?: IFieldAttributes;
+  fieldType: FieldType
+  title: string
+  defaultValue?: FieldValueType | undefined
+  attributes?: IFieldAttributes
 }
 export function createField(fieldInfo: ICreateField): IField {
-  const { fieldType, title, defaultValue, attributes } = fieldInfo;
-  const value = defaultValue ? defaultValue : createDefaultFieldValue(fieldType);
-  const attr = attributes ? attributes : {};
-  const fieldData = { id: uuidv4(), type: fieldType, title: title, value: value, attributes: attr };
+  const { fieldType, title, defaultValue, attributes } = fieldInfo
+  const value = defaultValue ? defaultValue : createDefaultFieldValue(fieldType)
+  const attr = attributes ? attributes : {}
+  const fieldData = { id: uuidv4(), type: fieldType, title: title, value: value, attributes: attr }
 
-  return fieldData;
+  return fieldData
 
   function createDefaultFieldValue(fieldType: FieldType): FieldValueType {
     switch (fieldType) {
       case "Text":
-        return { text: "" };
+        return { text: "" }
       case "MultiLineText":
-        return { multiLineText: "" };
+        return { multiLineText: "" }
       case "Image":
-        return { imageSrc: "" };
+        return { imageSrc: "" }
       case "Date":
-        return { from: "", to: "" };
+        return { from: "", to: "" }
       case "Select":
-        return { selectList: [], selectedValue: "" };
+        return { selectList: [], selectedValue: "" }
       case "AutoCompleteText":
-        return { textList: [], selectedTextList: [] };
+        return { textList: [], selectedTextList: [] }
     }
   }
 }

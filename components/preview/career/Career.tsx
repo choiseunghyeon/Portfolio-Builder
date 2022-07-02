@@ -1,6 +1,5 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
-import { IBlockStyle } from "@type/block"
 import { CAREER_PREVIEW } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 

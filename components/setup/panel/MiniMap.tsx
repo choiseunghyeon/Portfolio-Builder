@@ -19,7 +19,7 @@ interface IMiniMapProps {
 
 export default function MiniMap({ value }: IMiniMapProps) {
   const [winReady, setWinReady] = useState(false)
-  const init = useSelector(selectBlockLayout)
+  const init = useSelector(state => selectBlockLayout(state, "edit"))
   const dispatch = useDispatch()
   const handleBlockLayout = payload => {
     dispatch(swapBlockLayout(payload))
@@ -96,7 +96,7 @@ function MiniBlockList({ MiniBlockMap, listId, listType, isCombineEnabled = fals
       {(dropProvided: DroppableProvided, dropSnapshot: DroppableStateSnapshot) => (
         <Wrapper ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
           {MiniBlockMap.map((blockInfo: LayoutBlock, index: number) => {
-            const key = blockInfo.id ? blockInfo.id : blockInfo.groupBlockType ? blockInfo.groupBlockType : blockInfo.title
+            const key = blockInfo.blockType ? blockInfo.blockType : blockInfo.title
             return (
               <Draggable key={key} draggableId={key} index={index}>
                 {(dragProvided: DraggableProvided, dragSnapshot: DraggableStateSnapshot) => <MiniBlock blockName={blockInfo.title} provided={dragProvided} snapshot={dragSnapshot} />}

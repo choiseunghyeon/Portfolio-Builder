@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "cypress",
-      "node"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["cypress", "lodash"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,36 +17,16 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@pages/*": [
-        "pages/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@container/*": [
-        "container/*"
-      ],
-      "@store/*": [
-        "store/*"
-      ],
-      "@type/*": [
-        "type/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@constants/*": [
-        "constants/*"
-      ]
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+      "@container/*": ["container/*"],
+      "@store/*": ["store/*"],
+      "@type/*": ["type/*"],
+      "@lib/*": ["lib/*"],
+      "@constants/*": ["constants/*"]
     },
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

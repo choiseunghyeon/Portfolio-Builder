@@ -29,8 +29,8 @@ interface ISetupBlockContainer {
 }
 
 const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
-  const blocks = useSelector(state => selectBlocksByType(state, blockType))
-  const { layoutType, columnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, blockType))
+  const blocks = useSelector(state => selectBlocksByType(state, "edit", blockType))
+  const { layoutType, columnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, "edit", blockType))
   const changableLayoutTypes = DefaultBlockTypeStyle[blockType].changableLayoutTypes
   const changableColumnCount = DefaultBlockTypeStyle[blockType].changableColumnCount
   const [currentTabValue, setCurrentTabValue] = useState<TabValueType>("block")

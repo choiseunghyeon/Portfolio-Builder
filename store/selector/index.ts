@@ -3,25 +3,37 @@ import { IPortfolioProps } from "@components/preview/portfolio/Portfolio"
 import { IProfileProps } from "@components/preview/profile/Profile"
 import { IProjectProps } from "@components/preview/project/Project"
 import { createSelector } from "@reduxjs/toolkit"
+import { PortfolioPageType } from "@store/root"
 import { BlockType, IBlock } from "@type/block"
+import { IBlockTypeStyle } from "@type/blockStyle"
 import { RootState } from ".."
-export const selectBlocks = (state: RootState) => state.blocks
-export const selectBlockStyle = (state: RootState) => state.blockTypeStyle
 
-export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.findIndex(block => block.id === blockId))
-export const selectBlockById = createSelector([selectBlocks, (state: RootState, blockId: string) => blockId], (blocks, blockId) => blocks.find(block => block.id === blockId))
+export const selectBlocks = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blocks
+export const selectBlockStyle = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blockTypeStyle
+export const selectBlockLayout = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blockLayout
+
+export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, portfolioPageType: PortfolioPageType, blockId: string) => blockId], (blocks, blockId) =>
+  blocks.findIndex(block => block.id === blockId)
+)
+export const selectBlockById = createSelector([selectBlocks, (state: RootState, portfolioPageType: PortfolioPageType, blockId: string) => blockId], (blocks, blockId) =>
+  blocks.find(block => block.id === blockId)
+)
 export const tabFold = (state: RootState) => state.tabFold
 
-export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, blockType: BlockType) => blockType], (blocks, blockType) => blocks.filter(block => block.type === blockType))
-export const selectBlockTypeStyleByBlockType = createSelector([selectBlockStyle, (state: RootState, blockType: BlockType) => blockType], (blockStyle, blockType) => blockStyle[blockType])
-
-export const selectBlockLayout = (state: RootState) => state.blockLayout
+export const selectBlocksByType = createSelector([selectBlocks, (state: RootState, portfolioPageType: PortfolioPageType, blockType: BlockType) => blockType], (blocks, blockType) =>
+  blocks.filter(block => block.type === blockType)
+)
+export const selectBlockTypeStyleByBlockType = createSelector(
+  [selectBlockStyle, (state: RootState, portfolioPageType: PortfolioPageType, blockType: BlockType) => blockType],
+  (blockStyle, blockType) => blockStyle[blockType]
+)
 
 // for memoization
 const selectProfileProps = createSelector(
-  (block: IBlock) => block,
-  (block: IBlock, needDummyData?: boolean) => needDummyData,
-  (block: IBlock, needDummyData?: boolean): IProfileProps => {
+  (block: IBlock, blockStyle: IBlockTypeStyle) => block,
+  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IProfileProps => {
     const [
       imageField,
       mainTextField,
@@ -47,7 +59,7 @@ const selectProfileProps = createSelector(
         저는 좋은 디자인이 사용자의 삶을 달라지게 하고 나아가서는 사회를
         더 나아가서는 세상을 바꿀 수 있다고 생각합니다.`,
         attributes: {
-          layoutType: block.style.layoutType,
+          layoutType: blockStyle.layoutType,
         },
       }
     }
@@ -57,7 +69,7 @@ const selectProfileProps = createSelector(
       title: mainTextField.value.text,
       subtitle: subTextField.value.text,
       attributes: {
-        layoutType: block.style.layoutType,
+        layoutType: blockStyle.layoutType,
       },
     }
 
@@ -100,8 +112,9 @@ const selectProfileProps = createSelector(
 
 const selectProjectProps = createSelector(
   (block: IBlock) => block,
-  (block: IBlock, needDummyData?: boolean) => needDummyData,
-  (block: IBlock, needDummyData?: boolean): IProjectProps => {
+  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IProjectProps => {
     const [nameField, organigationField, termField, descriptionField, skillsFeild, skillSetField] = block.fields
     const termValue = getTermValue(termField.value.from, termField.value.to)
     if (needDummyData) {
@@ -115,7 +128,7 @@ const selectProjectProps = createSelector(
         - redux, redux-saga 적용 및 가이드 공유`,
         skillSet: ["React", "Redux"],
         attributes: {
-          layoutType: block.style.layoutType,
+          layoutType: blockStyle.layoutType,
         },
       }
     }
@@ -127,7 +140,7 @@ const selectProjectProps = createSelector(
       skills: skillsFeild.value.multiLineText,
       skillSet: skillSetField.value.selectedTextList,
       attributes: {
-        layoutType: block.style.layoutType,
+        layoutType: blockStyle.layoutType,
       },
     }
   }
@@ -135,8 +148,9 @@ const selectProjectProps = createSelector(
 
 const selectCareerProps = createSelector(
   (block: IBlock) => block,
-  (block: IBlock, needDummyData?: boolean) => needDummyData,
-  (block: IBlock, needDummyData?: boolean): ICareerProps => {
+  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): ICareerProps => {
     const [organigationField, roleField, termField, descriptionField] = block.fields
     const termValue = getTermValue(termField.value.from, termField.value.to)
     if (needDummyData) {
@@ -147,7 +161,7 @@ const selectCareerProps = createSelector(
         description: `PC/모바일/인공지능 스피커 등 다양한 기기에 맞는 일관된 디자인 구축에시 말말말말
         어린이, 중장년 등 모든 연령대의 사용자를 고려한 인터렉선 재설계 몰라몰라 아아아아`,
         attributes: {
-          layoutType: block.style.layoutType,
+          layoutType: blockStyle.layoutType,
         },
       }
     }
@@ -157,7 +171,7 @@ const selectCareerProps = createSelector(
       term: termValue,
       description: descriptionField.value.multiLineText,
       attributes: {
-        layoutType: block.style.layoutType,
+        layoutType: blockStyle.layoutType,
       },
     }
   }
@@ -165,8 +179,9 @@ const selectCareerProps = createSelector(
 
 const selectPortfolioProps = createSelector(
   (block: IBlock) => block,
-  (block: IBlock, needDummyData?: boolean) => needDummyData,
-  (block: IBlock, needDummyData?: boolean): IPortfolioProps => {
+  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IPortfolioProps => {
     const [mediaField, linkField, titleField, contentField] = block.fields
     if (needDummyData) {
       return {
@@ -175,7 +190,7 @@ const selectPortfolioProps = createSelector(
         content: `어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고한 류진과 폭풍 성장한 두 아들 찬형X찬호 형제 삼부자가 출사표를 던졌다.`,
         link: `http://sports.hankooki.com/news/articleView.html?idxno=6798068`,
         attributes: {
-          layoutType: block.style.layoutType,
+          layoutType: blockStyle.layoutType,
         },
       }
     }
@@ -185,7 +200,7 @@ const selectPortfolioProps = createSelector(
       title: titleField.value.text,
       content: contentField.value.multiLineText,
       attributes: {
-        layoutType: block.style.layoutType,
+        layoutType: blockStyle.layoutType,
       },
     }
   }

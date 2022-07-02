@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import List from "@mui/material/List";
-import Block from "./setup/blocks/Block";
-import { IBlock } from "@type/block";
-import { Button, Grid, TextField } from "@mui/material";
-import IconComponent from "./common/IconComponent";
+import React, { useState } from "react"
+import List from "@mui/material/List"
+import Block from "./setup/blocks/Block"
+import { IBlock } from "@type/block"
 
 interface ISetupPanel {
-  blocks: IBlock[];
-  handleField: Function;
+  blocks: IBlock[]
+  handleField: Function
 }
 const SetupPanel = ({ blocks, handleField }: ISetupPanel) => {
   return (
@@ -19,7 +16,7 @@ const SetupPanel = ({ blocks, handleField }: ISetupPanel) => {
         ))}
       </List>
     </>
-  );
-};
+  )
+}
 
-export default SetupPanel;
+export default SetupPanel

@@ -25,12 +25,18 @@ export const setDefaultBlockTypeStyle = (blockTypeStyle: EachBlockTypeStyle) => 
   return blockTypeStyle
 }
 
-export const setDefaultBlockLayout = (blockLayout: LayoutBlock[][]) => {
-  const flatLayoutList = blockLayout.flat()
-  flatLayoutList.forEach(layout => {
-    if (layout.id === "profile_id") layout.title = "프로필"
-    else if (layout.groupBlockType === "Career") layout.title = "커리어"
-    else if (layout.groupBlockType === "Project") layout.title = "프로젝트"
-    else if (layout.groupBlockType === "Portfolio") layout.title = "포트폴리오"
-  })
+export const createDefaultBlockLayout = (blockLayout: any[][]): LayoutBlock[][] => {
+  return blockLayout.reduce((accRow, row) => {
+    const rowLayout = row.reduce((colAcc, col) => {
+      const layout: any = { ...col }
+      if (layout.blockType === "Profile") layout.title = "프로필"
+      else if (layout.blockType === "Career") layout.title = "커리어"
+      else if (layout.blockType === "Project") layout.title = "프로젝트"
+      else if (layout.blockType === "Portfolio") layout.title = "포트폴리오"
+      colAcc.push(layout)
+      return colAcc
+    }, [])
+    accRow.push(rowLayout)
+    return accRow
+  }, [])
 }

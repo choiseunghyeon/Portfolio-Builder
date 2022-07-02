@@ -2,10 +2,9 @@ import { useEffect, useState } from "react"
 import { styled, useTheme } from "@mui/material/styles"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
-import Toolbar from "@mui/material/Toolbar"
+
 import CssBaseline from "@mui/material/CssBaseline"
-import List from "@mui/material/List"
+
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
@@ -23,21 +22,15 @@ import Main from "@components/common/Main"
 import AppbarHeader from "@components/common/AppbarHeader"
 import UserCard from "@components/common/UserCard"
 
-export default function PersistentDrawerRight() {
+export default function EditPortfolioPage() {
+  const [currentPortfolioId, setCurrentPortfolioId] = useState("1")
   const [open, setOpen] = useState(false)
   const [drawerWidth, setDrawerWidth] = useState(320)
-  const [openDialog, setOpenDialog] = useState(false)
-  const [selectedValue, setSelectedValue] = useState("")
   const needTabFold = useSelector(tabFold)
   const setupWidthRatio = needTabFold ? 2 : 4
 
-  const handleClickOpen = () => {
-    setOpenDialog(true)
-  }
-
-  const handleClose = (value: string) => {
-    setOpenDialog(false)
-    setSelectedValue(value)
+  const onCopyPortfolio = (portfolioId: string) => {
+    setCurrentPortfolioId(portfolioId)
   }
 
   const handleDrawerOpen = () => {
@@ -64,21 +57,37 @@ export default function PersistentDrawerRight() {
               <SetupContainer />
             </Grid>
             <Grid item xs={8} sx={{ height: "calc(100vh - 64px)", overflowY: "auto", paddingX: 2 }}>
-              <PreviewContainer />
+              {/* dummy data는 순위 높은 데이터 또는 특정 지정 데이터 */}
+              <PreviewContainer portfolioId={currentPortfolioId} />
             </Grid>
           </Grid>
         </Main>
       </Box>
-      <CustomDrawer open={open} drawerWidth={drawerWidth} handleDrawerClose={handleDrawerClose} handleClickOpen={handleClickOpen} />
-      <SimpleDialog selectedValue={selectedValue} open={openDialog} onClose={handleClose} />
+      <CustomDrawer open={open} drawerWidth={drawerWidth} handleDrawerClose={handleDrawerClose} onCopyPortfolio={onCopyPortfolio} />
     </>
   )
 }
 
 type DrawerStatusType = "list" | "portfolio"
-function CustomDrawer({ open, drawerWidth, handleDrawerClose, handleClickOpen }) {
+function CustomDrawer({ open, drawerWidth, handleDrawerClose, onCopyPortfolio }) {
   const theme = useTheme()
   const [status, setStatus] = useState<DrawerStatusType>("list")
+  const [openDialog, setOpenDialog] = useState(false)
+  const [currentPortfolioId, setCurrentPortfolioId] = useState("")
+
+  const handleClose = (value?: string) => {
+    setOpenDialog(false)
+    if (value === "copy") onCopyPortfolio(currentPortfolioId)
+  }
+
+  const handleClickOpen = () => {
+    setOpenDialog(true)
+  }
+
+  const onChangePortfolioId = (portfolioId: string) => {
+    setStatus("portfolio")
+    setCurrentPortfolioId(portfolioId)
+  }
   return (
     <>
       <Drawer
@@ -115,10 +124,10 @@ function CustomDrawer({ open, drawerWidth, handleDrawerClose, handleClickOpen })
         <Divider />
         <Grid container spacing={1} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>
           {status === "list" && (
-            <Grid container item xs={12} spacing={1} onClick={() => setStatus("portfolio")}>
+            <Grid container item xs={12} spacing={1}>
               {/* 제일 인기 많은 portfolio 보여주기 */}
-              {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((info, index) => (
-                <Grid item xs={6} key={index}>
+              {["1", "2"].map((portfolioId, index) => (
+                <Grid item xs={6} key={index} onClick={() => onChangePortfolioId(portfolioId)}>
                   <UserCard key={index} />
                 </Grid>
               ))}
@@ -127,24 +136,24 @@ function CustomDrawer({ open, drawerWidth, handleDrawerClose, handleClickOpen })
           {status === "portfolio" && (
             <Grid item xs={12} sx={{ marginX: 1 }}>
               {/* 다른 유저의 portfolio 검색 및 참고 */}
-              <PreviewContainer />
+              <PreviewContainer portfolioId={currentPortfolioId} portfolioPageType={"search"} />
             </Grid>
           )}
         </Grid>
       </Drawer>
+      <SimpleDialog open={openDialog} onClose={handleClose} />
     </>
   )
 }
 export interface SimpleDialogProps {
   open: boolean
-  selectedValue: string
-  onClose: (value: string) => void
+  onClose: (value?: string) => void
 }
 function SimpleDialog(props: SimpleDialogProps) {
-  const { onClose, selectedValue, open } = props
+  const { onClose, open } = props
 
   const handleClose = () => {
-    onClose(selectedValue)
+    onClose()
   }
 
   const handleListItemClick = (value: string) => {
