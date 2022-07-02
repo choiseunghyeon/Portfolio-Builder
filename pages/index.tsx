@@ -128,7 +128,13 @@ function CustomDrawer({ open, drawerWidth, handleDrawerClose, onCopyPortfolio })
               {/* 제일 인기 많은 portfolio 보여주기 */}
               {["1", "2"].map((portfolioId, index) => (
                 <Grid item xs={6} key={index} onClick={() => onChangePortfolioId(portfolioId)}>
-                  <UserCard key={index} />
+                  <UserCard
+                    key={index}
+                    imageSrc={"https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"}
+                    name={"최승현"}
+                    description={"Front End Developer"}
+                    subDescription={"안녕하세요 :) "}
+                  />
                 </Grid>
               ))}
             </Grid>

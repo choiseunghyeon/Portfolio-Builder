@@ -10,18 +10,12 @@ import axios from "axios"
 import { useEffect } from "react"
 import { changePortfolioById, PortfolioPageType } from "@store/root"
 import { BlockType } from "@type/block"
+import { usePortfolio } from "@lib/hooks/query"
 interface IPreviewContainer {
   portfolioId: string
   portfolioPageType?: PortfolioPageType
 }
 
-function usePortfolio(portfolioId: string) {
-  const { data } = useQuery(["portfolio", portfolioId], async () => {
-    const { data } = await axios.get(`http://localhost:4000/portfolio/${portfolioId}`)
-    return data
-  })
-  return data
-}
 const PreviewContainer = ({ portfolioId, portfolioPageType = "edit" }: IPreviewContainer) => {
   const dispatch = useDispatch()
   const blockLayout = useSelector(state => selectBlockLayout(state, portfolioPageType))

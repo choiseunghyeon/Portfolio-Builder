@@ -1,4 +1,36 @@
 {
+  "profileList": [
+    {
+      "id": 1,
+      "portfolioId": 1,
+      "profile": {
+        "name": "최승현",
+        "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "description": "Front End Developer",
+        "subDescription": "안녕하세요 :) 서핏 팀의 \n디자이너 박소연입니다."
+      }
+    },
+    {
+      "id": 2,
+      "portfolioId": 2,
+      "profile": {
+        "name": "최승현2",
+        "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "description": "Front End Developer",
+        "subDescription": "안녕하세요 :)"
+      }
+    },
+    {
+      "id": 3,
+      "portfolioId": 1,
+      "profile": {
+        "name": "최승현3",
+        "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "description": "Front End Developer",
+        "subDescription": "안녕."
+      }
+    }
+  ],
   "portfolio": [
     {
       "id": 1,

@@ -10,20 +10,25 @@ import Typography from "@mui/material/Typography"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import ShareIcon from "@mui/icons-material/Share"
 
-interface IUserCardProps {}
-export default function UserCard({}: IUserCardProps) {
+interface IUserCardProps {
+  imageSrc: string
+  name: string
+  description: string
+  subDescription: string
+}
+export default function UserCard({ imageSrc, name, description, subDescription }: IUserCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" height="194" image="https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" alt="Paella dish" />
+      <CardMedia component="img" height="194" image={imageSrc} alt="Paella dish" />
       <CardContent>
         <Typography variant="h5" component="div">
-          최승현
+          {name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Front End Developer
+          {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          안녕하세요 프론트엔드 개발자 최승현입니다.
+          {subDescription}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
