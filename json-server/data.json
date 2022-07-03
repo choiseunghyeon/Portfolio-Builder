@@ -64,6 +64,46 @@
           }
         },
         {
+          "blockType": "Project",
+          "fieldValues": {
+            "projectName": { "text": "대출 추천 재개발" },
+            "projectOrganigation": { "text": "현대 자동차" },
+            "projectDescription": {
+              "multiLineText": "도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통\n 호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표"
+            },
+            "projectTerm": { "from": "2022-04-01", "to": "2022-05-30" },
+            "projectSkills": {
+              "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
+            },
+            "projectSkillSet": {
+              "textList": ["React", "Redux", "Immer"],
+              "selectedTextList": ["React"]
+            }
+          }
+        },
+        {
+          "blockType": "Career",
+          "fieldValues": {
+            "careerMainText": { "text": "현대 자동차" },
+            "careerSubText": { "text": "Front-End" },
+            "careerDescription": {
+              "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유"
+            },
+            "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
+          }
+        },
+        {
+          "blockType": "Career",
+          "fieldValues": {
+            "careerMainText": { "text": "현대 자동차" },
+            "careerSubText": { "text": "Front-End" },
+            "careerDescription": {
+              "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유"
+            },
+            "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
+          }
+        },
+        {
           "blockType": "Career",
           "fieldValues": {
             "careerMainText": { "text": "현대 자동차" },
@@ -80,7 +120,46 @@
             "portfolioThumbnail": { "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
             "portfolioName": { "text": "MZ세대 언어" },
             "portfolioDescription": {
-              "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고한 류진과 폭풍 성장한 두 아들 찬형X찬호 형제 삼부자가 출사표를 던졌다."
+              "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+            },
+            "portfolioURL": {
+              "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+            }
+          }
+        },
+        {
+          "blockType": "Portfolio",
+          "fieldValues": {
+            "portfolioThumbnail": { "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
+            "portfolioName": { "text": "MZ세대 언어" },
+            "portfolioDescription": {
+              "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+            },
+            "portfolioURL": {
+              "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+            }
+          }
+        },
+        {
+          "blockType": "Portfolio",
+          "fieldValues": {
+            "portfolioThumbnail": { "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
+            "portfolioName": { "text": "MZ세대 언어" },
+            "portfolioDescription": {
+              "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+            },
+            "portfolioURL": {
+              "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+            }
+          }
+        },
+        {
+          "blockType": "Portfolio",
+          "fieldValues": {
+            "portfolioThumbnail": { "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg" },
+            "portfolioName": { "text": "MZ세대 언어" },
+            "portfolioDescription": {
+              "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
             },
             "portfolioURL": {
               "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
@@ -104,7 +183,7 @@
         },
         "Portfolio": {
           "layoutType": "default",
-          "columnCount": 1
+          "columnCount": 3
         }
       }
     },

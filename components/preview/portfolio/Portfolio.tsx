@@ -11,32 +11,31 @@ export interface IPortfolioProps extends IBaseProps {
 }
 const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioProps) => {
   return (
-    <Box data-testid={PORTFOLIO_PREVIEW} sx={{ textAlign: "center", margin: "24px 0 16px 0", wordBreak: "break-all" }}>
+    <Box data-testid={PORTFOLIO_PREVIEW} sx={{ wordBreak: "break-all" }}>
       <Grid container spacing={1}>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
+        <Grid justifyContent={"center"} container item xs={12}>
           <img
             src={mediaSrc}
             style={{
-              maxWidth: "120px",
-              borderRadius: "50%",
+              height: "100%",
+              width: "100%",
+              maxHeight: "360px",
+              maxWidth: "360px",
             }}
             alt="media"
           />
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography color="textSecondary" gutterBottom>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h3" gutterBottom>
             {title}
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
-            {content && splitMultiLineText(content).map((text, index) => <div key={index}>{text}</div>)}
-          </Typography>
+        <Grid item xs={12}>
+          <Typography color="textSecondary">{content && splitMultiLineText(content).map((text, index) => <div key={index}>{text}</div>)}</Typography>
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3">
-            {link}
-            {/* {link && splitMultiLineText(link).map((text, index) => <div key={index}>{text}</div>)} */}
+        <Grid item xs={12}>
+          <Typography component="div" fontSize={"0.8rem"}>
+            <a href="link">{link}</a>
           </Typography>
         </Grid>
       </Grid>

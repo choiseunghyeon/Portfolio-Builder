@@ -2,6 +2,7 @@ import IconComponent from "@components/common/IconComponent"
 import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
 import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
+import { splitMultiLineText } from "@store/utils"
 
 interface IProfileAdditionalInformation {
   apply?: {
@@ -40,29 +41,33 @@ export default Profile
 
 function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, keyword }: IProfileProps) {
   return (
-    <Box data-testid={PROFILE_PREVIEW} sx={{ textAlign: "center", margin: "24px 0 16px 0" }}>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
+    // sx={{ textAlign: "center", margin: "24px 0 16px 0" }}
+    <Box data-testid={PROFILE_PREVIEW}>
+      <Grid container alignItems={"center"} spacing={1}>
+        <Grid item xs={7}>
+          <Typography variant="h5" component="h3" data-testid={PROFILE_PREVIEW_SUB_TEXT}>
+            {title}
+          </Typography>
+          <Typography color="textSecondary" gutterBottom data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
+            {splitMultiLineText(subtitle).map((text, index) => (
+              <div key={index}>{text}</div>
+            ))}
+          </Typography>
+        </Grid>
+        <Grid container justifyContent={"flex-end"} item xs={5}>
           <img
             src={imageSrc}
             style={{
-              maxWidth: "120px",
-              borderRadius: "50%",
+              height: "100%",
+              width: "100%",
+              maxHeight: "240px",
+              maxWidth: "240px",
             }}
             alt="person"
           />
         </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography color="textSecondary" gutterBottom data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
-            {title}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sx={{ margin: "0 10px" }}>
-          <Typography variant="h5" component="h3" data-testid={PROFILE_PREVIEW_SUB_TEXT}>
-            {subtitle}
-          </Typography>
-        </Grid>
-        <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} />
+
+        {/* <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} /> */}
       </Grid>
     </Box>
   )

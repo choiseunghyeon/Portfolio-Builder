@@ -2,6 +2,7 @@ import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/materia
 import { splitMultiLineText } from "@store/utils"
 import { PROJECT_PREVIEW, PROJECT_PREVIEW_DESCRIPTION, PROJECT_PREVIEW_NAME, PROJECT_PREVIEW_ORGANIGATION, PROJECT_PREVIEW_SKILLS, PROJECT_PREVIEW_TERM } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
+import { Paper } from "@mui/material"
 
 export interface IProjectProps extends IBaseProps {
   name: string
@@ -22,21 +23,21 @@ const Project = (props: IProjectProps) => {
 }
 const DefaultProject = ({ name = "", organigation = "", term = "", description = "", skills = "", skillSet = [], attributes }: IProjectProps) => {
   return (
-    <Box data-testid={PROJECT_PREVIEW} sx={{ textAlign: "left", p: 1 }}>
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
+    <Paper evaluation={2} data-testid={PROJECT_PREVIEW}>
+      <Grid container spacing={0} sx={{ padding: "10px" }}>
+        <Grid item xs={7}>
           <Typography data-testid={PROJECT_PREVIEW_NAME} sx={{ fontWeight: "bold" }} variant="h6">
             {name}
+          </Typography>
+        </Grid>
+        <Grid container alignItems={"center"} justifyContent={"flex-end"} item xs={5}>
+          <Typography data-testid={PROJECT_PREVIEW_TERM} gutterBottom variant="subtitle2">
+            {term}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography data-testid={PROJECT_PREVIEW_ORGANIGATION} variant="subtitle1">
             {organigation}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography data-testid={PROJECT_PREVIEW_TERM} gutterBottom variant="subtitle2">
-            {term}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -46,8 +47,8 @@ const DefaultProject = ({ name = "", organigation = "", term = "", description =
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography data-testid={PROJECT_PREVIEW_SKILLS} variant="body2">
-            <ul>{skills && splitMultiLineText(skills).map((text, index) => <li key={index}>{text}</li>)}</ul>
+          <Typography data-testid={PROJECT_PREVIEW_SKILLS} variant="body2" sx={{ marginBottom: "10px" }}>
+            {skills && splitMultiLineText(skills).map((text, index) => <div key={index}>{`- ${text}`}</div>)}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -58,8 +59,7 @@ const DefaultProject = ({ name = "", organigation = "", term = "", description =
           </Typography>
         </Grid>
       </Grid>
-      <Divider sx={{ marginTop: 1 }} />
-    </Box>
+    </Paper>
   )
 }
 
