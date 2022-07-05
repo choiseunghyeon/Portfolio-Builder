@@ -12,7 +12,7 @@ import TabPanel from "@components/setup/panel/TabPanel"
 import IconComponent from "@components/common/IconComponent"
 import { Grid } from "@mui/material"
 import { BlockType } from "@type/block"
-import { CAREER_TAB as CAREER_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
+import { CAREER_TAB as CAREER_TAB, MARKDOWN_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
 
 function a11yProps(value: TabType) {
   return {
@@ -21,7 +21,7 @@ function a11yProps(value: TabType) {
     value,
   }
 }
-const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold"]
+const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold", "MarkDown"]
 export default function SetupContainer() {
   const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap")
   const dispatch = useDispatch()
@@ -48,6 +48,7 @@ export default function SetupContainer() {
           <Tab label={"Project"} {...a11yProps("Project")} data-testid={PROJECT_TAB} />
           <Tab label={"Portfolio"} {...a11yProps("Portfolio")} data-testid={PORTFOLIO_TAB} />
           <Tab label={"Career"} {...a11yProps("Career")} data-testid={CAREER_TAB} />
+          <Tab label={"MarkDown"} {...a11yProps("MarkDown")} data-testid={MARKDOWN_TAB} />
           <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
         </Tabs>
       </Grid>

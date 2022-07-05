@@ -165,9 +165,17 @@
               "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
             }
           }
+        },
+        {
+          "blockType": "MarkDown",
+          "fieldValues": {
+            "markdownText": {
+              "multiLineText": "# Multi Project Extension 제작 회고 \n ## 제작 동기 \n 현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다.  "
+            }
+          }
         }
       ],
-      "blockLayout": [[{ "blockType": "Profile" }], [{ "blockType": "Career" }], [{ "blockType": "Project" }], [{ "blockType": "Portfolio" }]],
+      "blockLayout": [[{ "blockType": "Profile" }], [{ "blockType": "Project" }], [{ "blockType": "Portfolio" }], [{ "blockType": "Career" }], [{ "blockType": "MarkDown" }]],
       "blockTypeStyle": {
         "Profile": {
           "layoutType": "default",
@@ -183,7 +191,11 @@
         },
         "Portfolio": {
           "layoutType": "default",
-          "columnCount": 3
+          "columnCount": 4
+        },
+        "MarkDown": {
+          "layoutType": "default",
+          "columnCount": 1
         }
       }
     },

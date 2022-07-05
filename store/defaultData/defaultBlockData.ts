@@ -2,7 +2,6 @@ import { BlockType, IBlock } from "@type/block"
 import { IBlockTypeStyle } from "@type/blockStyle"
 import { FieldType, FieldValueType, IField, IFieldAttributes, ITextFieldValue } from "@type/field"
 import { v4 as uuidv4 } from "uuid"
-import { convertColumnCountIntoXS } from "../utils"
 
 type ProfileReferenceType =
   | "profileImage"
@@ -22,14 +21,15 @@ type ProfileReferenceType =
 type ProjectRefereceType = "projectName" | "projectOrganigation" | "projectDescription" | "projectTerm" | "projectSkills" | "projectSkillSet"
 type CareerRefereceType = "careerMainText" | "careerSubText" | "careerTerm" | "careerDescription"
 type PortfolioRefereceType = "portfolioThumbnail" | "portfolioURL" | "portfolioName" | "portfolioDescription"
-type FieldRefereceType = ProfileReferenceType | ProjectRefereceType | CareerRefereceType | PortfolioRefereceType
+type MarkDownRefereceType = "markdownText"
+type FieldRefereceType = ProfileReferenceType | ProjectRefereceType | CareerRefereceType | PortfolioRefereceType | MarkDownRefereceType
 interface ICreateBlock {
   blockType: BlockType
   title?: string
   style?: IBlockTypeStyle
   fieldValues?: { [key in FieldRefereceType]?: any }
 }
-export function createBlock({ blockType, title, style, fieldValues }: ICreateBlock): IBlock {
+export function createBlock({ blockType, title, style, fieldValues = {} }: ICreateBlock): IBlock {
   if (!fieldValues) fieldValues = {}
   switch (blockType) {
     case "Profile":
@@ -40,6 +40,8 @@ export function createBlock({ blockType, title, style, fieldValues }: ICreateBlo
       return createCareerBlock({ title, style, fieldValues })
     case "Portfolio":
       return createPortfolioBlock({ title, style, fieldValues })
+    case "MarkDown":
+      return createMarkDownBlock({ title, style, fieldValues })
   }
 }
 
@@ -53,7 +55,7 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
   if (!style)
     style = {
       layoutType: "default",
-      columnCount: 1,
+      columnCount: "1",
     }
   return {
     id: "profile_id",
@@ -162,7 +164,7 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
   if (!style)
     style = {
       layoutType: "default",
-      columnCount: 1,
+      columnCount: "1",
     }
   return {
     id: `project_${uuidv4()}`,
@@ -220,7 +222,7 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
   if (!style)
     style = {
       layoutType: "default",
-      columnCount: 1,
+      columnCount: "1",
     }
   return {
     id: `career_${uuidv4()}`,
@@ -265,7 +267,7 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
   if (!style)
     style = {
       layoutType: "default",
-      columnCount: 1,
+      columnCount: "1",
     }
   return {
     id: `portfolio_${uuidv4()}`,
@@ -290,6 +292,38 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
         title: "포트폴리오 / 작품 설명",
         defaultValue: fieldValues.portfolioDescription,
         attributes: { placeholder: { multiLineText: "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다." }, validation: { limit: 200 } },
+      }),
+    ],
+  }
+}
+
+interface ICreateMarkDownBlock {
+  title?: string
+  style?: IBlockTypeStyle
+  fieldValues: { [key in MarkDownRefereceType]?: any }
+}
+function createMarkDownBlock({ title, style, fieldValues }: ICreateMarkDownBlock): IBlock {
+  if (!title) title = "마크다운"
+  if (!style)
+    style = {
+      layoutType: "default",
+      columnCount: "1",
+    }
+  return {
+    id: `markdown_${uuidv4()}`,
+    type: "MarkDown",
+    title: title,
+    iconName: "PersonOutline",
+    // style: {
+    //   layoutType: style.layoutType,
+    //   xs: convertColumnCountIntoXS(style.columnCount),
+    // },
+    fields: [
+      createField({
+        fieldType: "MultiLineText",
+        title: "MarKDown",
+        defaultValue: fieldValues.markdownText,
+        attributes: { placeholder: { multiLineText: "## MarkDown" } },
       }),
     ],
   }

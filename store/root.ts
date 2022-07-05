@@ -24,91 +24,51 @@ interface IPortFolio {
   blockLayout: LayoutBlock[][]
 }
 
+const defaultPortfolioData: IPortFolio = {
+  blockLayout: [
+    [{ title: "프로필", blockType: "Profile" }],
+    [{ title: "커리어", blockType: "Career" }],
+    [{ title: "프로젝트", blockType: "Project" }],
+    [{ title: "포트폴리오", blockType: "Portfolio" }],
+    [{ title: "마크다운", blockType: "MarkDown" }],
+  ],
+  blocks: [
+    createBlock({ blockType: "Profile" }),
+    createBlock({ blockType: "Project" }),
+    createBlock({ blockType: "Portfolio" }),
+    createBlock({ blockType: "Career" }),
+    createBlock({ blockType: "MarkDown" }),
+  ],
+  blockTypeStyle: {
+    Profile: {
+      layoutType: "default",
+      columnCount: "1",
+    },
+    Project: {
+      layoutType: "default",
+      columnCount: "1",
+    },
+    Career: {
+      layoutType: "default",
+      columnCount: "1",
+    },
+    Portfolio: {
+      layoutType: "default",
+      columnCount: "1",
+    },
+    MarkDown: {
+      layoutType: "default",
+      columnCount: "1",
+    },
+  },
+}
+
 const root: TempState = {
   tabFold: false,
   portfolio: {
-    edit: {
-      blockLayout: [
-        [{ title: "프로필", blockType: "Profile" }],
-        [{ title: "커리어", blockType: "Career" }],
-        [{ title: "프로젝트", blockType: "Project" }],
-        [{ title: "포트폴리오", blockType: "Portfolio" }],
-      ],
-      blocks: [],
-      blockTypeStyle: {
-        Profile: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Project: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Career: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Portfolio: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-      },
-    },
-    search: {
-      blockLayout: [
-        [{ title: "프로필", blockType: "Profile" }],
-        [{ title: "커리어", blockType: "Career" }],
-        [{ title: "프로젝트", blockType: "Project" }],
-        [{ title: "포트폴리오", blockType: "Portfolio" }],
-      ],
-      blocks: [],
-      blockTypeStyle: {
-        Profile: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Project: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Career: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-        Portfolio: {
-          layoutType: "default",
-          columnCount: 1,
-        },
-      },
-    },
+    edit: defaultPortfolioData,
+    search: defaultPortfolioData,
   },
-  // editPortfolio: {
-  //   blockLayout: [
-  //     [{ title: "프로필", blockType: "Profile" }],
-  //     [{ title: "커리어", blockType: "Career" }],
-  //     [{ title: "프로젝트", blockType: "Project" }],
-  //     [{ title: "포트폴리오", blockType: "Portfolio" }],
-  //   ],
-  //   blocks: [],
-  //   blockTypeStyle: {
-  //     Profile: {
-  //       layoutType: "default",
-  //       columnCount: 1,
-  //     },
-  //     Project: {
-  //       layoutType: "default",
-  //       columnCount: 1,
-  //     },
-  //     Career: {
-  //       layoutType: "default",
-  //       columnCount: 1,
-  //     },
-  //     Portfolio: {
-  //       layoutType: "default",
-  //       columnCount: 1,
-  //     },
-  //   },
-  // },
 }
 
 interface ItemValuePayload {

@@ -1,4 +1,5 @@
 import { ICareerProps } from "@components/preview/career/Career"
+import { IMarkDownProps } from "@components/preview/markdown/MarkDown"
 import { IPortfolioProps } from "@components/preview/portfolio/Portfolio"
 import { IProfileProps } from "@components/preview/profile/Profile"
 import { IProjectProps } from "@components/preview/project/Project"
@@ -206,6 +207,29 @@ const selectPortfolioProps = createSelector(
   }
 )
 
+const selectMarkDownProps = createSelector(
+  (block: IBlock) => block,
+  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IMarkDownProps => {
+    const [markdownField] = block.fields
+    if (needDummyData) {
+      return {
+        markdown: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        attributes: {
+          layoutType: blockStyle.layoutType,
+        },
+      }
+    }
+    return {
+      markdown: markdownField.value.multiLineText,
+      attributes: {
+        layoutType: blockStyle.layoutType,
+      },
+    }
+  }
+)
+
 type PreviewSelectorProviderType = {
   [key in BlockType]: Function
 }
@@ -214,6 +238,7 @@ export const previewSelectorProvider: PreviewSelectorProviderType = {
   Project: selectProjectProps,
   Career: selectCareerProps,
   Portfolio: selectPortfolioProps,
+  MarkDown: selectMarkDownProps,
 }
 
 function getTermValue(from, to) {

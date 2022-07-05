@@ -1,7 +1,15 @@
 import { LayoutBlock } from "@store/root"
+import { BlockType } from "@type/block"
 import { EachBlockTypeStyle } from "@type/blockStyle"
 
-export const DefaultBlockTypeStyle = {
+type DefaultBlockTypeStyleType = {
+  [blockType in BlockType]: {
+    changableLayoutTypes: string[]
+    changableColumnCount: number[]
+  }
+}
+
+export const DefaultBlockTypeStyle: DefaultBlockTypeStyleType = {
   Profile: {
     changableLayoutTypes: ["default", "second"],
     changableColumnCount: [],
@@ -16,6 +24,10 @@ export const DefaultBlockTypeStyle = {
   },
   Portfolio: {
     changableLayoutTypes: ["default"],
+    changableColumnCount: [1, 2, 3, 4],
+  },
+  MarkDown: {
+    changableLayoutTypes: [],
     changableColumnCount: [1, 2, 3, 4],
   },
 }
@@ -33,6 +45,7 @@ export const createDefaultBlockLayout = (blockLayout: any[][]): LayoutBlock[][] 
       else if (layout.blockType === "Career") layout.title = "커리어"
       else if (layout.blockType === "Project") layout.title = "프로젝트"
       else if (layout.blockType === "Portfolio") layout.title = "포트폴리오"
+      else if (layout.blockType === "MarkDown") layout.title = "마크다운"
       colAcc.push(layout)
       return colAcc
     }, [])

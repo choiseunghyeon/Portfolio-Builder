@@ -1,6 +1,6 @@
 import { IField } from "./field"
 
-export type BlockType = "Profile" | "Career" | "Project" | "Portfolio"
+export type BlockType = "Profile" | "Career" | "Project" | "Portfolio" | "MarkDown"
 export interface IBlock {
   id: string
   type: BlockType

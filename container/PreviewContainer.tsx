@@ -27,7 +27,7 @@ const PreviewContainer = ({ portfolioId, portfolioPageType = "edit" }: IPreviewC
     }
   }, [portfolio])
   return (
-    <Grid data-testid={PREVIEW_CONTAINER} container spacing={1}>
+    <Grid data-testid={PREVIEW_CONTAINER} container sx={{ padding: "16px" }}>
       {blockLayout.map((blockList, index) => {
         const columnCount = blockList.length as ColumnCountType
         const xs = convertColumnCountIntoXS(columnCount)
@@ -64,7 +64,7 @@ const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; po
   const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
   const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
 
-  if (blockType === "Career" && blockStyle.layoutType === "default" && blockStyle.columnCount === 1) {
+  if (blockType === "Career" && blockStyle.layoutType === "default" && blockStyle.columnCount === "1") {
     return (
       <Box data-testid={CAREER_PREVIEW} sx={{ p: 1 }}>
         <Grid justifyContent="flex-start" container>

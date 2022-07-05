@@ -16,6 +16,9 @@ export const FOLD_TAB = "foldTab"
 export const CAREER_TAB = "CareerTab"
 export const CAREER_TAB_PANEL = "CareerTabPanel"
 
+export const MARKDOWN_TAB = "MARKDOWN_TAB"
+export const MARKDOWN_TAB_PANEL = "MARKDOWN_TAB_PANEL"
+
 export const MINI_BLOCK = "miniBlock"
 
 // Setup
@@ -49,5 +52,7 @@ export const PROJECT_PREVIEW_ORGANIGATION = "PROJECT_PREVIEW_ORGANIGATION"
 export const PROJECT_PREVIEW_TERM = "PROJECT_PREVIEW_TERM"
 export const PROJECT_PREVIEW_DESCRIPTION = "PROJECT_PREVIEW_DESCRIPTION"
 export const PROJECT_PREVIEW_SKILLS = "PROJECT_PREVIEW_SKILLS"
+
+export const MARKDOWN_PREVIEW = "MARKDOWN_PREVIEW"
 
 export const PORTFOLIO_PREVIEW = "portfolioPriview"

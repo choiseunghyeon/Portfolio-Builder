@@ -3,12 +3,19 @@ import { ColumnCountType } from "@type/blockStyle"
 import { IFieldValidation } from "@type/field"
 
 export function convertColumnCountIntoXS(columnCount: ColumnCountType): BlockXSType {
-  return (12 / columnCount) as BlockXSType
+  return (12 / Number(columnCount)) as BlockXSType
 }
 
 export function isGroupBlock(blockType: BlockType): boolean {
-  if (blockType === "Project" || blockType === "Career" || blockType === "Portfolio") return true
-  else return false
+  switch (blockType) {
+    case "Project":
+    case "Career":
+    case "Portfolio":
+    case "MarkDown":
+      return true
+    default:
+      return false
+  }
 }
 
 export function getDividerNameByBlockType(blockType: BlockType) {
@@ -18,6 +25,8 @@ export function getDividerNameByBlockType(blockType: BlockType) {
     case "Career":
       return "커리어"
     case "Portfolio":
+      return "포트폴리오"
+    case "MarkDown":
       return "포트폴리오"
   }
 }
@@ -30,6 +39,8 @@ export function getGroupBlockDefaultNameAndLabel(blockType: BlockType) {
       return { defaultBlockName: "커리어", blockLabel: "커리어 이름" }
     case "Portfolio":
       return { defaultBlockName: "포트폴리오", blockLabel: "포트폴리오 이름" }
+    case "MarkDown":
+      return { defaultBlockName: "마크다운", blockLabel: "포트폴리오 이름" }
     default:
       return { defaultBlockName: "새 이름", blockLabel: "새 이름" }
   }
