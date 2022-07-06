@@ -17,6 +17,7 @@ interface TempState {
     [pageType: string]: IPortFolio
   }
   tabFold: boolean
+  skillSet: string[]
 }
 interface IPortFolio {
   blocks: IBlock[]
@@ -69,6 +70,7 @@ const root: TempState = {
     edit: defaultPortfolioData,
     search: defaultPortfolioData,
   },
+  skillSet: ["React", "Redux", "Immer"],
 }
 
 interface ItemValuePayload {

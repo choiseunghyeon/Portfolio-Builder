@@ -206,7 +206,7 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
         fieldType: "AutoCompleteText",
         title: "Skill Set",
         defaultValue: fieldValues.projectSkillSet,
-        attributes: { placeholder: { text: "React" } },
+        attributes: { placeholder: { text: "React" }, autocompleteRequest: "skillSet" },
       }),
     ],
   }

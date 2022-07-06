@@ -3,14 +3,17 @@ import { IAutoCompleteValue, IFieldProps, IFieldValidation, ITextFieldValue } fr
 import { Autocomplete, Box, InputAdornment, TextField } from "@mui/material"
 import { getValidationLimitMessage, validateValue } from "@store/utils"
 import { AUTO_COMPLETE_FIELD_TEST_ID } from "@constants/testConstants"
+import { useAutoCompleteList } from "@lib/hooks/query"
 
 interface IInputFieldProps extends IFieldProps {
   value: IAutoCompleteValue
 }
 
 function AutoCompleteField({ blockId, id, type, value, title, handleField, attributes }: IInputFieldProps) {
-  const { textList, selectedTextList } = value
-  const { validation, display, placeholder } = attributes
+  const { selectedTextList } = value
+  const { validation, display, placeholder, autocompleteRequest } = attributes
+  const textList = useAutoCompleteList(autocompleteRequest)
+
   const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" })
   const handleInput = useCallback(
     (event: any, selectedTextList: string[]) => {

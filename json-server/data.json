@@ -31,7 +31,6 @@
       }
     }
   ],
-  "skillset": ["React", "Redux", "Immer"],
   "portfolio": [
     {
       "id": 1,
@@ -59,7 +58,6 @@
               "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
             },
             "projectSkillSet": {
-              "textList": ["React", "Redux", "Immer"],
               "selectedTextList": ["React"]
             }
           }
@@ -77,7 +75,6 @@
               "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
             },
             "projectSkillSet": {
-              "textList": ["React", "Redux", "Immer"],
               "selectedTextList": ["React"]
             }
           }
@@ -226,7 +223,6 @@
               "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
             },
             "projectSkillSet": {
-              "textList": ["React", "Redux", "Immer"],
               "selectedTextList": ["React"]
             }
           }
