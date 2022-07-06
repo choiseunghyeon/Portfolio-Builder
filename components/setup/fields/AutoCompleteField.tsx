@@ -17,7 +17,6 @@ function AutoCompleteField({ blockId, id, type, value, title, handleField, attri
   const [errorInfo, setErrorInfo] = useState<{ pass: boolean; errorMessage: string | null }>({ pass: true, errorMessage: "" })
   const handleInput = useCallback(
     (event: any, selectedTextList: string[]) => {
-      debugger
       // if (validation) {
       //   const { pass, canValueChange, errorMessage } = validateValue(value, validation);
       //   setErrorInfo({ pass: pass, errorMessage: errorMessage });

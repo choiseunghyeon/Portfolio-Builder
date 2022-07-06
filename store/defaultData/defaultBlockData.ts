@@ -332,31 +332,31 @@ function createMarkDownBlock({ title, style, fieldValues }: ICreateMarkDownBlock
 interface ICreateField {
   fieldType: FieldType
   title: string
-  defaultValue?: FieldValueType | undefined
+  defaultValue?: any
   attributes?: IFieldAttributes
 }
 export function createField(fieldInfo: ICreateField): IField {
   const { fieldType, title, defaultValue, attributes } = fieldInfo
-  const value = defaultValue ? defaultValue : createDefaultFieldValue(fieldType)
+  const value = createDefaultFieldValue(fieldType, defaultValue)
   const attr = attributes ? attributes : {}
   const fieldData = { id: uuidv4(), type: fieldType, title: title, value: value, attributes: attr }
 
   return fieldData
 
-  function createDefaultFieldValue(fieldType: FieldType): FieldValueType {
+  function createDefaultFieldValue(fieldType: FieldType, defaultValue: any): FieldValueType {
     switch (fieldType) {
       case "Text":
-        return { text: "" }
+        return { text: defaultValue || "" }
       case "MultiLineText":
-        return { multiLineText: "" }
+        return { multiLineText: defaultValue || "" }
       case "Image":
-        return { imageSrc: "" }
+        return { imageSrc: defaultValue || "" }
       case "Date":
-        return { from: "", to: "" }
+        return { from: defaultValue?.from || "", to: defaultValue?.to || "" }
       case "Select":
-        return { selectList: [], selectedValue: "" }
+        return { selectList: [], selectedValue: defaultValue || "" }
       case "AutoCompleteText":
-        return { textList: [], selectedTextList: [] }
+        return { textList: [], selectedTextList: defaultValue || [] }
     }
   }
 }
