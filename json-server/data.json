@@ -135,7 +135,7 @@
           }
         }
       ],
-      "blockLayout": [[{ "blockType": "Profile" }], [{ "blockType": "Project" }], [{ "blockType": "Portfolio" }], [{ "blockType": "Career" }], [{ "blockType": "MarkDown" }]],
+      "blockLayout": [[{ "blockType": "Profile" }], [{ "blockType": "Project" }], [{ "blockType": "Portfolio" }, { "blockType": "Career" }], [{ "blockType": "MarkDown" }]],
       "blockTypeStyle": {
         "Profile": {
           "layoutType": "default",
