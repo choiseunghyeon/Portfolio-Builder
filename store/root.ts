@@ -144,6 +144,9 @@ const rootReducer = createReducer(root, builder => {
           break
       }
 
+      changeBlockTitle(targetBlock, targetField, value)
+
+      return
       function changeSelectItemValue(targetBlock, targetField, value) {
         const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
         // 기존 selectedValue로 보여주던 field 숨김
@@ -160,6 +163,16 @@ const rootReducer = createReducer(root, builder => {
             field.attributes.display = true
           })
         ;(targetField.value as ISelectFiedlValue).selectedValue = value
+      }
+
+      function changeBlockTitle(targetBlock, targetField, value) {
+        if (targetBlock.type === "Project" && targetField.title === "프로젝트") {
+          targetBlock.title = value
+        } else if (targetBlock.type === "Career" && targetField.title === "메인 텍스트") {
+          targetBlock.title = value
+        } else if (targetBlock.type === "Portfolio" && targetField.title === "포트폴리오 / 작품 제목") {
+          targetBlock.title = value
+        }
       }
     })
     .addCase(swapBlock, (state, action) => {

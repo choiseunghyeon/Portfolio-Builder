@@ -169,7 +169,7 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
   return {
     id: `project_${uuidv4()}`,
     type: "Project",
-    title: title,
+    title: fieldValues.projectName || title,
     iconName: "Computer",
     // style: {
     //   layoutType: style.layoutType,
@@ -227,7 +227,7 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
   return {
     id: `career_${uuidv4()}`,
     type: "Career",
-    title: title,
+    title: fieldValues.careerMainText || title,
     iconName: "Computer",
     // style: {
     //   layoutType: style.layoutType,
@@ -272,7 +272,7 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
   return {
     id: `portfolio_${uuidv4()}`,
     type: "Portfolio",
-    title: title,
+    title: fieldValues.portfolioName || title,
     iconName: "PersonOutline",
     // style: {
     //   layoutType: "default",
