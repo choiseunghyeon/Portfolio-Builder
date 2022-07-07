@@ -28,6 +28,8 @@ import {
   PROJECT_PREVIEW_TERM,
   PROJECT_TAB,
   PROJECT_TAB_PANEL,
+  SETUP_BLOCK,
+  SETUP_BLOCK_TITLE,
 } from "@constants/testConstants"
 
 /**
@@ -46,6 +48,7 @@ import {
  * 레이아웃 모드
  *  열 반영
  *  레이아웃 반영
+ * Project, Career, Portfolio Block Title은 각 Block의 한 field 값 반영
  */
 
 describe("Builder", () => {
@@ -128,7 +131,7 @@ describe("Builder", () => {
     })
   })
 
-  it.only("Project Layout", () => {
+  it("Project Layout", () => {
     cy.getById(PROJECT_TAB).click()
     cy.getById(PROJECT_TAB_PANEL).then($projectTabPanel => {
       cy.wrap($projectTabPanel).contains("레이아웃").click()
@@ -144,6 +147,39 @@ describe("Builder", () => {
         .first()
         .then($projectPreview => {
           expect($projectPreview.parent().attr("class")?.includes("xs-6")).to.be.true
+        })
+    })
+  })
+
+  it.only("Sync Block Title with own Field Value ", () => {
+    cy.getById(PROJECT_TAB).click()
+    cy.getById(PROJECT_TAB_PANEL).then($projectTabPanel => {
+      cy.wrap($projectTabPanel).contains("내용").click()
+      cy.wrap($projectTabPanel)
+        .find(`[data-testid=${SETUP_BLOCK}]`)
+        .eq(0)
+        .then($firstProjectBlock => {
+          // Block Title과 field value 값 동기화 검증
+
+          cy.wrap($firstProjectBlock).find(`[data-testid=ExpandMoreIcon]`).click()
+          cy.wrap($firstProjectBlock)
+            .find(`[data-testid=${INPUT_FIELD_TEST_ID}]`)
+            .eq(0)
+            .find("input")
+            .then($projectInput => {
+              const titleValue = $projectInput.val()
+              cy.wrap($firstProjectBlock).find(`[data-testid=${SETUP_BLOCK_TITLE}]`).should("contain.text", titleValue)
+              cy.wrap($projectInput).clear().type("프로젝트1")
+            })
+
+          cy.wrap($firstProjectBlock)
+            .find(`[data-testid=${INPUT_FIELD_TEST_ID}]`)
+            .eq(0)
+            .find("input")
+            .then($projectInput => {
+              const newTitleValue = $projectInput.val()
+              cy.wrap($firstProjectBlock).find(`[data-testid=${SETUP_BLOCK_TITLE}]`).should("contain.text", newTitleValue)
+            })
         })
     })
   })

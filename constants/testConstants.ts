@@ -22,8 +22,9 @@ export const MARKDOWN_TAB_PANEL = "MARKDOWN_TAB_PANEL"
 export const MINI_BLOCK = "miniBlock"
 
 // Setup
-export const BLOCK_EXPAND_ICON = "blockExpandIcon"
-
+export const SETUP_BLOCK_EXPAND_ICON = "blockExpandIcon"
+export const SETUP_BLOCK_TITLE = "BLOCK_TITLE"
+export const SETUP_BLOCK = "SETUP_BLOCK"
 // Field
 export const INPUT_FIELD_TEST_ID = "INPUT_FIELD_TEST_ID"
 export const DATE_FIELD_FROM_TEST_ID = "DATE_FIELD_FROM_TEST_ID"

@@ -7,7 +7,7 @@ import IconComponent from "../../common/IconComponent"
 import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
 import { Box } from "@mui/material"
-import { BLOCK_EXPAND_ICON } from "@constants/testConstants"
+import { SETUP_BLOCK, SETUP_BLOCK_EXPAND_ICON, SETUP_BLOCK_TITLE } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 
 interface IBlockProps {
@@ -34,8 +34,8 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
     [id]
   )
   return (
-    <Accordion expanded={needExpand} onChange={handleAccordion} disableGutters ref={ref} {...draggableProps}>
-      <AccordionSummary expandIcon={<IconComponent dataTestId={BLOCK_EXPAND_ICON} icon={"ExpandMore"} />} aria-controls="panel1a-content">
+    <Accordion data-testid={SETUP_BLOCK} expanded={needExpand} onChange={handleAccordion} disableGutters ref={ref} {...draggableProps}>
+      <AccordionSummary expandIcon={<IconComponent dataTestId={SETUP_BLOCK_EXPAND_ICON} icon={"ExpandMore"} />} aria-controls="panel1a-content">
         {dragHandleProps && (
           <span {...dragHandleProps}>
             <IconComponent icon={"DragIndicator"} />
@@ -44,7 +44,7 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
         <span style={{ marginRight: "5px" }}>
           <IconComponent icon={iconName} />
         </span>
-        <Typography>{title}</Typography>
+        <Typography data-testid={SETUP_BLOCK_TITLE}>{title}</Typography>
         {isGroupBlock(type) && (
           <span style={{ marginLeft: "5px" }} onClick={removeBlock}>
             <IconComponent icon="Delete" />
