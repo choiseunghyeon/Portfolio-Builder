@@ -2,6 +2,7 @@ import { MARKDOWN_PREVIEW } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 import hljs from "highlight.js"
 import { marked } from "marked"
+import React from "react"
 
 export interface IMarkDownProps extends IBaseProps {
   markdown: string
@@ -14,7 +15,7 @@ marked.setOptions({
   },
 })
 
-export default function MarkDown({ markdown }: IMarkDownProps) {
+function MarkDown({ markdown }: IMarkDownProps) {
   return (
     <div
       data-testid={MARKDOWN_PREVIEW}
@@ -23,3 +24,5 @@ export default function MarkDown({ markdown }: IMarkDownProps) {
       }}></div>
   )
 }
+
+export default React.memo(MarkDown)

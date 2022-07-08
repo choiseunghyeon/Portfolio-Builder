@@ -1,4 +1,4 @@
-import { useState, useCallback, forwardRef } from "react"
+import React, { useState, useCallback, forwardRef } from "react"
 import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import IconComponent from "../../common/IconComponent"
 import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
-import { Box } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import { SETUP_BLOCK, SETUP_BLOCK_EXPAND_ICON, SETUP_BLOCK_TITLE } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 
@@ -52,20 +52,26 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
         )}
       </AccordionSummary>
       <AccordionDetails>
-        <Box
+        {/* <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
+            "& > :not(style)": { m: 1 },
           }}
           noValidate
           autoComplete="off">
+            </Box> */}
+        <Grid container spacing={3}>
           {fields.map(field => {
             const FieldComponent = fieldProvider[field.type]
-            return <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />
+            return (
+              <Grid key={field.id} item xs={12}>
+                <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />
+              </Grid>
+            )
           })}
-        </Box>
+        </Grid>
       </AccordionDetails>
     </Accordion>
   )
 })
-export default Block
+export default React.memo(Block)

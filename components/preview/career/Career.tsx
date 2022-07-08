@@ -8,6 +8,7 @@ import TimelineDot from "@mui/lab/TimelineDot"
 import { IBaseProps } from "@type/preview"
 import { makeStyles } from "@mui/styles"
 import { Paper } from "@mui/material"
+import React from "react"
 
 export interface ICareerProps extends IBaseProps {
   organigation: string
@@ -27,7 +28,7 @@ const Career = ({ organigation, role, term, description, attributes }: ICareerPr
       </TimelineSeparator>
       <TimelineContent sx={{ px: 2 }}>
         <Grid container>
-          <Grid item xs="3">
+          <Grid item xs={3}>
             <Typography variant="h6" component="span">
               <Paper elevation={1} sx={{ backgroundColor: "primary.dark", color: "white", display: "inline-block", padding: "5px 8px" }}>
                 {organigation}
@@ -35,8 +36,8 @@ const Career = ({ organigation, role, term, description, attributes }: ICareerPr
             </Typography>
             <Typography color="textSecondary">{term}</Typography>
           </Grid>
-          <Grid item xs="1"></Grid>
-          <Grid alignItems="center" container item xs="8">
+          <Grid item xs={1}></Grid>
+          <Grid alignItems="center" container item xs={8}>
             <Typography variant="h6" component="span">
               {role}
             </Typography>
@@ -48,4 +49,4 @@ const Career = ({ organigation, role, term, description, attributes }: ICareerPr
   )
 }
 
-export default Career
+export default React.memo(Career)

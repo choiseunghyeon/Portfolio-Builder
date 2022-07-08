@@ -32,6 +32,7 @@ export default function MultiLineInputField({ blockId, id, type, value, title, h
   return (
     <>
       <TextField
+        className="flex"
         data-testid={MULTI_LINE_INPUT_FIELD_TEST_ID}
         placeholder={placeholder?.multiLineText}
         InputProps={{

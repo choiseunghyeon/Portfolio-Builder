@@ -112,9 +112,7 @@ const selectProfileProps = createSelector(
 )
 
 const selectProjectProps = createSelector(
-  (block: IBlock) => block,
-  (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
-  (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
+  [(block: IBlock) => block, (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle, (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData],
   (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IProjectProps => {
     const [nameField, organigationField, termField, descriptionField, skillsFeild, skillSetField] = block.fields
     const termValue = getTermValue(termField.value.from, termField.value.to)
@@ -183,6 +181,7 @@ const selectPortfolioProps = createSelector(
   (block: IBlock, blockStyle: IBlockTypeStyle) => blockStyle,
   (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean) => needDummyData,
   (block: IBlock, blockStyle: IBlockTypeStyle, needDummyData?: boolean): IPortfolioProps => {
+    console.log("selectPortfolioProps CALLED")
     const [mediaField, linkField, titleField, contentField] = block.fields
     if (needDummyData) {
       return {

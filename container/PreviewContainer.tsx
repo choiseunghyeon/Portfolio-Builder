@@ -4,11 +4,11 @@ import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBloc
 import { Grid } from "@mui/material"
 import Timeline from "@mui/lab/Timeline"
 import { convertColumnCountIntoXS, isGroupBlock, getDividerNameByBlockType } from "../store/utils"
-import { ColumnCountType } from "@type/blockStyle"
+import { ColumnCountType, IBlockTypeStyle } from "@type/blockStyle"
 import { CAREER_PREVIEW, PREVIEW_CONTAINER } from "@constants/testConstants"
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import { changePortfolioById, PortfolioPageType } from "@store/root"
-import { BlockType } from "@type/block"
+import { BlockType, IBlock } from "@type/block"
 import { usePortfolio } from "@lib/hooks/query"
 import { Box } from "@mui/material"
 import { Divider } from "@mui/material"
@@ -70,11 +70,9 @@ const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; po
         <Grid justifyContent="flex-start" container>
           <Grid item xs={12}>
             <Timeline sx={{ marginY: 0, paddingY: 0 }}>
-              {blocks.map(block => {
-                const PreviewComponent = previewProvider[block.type]
-                const previewProps = previewSelectorProvider[block.type](block, blockStyle)
-                return <PreviewComponent key={block.id} {...previewProps} />
-              })}
+              {blocks.map(block => (
+                <MemoizedPreview key={block.id} block={block} blockStyle={blockStyle} />
+              ))}
             </Timeline>
           </Grid>
         </Grid>
@@ -84,15 +82,9 @@ const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; po
 
   return (
     <>
-      {blocks.map(block => {
-        const PreviewComponent = previewProvider[block.type]
-        const previewProps = previewSelectorProvider[block.type](block, blockStyle)
-        return (
-          <Grid key={block.id} item xs={convertColumnCountIntoXS(blockStyle.columnCount)}>
-            <PreviewComponent key={block.id} {...previewProps} />
-          </Grid>
-        )
-      })}
+      {blocks.map(block => (
+        <MemoizedPreview key={block.id} block={block} blockStyle={blockStyle} />
+      ))}
     </>
   )
 }
@@ -101,9 +93,12 @@ const Block = ({ blockType, portfolioPageType }: { blockType: BlockType; portfol
   const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
   const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
 
-  console.log(blocks)
   const block = blocks[0]
   if (!block) return null
+  return <MemoizedPreview key={block.id} block={block} blockStyle={blockStyle} />
+}
+
+const PreView = ({ block, blockStyle }: { block: IBlock; blockStyle: IBlockTypeStyle }) => {
   const PreviewComponent = previewProvider[block.type]
   const previewProps = previewSelectorProvider[block.type](block, blockStyle)
   return (
@@ -112,5 +107,7 @@ const Block = ({ blockType, portfolioPageType }: { blockType: BlockType; portfol
     </Grid>
   )
 }
+
+const MemoizedPreview = React.memo(PreView)
 
 export default PreviewContainer

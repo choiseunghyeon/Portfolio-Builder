@@ -1,8 +1,8 @@
-import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
+import { Grid, Divider, Typography, Theme, Box, Stack, Chip, Paper } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
 import { PROJECT_PREVIEW, PROJECT_PREVIEW_DESCRIPTION, PROJECT_PREVIEW_NAME, PROJECT_PREVIEW_ORGANIGATION, PROJECT_PREVIEW_SKILLS, PROJECT_PREVIEW_TERM } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
-import { Paper } from "@mui/material"
+import React from "react"
 
 export interface IProjectProps extends IBaseProps {
   name: string
@@ -23,7 +23,7 @@ const Project = (props: IProjectProps) => {
 }
 const DefaultProject = ({ name = "", organigation = "", term = "", description = "", skills = "", skillSet = [], attributes }: IProjectProps) => {
   return (
-    <Paper evaluation={2} data-testid={PROJECT_PREVIEW}>
+    <Paper elevation={2} data-testid={PROJECT_PREVIEW}>
       <Grid container spacing={0} sx={{ padding: "10px" }}>
         <Grid item xs={7}>
           <Typography data-testid={PROJECT_PREVIEW_NAME} sx={{ fontWeight: "bold" }} variant="h6">
@@ -63,4 +63,4 @@ const DefaultProject = ({ name = "", organigation = "", term = "", description =
   )
 }
 
-export default Project
+export default React.memo(Project)

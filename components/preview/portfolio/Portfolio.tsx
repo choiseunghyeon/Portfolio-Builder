@@ -2,6 +2,7 @@ import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
 import { PORTFOLIO_PREVIEW } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
+import React from "react"
 
 export interface IPortfolioProps extends IBaseProps {
   mediaSrc: string
@@ -43,4 +44,4 @@ const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioPro
   )
 }
 
-export default Portfolio
+export default React.memo(Portfolio)

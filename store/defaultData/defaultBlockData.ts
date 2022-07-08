@@ -86,7 +86,7 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
             { label: "Github", value: "github" },
             { label: "Keyword", value: "keyword" },
           ],
-          selectedValue: fieldValues.profileAdditionalnfo?.selectedValue || "",
+          selectedValue: fieldValues.profileAdditionalnfo || "",
         },
         attributes: { placeholder: { text: "직무, 전공, 나를 소개하는 한 마디" } },
       }),
@@ -354,7 +354,7 @@ export function createField(fieldInfo: ICreateField): IField {
       case "Date":
         return { from: defaultValue?.from || "", to: defaultValue?.to || "" }
       case "Select":
-        return { selectList: [], selectedValue: defaultValue || "" }
+        return { selectList: defaultValue.selectList || [], selectedValue: defaultValue.selectedValue || "" }
       case "AutoCompleteText":
         return { textList: [], selectedTextList: defaultValue || [] }
     }

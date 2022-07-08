@@ -44,10 +44,11 @@ export default function DateField({ blockId, id, type, value, title, handleField
   }
   return (
     <>
-      <div>{title}</div>
+      {/* <div>{title}</div> */}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker label={placeholder?.from} value={from} onChange={handleFromDate} renderInput={params => <TextField data-testid={DATE_FIELD_FROM_TEST_ID} {...params} />} />
-        <DatePicker label={placeholder?.to} value={to} onChange={handleToDate} renderInput={params => <TextField data-testid={DATE_FIELD_TO_TEST_ID} {...params} />} />
+        <DatePicker label={placeholder?.from} value={from} onChange={handleFromDate} renderInput={params => <TextField className="flex" data-testid={DATE_FIELD_FROM_TEST_ID} {...params} />} />
+        <div style={{ marginBottom: "18px" }}></div>
+        <DatePicker label={placeholder?.to} value={to} onChange={handleToDate} renderInput={params => <TextField className="flex" data-testid={DATE_FIELD_TO_TEST_ID} {...params} />} />
       </LocalizationProvider>
     </>
   )

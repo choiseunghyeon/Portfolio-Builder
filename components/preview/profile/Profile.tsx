@@ -3,6 +3,7 @@ import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/materia
 import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 import { splitMultiLineText } from "@store/utils"
+import React from "react"
 
 interface IProfileAdditionalInformation {
   apply?: {
@@ -37,7 +38,7 @@ const Profile = (props: IProfileProps) => {
   }
 }
 
-export default Profile
+export default React.memo(Profile)
 
 function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, keyword }: IProfileProps) {
   return (

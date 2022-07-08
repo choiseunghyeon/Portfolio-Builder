@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import SetupGroupPanel from "@components/SetupGroupPanel"
 import type { GetStaticProps, NextPage } from "next"
-import { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addBlock, changeBlockTypeStyle, changeItemValue, IAddBlockPayload, IChangeBlockTypeStylePayload, removeBlock, swapBlock } from "@store/root"
 import { BlockType } from "@type/block"
@@ -117,4 +117,4 @@ const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
   )
 }
 
-export default BlockContainer
+export default React.memo(BlockContainer)

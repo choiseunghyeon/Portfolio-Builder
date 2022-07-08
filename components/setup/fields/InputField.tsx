@@ -32,6 +32,7 @@ function InputField({ blockId, id, type, value, title, handleField, attributes }
   return (
     <>
       <TextField
+        className="flex"
         data-testid={INPUT_FIELD_TEST_ID}
         placeholder={placeholder?.text}
         error={!errorInfo.pass}
