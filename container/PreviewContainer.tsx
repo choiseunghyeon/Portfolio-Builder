@@ -27,22 +27,26 @@ const PreviewContainer = ({ portfolioId, portfolioPageType = "edit" }: IPreviewC
     }
   }, [portfolio])
   return (
-    <Grid data-testid={PREVIEW_CONTAINER} container sx={{ padding: "16px" }}>
+    <Grid data-testid={PREVIEW_CONTAINER} container>
       {blockLayout.map((blockList, index) => {
         const columnCount = blockList.length as ColumnCountType
         const xs = convertColumnCountIntoXS(columnCount)
         return (
-          <Grid data-testid="previewBlockContainer" key={index} container spacing={1.5}>
+          <Grid data-testid="previewBlockContainer" key={index} container spacing={2}>
             {blockList.map(block => {
               if (isGroupBlock(block.blockType)) {
                 return (
-                  <Grid container item xs={xs} key={block.blockType} spacing={1.5}>
-                    <Grid item xs={12}>
-                      <Divider sx={{ marginTop: "24px", fontWeight: "bold", fontSize: "1.2rem" }} textAlign="left">
-                        {getDividerNameByBlockType(block.blockType)}
-                      </Divider>
+                  <Grid item xs={xs} key={block.blockType}>
+                    <Grid container spacing={2}>
+                      {getDividerNameByBlockType(block.blockType) && (
+                        <Grid item xs={12}>
+                          <Divider sx={{ marginTop: "24px", fontWeight: "bold", fontSize: "1.2rem" }} textAlign="left" component={"div"}>
+                            {getDividerNameByBlockType(block.blockType)}
+                          </Divider>
+                        </Grid>
+                      )}
+                      <GroupBlock portfolioPageType={portfolioPageType} blockType={block.blockType} />
                     </Grid>
-                    <GroupBlock portfolioPageType={portfolioPageType} blockType={block.blockType} />
                   </Grid>
                 )
               } else {
@@ -64,11 +68,11 @@ const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; po
   const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
   const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
 
-  if (blockType === "Career" && blockStyle.layoutType === "default" && blockStyle.columnCount === "1") {
+  if (blockType === "Career" && blockStyle.layoutType === "default" && blockStyle.columnCount === 1) {
     return (
       <Box data-testid={CAREER_PREVIEW} sx={{ p: 1 }}>
         <Grid justifyContent="flex-start" container>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ paddingTop: 0 }}>
             <Timeline sx={{ marginY: 0, paddingY: 0 }}>
               {blocks.map(block => (
                 <MemoizedPreview key={block.id} block={block} blockStyle={blockStyle} />
