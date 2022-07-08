@@ -68,7 +68,7 @@ function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, key
           />
         </Grid>
 
-        {/* <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} /> */}
+        <DefaultAdditionalInformation apply={apply} contact={contact} github={github} keyword={keyword} />
       </Grid>
     </Box>
   )

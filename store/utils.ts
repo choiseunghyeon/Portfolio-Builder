@@ -26,8 +26,6 @@ export function getDividerNameByBlockType(blockType: BlockType) {
       return "커리어"
     case "Portfolio":
       return "포트폴리오"
-    case "MarkDown":
-      return "포트폴리오"
   }
 }
 

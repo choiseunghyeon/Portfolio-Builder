@@ -61,14 +61,16 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
           autoComplete="off">
             </Box> */}
         <Grid container spacing={3}>
-          {fields.map(field => {
-            const FieldComponent = fieldProvider[field.type]
-            return (
-              <Grid key={field.id} item xs={12}>
-                <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />
-              </Grid>
-            )
-          })}
+          {fields
+            .filter(field => field.attributes.display !== false)
+            .map(field => {
+              const FieldComponent = fieldProvider[field.type]
+              return (
+                <Grid key={field.id} item xs={12}>
+                  <FieldComponent key={field.id} blockId={id} handleField={handleField} {...field} />
+                </Grid>
+              )
+            })}
         </Grid>
       </AccordionDetails>
     </Accordion>

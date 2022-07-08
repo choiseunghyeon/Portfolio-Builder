@@ -110,7 +110,6 @@ export const foldTab = createAction<boolean>("setup/foldTab")
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType")
 export const addBlock = createAction<IAddBlockPayload>("setup/addBlock")
 export const removeBlock = createAction<string>("setup/removeBlock")
-export const changeSelectedValue = createAction<IChangedSelectedValuePayload>("setup/changedSelectedValue")
 // layout
 export const swapBlockLayout = createAction<any>("setup/swapBlockLayout")
 export const addBlockLayout = createAction<void>("setup/addBlockLayout")
@@ -125,6 +124,14 @@ const rootReducer = createReducer(root, builder => {
       }
       console.log(newPortfolio)
       state.portfolio[portfolioPageType] = newPortfolio
+
+      const profileBlock = newPortfolio.blocks.find(block => block.type === "Profile")
+      if (!profileBlock) return
+
+      const additionalField = profileBlock.fields.find(field => field.title === "(선택) 추가 정보")
+      if (!additionalField) return
+
+      setSelectItemValue(profileBlock, additionalField, additionalField.value.selectedValue)
     })
     .addCase(changeItemValue, (state, action) => {
       console.log("called changeItemValue")
@@ -137,7 +144,7 @@ const rootReducer = createReducer(root, builder => {
 
       switch (targetField.type) {
         case "Select":
-          changeSelectItemValue(targetBlock, targetField, value)
+          setSelectItemValue(targetBlock, targetField, value)
           break
         default:
           targetField.value[valueId] = value
@@ -145,25 +152,6 @@ const rootReducer = createReducer(root, builder => {
       }
 
       changeBlockTitle(targetBlock, targetField, value)
-
-      return
-      function changeSelectItemValue(targetBlock, targetField, value) {
-        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
-        // 기존 selectedValue로 보여주던 field 숨김
-        targetBlock.fields
-          .filter(field => field.attributes?.relatedSelectValue === selectedValue)
-          .forEach(field => {
-            field.attributes.display = false
-          })
-
-        // select와 연결된 field 보여주기
-        targetBlock.fields
-          .filter(field => field.attributes?.relatedSelectValue === value)
-          .forEach(field => {
-            field.attributes.display = true
-          })
-        ;(targetField.value as ISelectFiedlValue).selectedValue = value
-      }
 
       function changeBlockTitle(targetBlock, targetField, value) {
         if (targetBlock.type === "Project" && targetField.title === "프로젝트") {
@@ -257,34 +245,6 @@ const rootReducer = createReducer(root, builder => {
       const targetBlockIndex = selectBlockIndexById(state, "edit", blockId)
       blocks.splice(targetBlockIndex, 1)
     })
-    .addCase(changeSelectedValue, (state, action) => {
-      const { blockId, fieldId, value } = action.payload
-      const targetBlock = selectBlockById(state, "edit", blockId)
-
-      if (!targetBlock) return
-
-      const targetField = targetBlock.fields.find(field => field.id === fieldId)
-
-      if (!targetField) return
-
-      if (targetField.type === "Select") {
-        const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
-        // 기존 selectedValue로 보여주던 field 숨김
-        targetBlock.fields
-          .filter(field => field.attributes?.relatedSelectValue === selectedValue)
-          .forEach(field => {
-            field.attributes.display = false
-          })
-
-        // select와 연결된 field 보여주기
-        targetBlock.fields
-          .filter(field => field.attributes?.relatedSelectValue === value)
-          .forEach(field => {
-            field.attributes.display = true
-          })
-        ;(targetField.value as ISelectFiedlValue).selectedValue = value
-      }
-    })
 })
 
 const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
@@ -293,6 +253,24 @@ const reorder = (list: any[], startIndex: number, endIndex: number): any[] => {
   result.splice(endIndex, 0, removed)
 
   return result
+}
+
+function setSelectItemValue(targetBlock, targetField, value) {
+  const selectedValue = (targetField.value as ISelectFiedlValue).selectedValue
+  // 기존 selectedValue로 보여주던 field 숨김
+  targetBlock.fields
+    .filter(field => field.attributes?.relatedSelectValue === selectedValue)
+    .forEach(field => {
+      field.attributes.display = false
+    })
+
+  // select와 연결된 field 보여주기
+  targetBlock.fields
+    .filter(field => field.attributes?.relatedSelectValue === value)
+    .forEach(field => {
+      field.attributes.display = true
+    })
+  ;(targetField.value as ISelectFiedlValue).selectedValue = value
 }
 
 export default rootReducer

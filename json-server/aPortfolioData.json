@@ -6,7 +6,18 @@
       "fieldValues": {
         "profileImage": "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg",
         "profileMainText": "Front End Developer",
-        "profileSubText": "안녕하세요 :) 서핏 팀의 \n디자이너 박소연입니다."
+        "profileSubText": "안녕하세요 :) 서핏 팀의 \n디자이너 박소연입니다.",
+        "profileAdditionalnfo": "apply",
+        "profileApplyCompany": "당근마켓",
+        "profileApplyPosition": "Front End",
+        "profilePhoneNumber": "010-3734-1715",
+        "profileEmail": "ket8780@gmail.com",
+        "profileGitHubURL": "https://github.com/choiseunghyeon",
+        "profileKeyword1": "근명",
+        "profileKeyword2": "성실",
+        "profileKeyword3": "책임",
+        "profileKeyword4": "개발",
+        "profileKeyword5": "혁신"
       }
     },
     {
