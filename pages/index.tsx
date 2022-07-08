@@ -102,24 +102,20 @@ function CustomDrawer({ open, drawerWidth, handleDrawerClose, onCopyPortfolio })
         anchor="right"
         open={open}>
         <AppbarHeader>
-          <Grid container>
-            <Grid item xs={2}>
-              <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
-            </Grid>
-            <Grid item xs={7} sx={{ justifyContent: "center", alignItems: "center", display: "flex" }}>
-              <Typography component="div">포트폴리오 탐색 및 검색</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <IconButton onClick={() => setStatus("list")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                <IconComponent icon="FolderShared" />
-              </IconButton>
-              {status === "portfolio" && (
-                <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                  <IconComponent icon="ContentCopy" />
-                </IconButton>
-              )}
-            </Grid>
-          </Grid>
+          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          </Typography> */}
+          <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+          <Typography variant="h6" component="h6" sx={{ flexGrow: 1, textAlign: "center !important" }}>
+            포트폴리오 탐색 및 검색
+          </Typography>
+          <IconButton onClick={() => setStatus("list")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <IconComponent icon="FolderShared" />
+          </IconButton>
+          {status === "portfolio" && (
+            <IconButton onClick={handleClickOpen} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+              <IconComponent icon="ContentCopy" />
+            </IconButton>
+          )}
         </AppbarHeader>
         <Divider />
         <Grid container spacing={1} sx={{ height: "calc(100vh - 64px)", overflowY: "auto" }}>

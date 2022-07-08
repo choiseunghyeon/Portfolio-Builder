@@ -1,0 +1,138 @@
+{
+  "id": 1,
+  "blocks": [
+    {
+      "blockType": "Profile",
+      "fieldValues": {
+        "profileImage": "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg",
+        "profileMainText": "Front End Developer",
+        "profileSubText": "안녕하세요 최승현입니다.",
+        "profileAdditionalnfo": "apply",
+        "profileApplyCompany": "당근마켓",
+        "profileApplyPosition": "Front End",
+        "profilePhoneNumber": "010-3734-1715",
+        "profileEmail": "ket8780@gmail.com",
+        "profileGitHubURL": "https://github.com/choiseunghyeon",
+        "profileKeyword1": "근명",
+        "profileKeyword2": "성실",
+        "profileKeyword3": "책임",
+        "profileKeyword4": "개발",
+        "profileKeyword5": "혁신"
+      }
+    },
+    {
+      "blockType": "Project",
+      "fieldValues": {
+        "projectName": "ERP 솔루션",
+        "projectOrganigation": "이카운트",
+        "projectDescription": "도시·개발계획 분석 전문가",
+        "projectTerm": { "from": "2022-04-01", "to": "2022-05-30" },
+        "projectSkills": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유",
+        "projectSkillSet": ["React"]
+      }
+    },
+    {
+      "blockType": "Project",
+      "fieldValues": {
+        "projectName": "대출 추천 재개발",
+        "projectOrganigation": "현대 자동차",
+        "projectDescription": "도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통\n 호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표",
+        "projectTerm": { "from": "2022-04-01", "to": "2022-05-30" },
+        "projectSkills": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유",
+        "projectSkillSet": ["React"]
+      }
+    },
+    {
+      "blockType": "Career",
+      "fieldValues": {
+        "careerMainText": "현대 자동차",
+        "careerSubText": "Front-End",
+        "careerDescription": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유",
+        "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
+      }
+    },
+    {
+      "blockType": "Career",
+      "fieldValues": {
+        "careerMainText": "현대 자동차",
+        "careerSubText": "Front-End",
+        "careerDescription": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유",
+        "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
+      }
+    },
+    {
+      "blockType": "Career",
+      "fieldValues": {
+        "careerMainText": "현대 자동차",
+        "careerSubText": "Front-End",
+        "careerDescription": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유",
+        "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
+      }
+    },
+    {
+      "blockType": "Portfolio",
+      "fieldValues": {
+        "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "portfolioName": "MZ세대 언어",
+        "portfolioDescription": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고",
+        "portfolioURL": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+      }
+    },
+    {
+      "blockType": "Portfolio",
+      "fieldValues": {
+        "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "portfolioName": "MZ세대 언어",
+        "portfolioDescription": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고",
+        "portfolioURL": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+      }
+    },
+    {
+      "blockType": "Portfolio",
+      "fieldValues": {
+        "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "portfolioName": "MZ세대 언어",
+        "portfolioDescription": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고",
+        "portfolioURL": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+      }
+    },
+    {
+      "blockType": "Portfolio",
+      "fieldValues": {
+        "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+        "portfolioName": "MZ세대 언어",
+        "portfolioDescription": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고",
+        "portfolioURL": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+      }
+    },
+    {
+      "blockType": "MarkDown",
+      "fieldValues": {
+        "markdownText": "# Multi Project Extension 제작 회고 \n ## 제작 동기 \n 현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다.  "
+      }
+    }
+  ],
+  "blockLayout": [[{ "blockType": "Profile" }], [{ "blockType": "Project" }], [{ "blockType": "Portfolio" }, { "blockType": "Career" }], [{ "blockType": "MarkDown" }]],
+  "blockTypeStyle": {
+    "Profile": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Project": {
+      "layoutType": "default",
+      "columnCount": 2
+    },
+    "Career": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Portfolio": {
+      "layoutType": "default",
+      "columnCount": 4
+    },
+    "MarkDown": {
+      "layoutType": "default",
+      "columnCount": 1
+    }
+  }
+}

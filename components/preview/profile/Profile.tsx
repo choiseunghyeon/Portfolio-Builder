@@ -46,10 +46,10 @@ function DefaultProfile({ title, subtitle, imageSrc, apply, contact, github, key
     <Box data-testid={PROFILE_PREVIEW}>
       <Grid container alignItems={"center"} spacing={1}>
         <Grid item xs={7}>
-          <Typography variant="h5" component="h3" data-testid={PROFILE_PREVIEW_SUB_TEXT}>
+          <Typography variant="h5" component="h3" data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
             {title}
           </Typography>
-          <Typography color="textSecondary" gutterBottom data-testid={PROFILE_PREVIEW_MAIN_TEXT}>
+          <Typography color="textSecondary" gutterBottom data-testid={PROFILE_PREVIEW_SUB_TEXT}>
             {splitMultiLineText(subtitle).map((text, index) => (
               <div key={index}>{text}</div>
             ))}
