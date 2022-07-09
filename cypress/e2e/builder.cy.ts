@@ -30,14 +30,28 @@ import {
   PROJECT_TAB,
   PROJECT_TAB_PANEL,
   SETUP_BLOCK,
+  SETUP_BLOCK_EXPAND_ICON,
   SETUP_BLOCK_TITLE,
 } from "@constants/testConstants"
 
 /**
  *
  * 렌더링
+ *  - MiniMap O
+ *  - Profile O
+ *  - Career
+ *  - Project
+ *  - Portfolio
+ *  - MarkDown
  * 미니맵 작동
  * 블락 편집
+ *  - MiniMap O
+ *  - Profile O
+ *  - Career
+ *  - Project
+ *  - Portfolio
+ *  - MarkDown
+ *
  *  값 입력 시 prwview 작동하는지
  *    - profile 완료
  *    - project 완료 - skillset 빼고
@@ -71,8 +85,10 @@ describe("Builder", () => {
   })
 
   describe("Rendering Test", () => {
-    it("Minimap", () => {
+    it.only("Minimap", () => {
       cy.wait("@aPortfolioData")
+
+      // MINIMAP Rendering
       cy.getById(MINI_MAP_TAB).click()
       // setup render 확인
       cy.getById(MINI_MAP_PANEL)
@@ -93,78 +109,54 @@ describe("Builder", () => {
         cy.wrap($previewBlockContainerList[3]).getById(CAREER_PREVIEW)
         cy.wrap($previewBlockContainerList[4]).getById(MARKDOWN_PREVIEW)
       })
+
+      // PROFILE
+      // testRenderAndModifyProfile();
+
+      // PROJECT
+      // testRenderAndModifyProject();
     })
+  })
 
-    // drag&drop 변경
-
-    it("Profile Setup", () => {
-      cy.wait("@aPortfolioData")
-      const testImageHref = "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"
-      const mainText = "Front End Developer"
-      const subText = "안녕하세요 최승현입니다."
-      cy.getById(PROFILE_TAB).click()
-      cy.getById(PROFILE_TAB_PANEL).then($profileTabPanel => {
-        cy.wrap($profileTabPanel).contains("내용").click()
-        cy.wrap($profileTabPanel)
-          .find(`[data-testid=${SETUP_BLOCK}]`)
-          .eq(0)
-          .then($profileBlock => {
-            cy.wrap($profileBlock).find(`[data-testid=ExpandMoreIcon]`).click()
-            cy.wrap($profileBlock).find(`[data-testid=${IMAGE_FIELD_TEST_ID}]`).clear().type(testImageHref)
-            typeTextInput(cy.wrap($profileBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(0), mainText)
-            typeTextInput(cy.wrap($profileBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(1), subText)
-            // cy.wrap($profileBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(0).clear().type(mainText)
-            // cy.wrap($profileBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(1).clear().type(subText)
-          })
-      })
-
-      cy.getById(PROFILE_PREVIEW).then($profilePreview => {
-        cy.wrap($profilePreview).find("img").should("have.attr", "src", testImageHref)
-        cy.wrap($profilePreview).find(`[data-testid=${PROFILE_PREVIEW_MAIN_TEXT}]`).contains(mainText)
-        cy.wrap($profilePreview).find(`[data-testid=${PROFILE_PREVIEW_SUB_TEXT}]`).contains(subText)
-      })
-    })
-
-    it("Project Setup", () => {
-      cy.wait("@aPortfolioData")
-      const projectText = "ERP 솔루션"
-      const organigationText = "이카운트"
-      const dateFrom = "04012022"
-      const dateTo = "05302022"
-      const description = "도시·개발계획 \n분석 전문가"
-      const skills = "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
-      const skillSet = ["React"]
-      cy.getById(PROJECT_TAB).click()
-      cy.getById(PROJECT_TAB_PANEL).then($projectTabPanel => {
-        cy.wrap($projectTabPanel).contains("내용").click()
-        cy.wrap($projectTabPanel)
-          .find(`[data-testid=${SETUP_BLOCK}]`)
-          .eq(0)
-          .then($projectBlock => {
-            // block이 특정이 안되서 안보이는 field도 잡힘 / block 특정 지울 수 있게 해야 함
-            cy.wrap($projectBlock).find(`[data-testid=ExpandMoreIcon]`).eq(0).click()
-
-            typeTextInput(cy.wrap($projectBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(0), projectText)
-            typeTextInput(cy.wrap($projectBlock).find(`[data-testid=${INPUT_FIELD_TEST_ID}]`).eq(1), organigationText)
-            typeTextInput(cy.wrap($projectBlock).find(`[data-testid=${DATE_FIELD_FROM_TEST_ID}]`).eq(0), dateFrom)
-            typeTextInput(cy.wrap($projectBlock).find(`[data-testid=${DATE_FIELD_TO_TEST_ID}]`).eq(0), dateTo)
-            typeMultiLineInput(cy.wrap($projectBlock).find(`[data-testid=${MULTI_LINE_INPUT_FIELD_TEST_ID}]`).eq(0), description)
-            typeMultiLineInput(cy.wrap($projectBlock).find(`[data-testid=${MULTI_LINE_INPUT_FIELD_TEST_ID}]`).eq(1), description)
-            // Skill Set 테스트
-          })
-      })
-
-      cy.getById(PROJECT_PREVIEW)
+  it("Project Setup", () => {
+    cy.wait("@aPortfolioData")
+    const projectText = "ERP 솔루션"
+    const organigationText = "이카운트"
+    const dateFrom = "04012022"
+    const dateTo = "05302022"
+    const description = "도시·개발계획 \n분석 전문가"
+    const skills = "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
+    const skillSet = ["React"]
+    cy.getById(PROJECT_TAB).click()
+    cy.getById(PROJECT_TAB_PANEL).then($projectTabPanel => {
+      cy.wrap($projectTabPanel).contains("내용").click()
+      cy.wrap($projectTabPanel)
+        .findById(SETUP_BLOCK)
         .eq(0)
-        .then($firstProjectPreview => {
-          cy.wrap($firstProjectPreview).find(`[data-testid=${PROJECT_PREVIEW_NAME}]`).contains(projectText)
-          cy.wrap($firstProjectPreview).find(`[data-testid=${PROJECT_PREVIEW_TERM}]`).contains("2022-04-01 ~ 2022-05-30")
-          cy.wrap($firstProjectPreview).find(`[data-testid=${PROJECT_PREVIEW_ORGANIGATION}]`).contains(organigationText)
-          // multiline의 경우 \n 기준으로 div로 쪼개지고 값에 - 같은 기호가 붙을 수 있음
-          // cy.wrap($firstProjectPreview).find(`[data-testid=${PROJECT_PREVIEW_DESCRIPTION}]`).contains(description);
-          // cy.wrap($firstProjectPreview).find(`[data-testid=${PROJECT_PREVIEW_SKILLS}]`).contains(skills);
+        .then($projectBlock => {
+          // block이 특정이 안되서 안보이는 field도 잡힘 / block 특정 지울 수 있게 해야 함
+          cy.wrap($projectBlock).find(`[data-testid=ExpandMoreIcon]`).eq(0).click()
+
+          typeTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(0), projectText)
+          typeTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(1), organigationText)
+          typeTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0), dateFrom)
+          typeTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_TO_TEST_ID).eq(0), dateTo)
+          typeMultiLineInput(cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(0), description)
+          typeMultiLineInput(cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(1), description)
+          // Skill Set 테스트
         })
     })
+
+    cy.getById(PROJECT_PREVIEW)
+      .eq(0)
+      .then($firstProjectPreview => {
+        cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_NAME).contains(projectText)
+        cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_TERM).contains("2022-04-01 ~ 2022-05-30")
+        cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_ORGANIGATION).contains(organigationText)
+        // multiline의 경우 \n 기준으로 div로 쪼개지고 값에 - 같은 기호가 붙을 수 있음
+        // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_DESCRIPTION).contains(description);
+        // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_SKILLS).contains(skills);
+      })
   })
 
   it("Project Layout", () => {
@@ -179,7 +171,7 @@ describe("Builder", () => {
       cy.getById(DEFINE_COLUMN_COUNT).should("have.length", 4).eq(1).click()
 
       cy.getById(PREVIEW_CONTAINER)
-        .find(`[data-testid=${PROJECT_PREVIEW}]`)
+        .findById(PROJECT_PREVIEW)
         .first()
         .then($projectPreview => {
           expect($projectPreview.parent().attr("class")?.includes("xs-6")).to.be.true
@@ -192,39 +184,156 @@ describe("Builder", () => {
     cy.getById(PROJECT_TAB_PANEL).then($projectTabPanel => {
       cy.wrap($projectTabPanel).contains("내용").click()
       cy.wrap($projectTabPanel)
-        .find(`[data-testid=${SETUP_BLOCK}]`)
+        .findById(SETUP_BLOCK)
         .eq(0)
         .then($firstProjectBlock => {
           // Block Title과 field value 값 동기화 검증
 
           cy.wrap($firstProjectBlock).find(`[data-testid=ExpandMoreIcon]`).click()
           cy.wrap($firstProjectBlock)
-            .find(`[data-testid=${INPUT_FIELD_TEST_ID}]`)
+            .findById(INPUT_FIELD_TEST_ID)
             .eq(0)
             .find("input")
             .then($projectInput => {
               const titleValue = $projectInput.val()
-              cy.wrap($firstProjectBlock).find(`[data-testid=${SETUP_BLOCK_TITLE}]`).should("contain.text", titleValue)
+              cy.wrap($firstProjectBlock).findById(SETUP_BLOCK_TITLE).should("contain.text", titleValue)
               cy.wrap($projectInput).clear().type("프로젝트1")
             })
 
           cy.wrap($firstProjectBlock)
-            .find(`[data-testid=${INPUT_FIELD_TEST_ID}]`)
+            .findById(INPUT_FIELD_TEST_ID)
             .eq(0)
             .find("input")
             .then($projectInput => {
               const newTitleValue = $projectInput.val()
-              cy.wrap($firstProjectBlock).find(`[data-testid=${SETUP_BLOCK_TITLE}]`).should("contain.text", newTitleValue)
+              cy.wrap($firstProjectBlock).findById(SETUP_BLOCK_TITLE).should("contain.text", newTitleValue)
             })
         })
     })
   })
 })
 
-function typeMultiLineInput(multiLineField, text) {
+function typeMultiLineInput(multiLineField: Cypress.Chainable, text) {
   multiLineField.find("textarea").eq(0).clear().type(text)
 }
 
-function typeTextInput(inputField, text) {
+function typeTextInput(inputField: Cypress.Chainable, text) {
   inputField.find("input").clear().type(text)
+}
+
+function typeImageInput(inputField: Cypress.Chainable, text) {
+  inputField.clear().type(text)
+}
+
+function validateTextInput(inputField: Cypress.Chainable, text) {
+  inputField.find("input").should("have.value", text)
+}
+function validateMultiLineInput(multiLineField: Cypress.Chainable, text) {
+  multiLineField.find("textarea").eq(0).should("have.value", text)
+}
+
+function validateImageInput(inputField: Cypress.Chainable, text) {
+  inputField.should("have.value", text)
+}
+
+// 미완성
+function testRenderAndModifyProfile() {
+  cy.getById(PROFILE_TAB).click()
+  // PROFILE SETUP TEST
+  cy.getById(PROFILE_TAB_PANEL).contains("내용").click()
+  cy.getById(PROFILE_TAB_PANEL)
+    .findById(SETUP_BLOCK)
+    .eq(0)
+    .then($profileBlock => {
+      cy.wrap($profileBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+      validateImageInput(cy.wrap($profileBlock).findById(IMAGE_FIELD_TEST_ID).eq(0), "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
+      validateTextInput(cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0), "Front End Developer")
+      validateTextInput(cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1), "안녕하세요 최승현입니다.")
+    })
+
+  // PROFILE RENDER TEST
+  cy.getById(PROFILE_PREVIEW).then($profilePreview => {
+    cy.wrap($profilePreview).find("img").should("have.attr", "src", "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
+    cy.wrap($profilePreview).findById(PROFILE_PREVIEW_MAIN_TEXT).contains("Front End Developer")
+    cy.wrap($profilePreview).findById(PROFILE_PREVIEW_SUB_TEXT).contains("안녕하세요 최승현입니다.")
+  })
+
+  cy.getById(PROFILE_TAB_PANEL).then($profileTabPanel => {
+    cy.wrap($profileTabPanel)
+      .findById(SETUP_BLOCK)
+      .eq(0)
+      .then($profileBlock => {
+        // cy.wrap($profileBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        // cy.wrap($profileBlock).find(`[data-testid=ExpandMoreIcon]`).click()
+        typeImageInput(cy.wrap($profileBlock).findById(IMAGE_FIELD_TEST_ID), "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
+        typeTextInput(cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0), "Back End Developer")
+        typeTextInput(cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1), "안녕하세요 홍길동입니다.")
+        // cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0).clear().type(mainText)
+        // cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1).clear().type(subText)
+      })
+  })
+
+  cy.getById(PROFILE_PREVIEW).then($profilePreview => {
+    cy.wrap($profilePreview).find("img").should("have.attr", "src", "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
+    cy.wrap($profilePreview).findById(PROFILE_PREVIEW_MAIN_TEXT).contains("Back End Developer")
+    cy.wrap($profilePreview).findById(PROFILE_PREVIEW_SUB_TEXT).contains("안녕하세요 홍길동입니다.")
+  })
+}
+
+// 미완성
+function testRenderAndModifyProject() {
+  cy.getById(PROJECT_TAB).click()
+
+  // PROJECT SETUP & PREVIEW RENDER TEST
+  cy.getById(PROJECT_TAB_PANEL).contains("내용").click()
+  cy.getById(PROJECT_TAB_PANEL)
+    .getById(SETUP_BLOCK)
+    .eq(0)
+    .then($projectBlock => {
+      cy.wrap($projectBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+      validateTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(0), "ERP 솔루션")
+      validateTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(1), "이카운트")
+      validateTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0), "04/01/2022")
+      validateTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_TO_TEST_ID).eq(0), "05/30/2022")
+      validateMultiLineInput(cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(0), "도시·개발계획 분석 전문가")
+      validateMultiLineInput(
+        cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(1),
+        "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
+      )
+    })
+
+  cy.getById(PROJECT_PREVIEW)
+    .eq(0)
+    .then(projectBlock => {
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_NAME).contains("ERP 솔루션")
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_TERM).contains("2022-04-01 ~ 2022-05-30")
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_ORGANIGATION).contains("이카운트")
+      // multiline의 경우 \n 기준으로 div로 쪼개지고 값에 - 같은 기호가 붙을 수 있음
+      // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_DESCRIPTION).contains(description);
+      // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_SKILLS).contains(skills);
+    })
+
+  // PROJECT MODIFIY TEST
+  cy.getById(PROJECT_TAB_PANEL)
+    .getById(SETUP_BLOCK)
+    .eq(0)
+    .then($projectBlock => {
+      typeTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(0), "스마트미러")
+      typeTextInput(cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(1), "개인")
+      typeTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0), "04012022")
+      typeTextInput(cy.wrap($projectBlock).findById(DATE_FIELD_TO_TEST_ID).eq(0), "05302022")
+      typeMultiLineInput(cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(0), "뷰티 유튜버를 보며 \n화장을 하고 싶었습니다.")
+      typeMultiLineInput(cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(1), "하드웨어 제작 \n소프트웨어 제작")
+    })
+
+  cy.getById(PROJECT_PREVIEW)
+    .eq(0)
+    .then(projectBlock => {
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_NAME).contains("스마트미러")
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_TERM).contains("2022-04-01 ~ 2022-05-30")
+      cy.wrap(projectBlock).findById(PROJECT_PREVIEW_ORGANIGATION).contains("개인")
+      // multiline의 경우 \n 기준으로 div로 쪼개지고 값에 - 같은 기호가 붙을 수 있음
+      // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_DESCRIPTION).contains(description);
+      // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_SKILLS).contains(skills);
+    })
 }

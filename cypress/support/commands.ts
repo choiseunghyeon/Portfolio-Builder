@@ -22,7 +22,7 @@ Cypress.Commands.add(
   {
     prevSubject: true,
   },
-  (subject, value) => {
+  (subject, value: string) => {
     return subject.find(`[data-testid=${value}]`)
   }
 )

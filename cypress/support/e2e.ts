@@ -35,7 +35,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       getById(value: string): Chainable<JQuery<HTMLElement>>
-      findById(subject: Chainable<JQuery<HTMLElement>>, value: string): Chainable<JQuery<HTMLElement>>
+      findById(value: string): Chainable<JQuery<HTMLElement>>
       //   login(email: string, password: string): Chainable<void>
       //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
