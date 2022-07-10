@@ -1,6 +1,6 @@
 import { Grid, Divider, Typography, Theme, Box } from "@mui/material"
 import { splitMultiLineText } from "@store/utils"
-import { PORTFOLIO_PREVIEW } from "@constants/testConstants"
+import { PORTFOLIO_CONTENT, PORTFOLIO_LINK, PORTFOLIO_MEDIA, PORTFOLIO_PREVIEW, PORTFOLIO_TITLE } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 import React from "react"
 
@@ -16,6 +16,7 @@ const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioPro
       <Grid container spacing={1}>
         <Grid justifyContent={"center"} container item xs={12}>
           <img
+            data-testid={PORTFOLIO_MEDIA}
             src={mediaSrc}
             style={{
               height: "100%",
@@ -27,15 +28,17 @@ const Portfolio = ({ mediaSrc, title, content, link, attributes }: IPortfolioPro
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h5" component="h3" gutterBottom>
+          <Typography variant="h5" component="h3" gutterBottom data-testid={PORTFOLIO_TITLE}>
             {title}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography color="textSecondary">{content && splitMultiLineText(content).map((text, index) => <div key={index}>{text}</div>)}</Typography>
+          <Typography color="textSecondary" data-testid={PORTFOLIO_CONTENT}>
+            {content && splitMultiLineText(content).map((text, index) => <div key={index}>{text}</div>)}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography component="div" fontSize={"0.8rem"}>
+          <Typography component="div" fontSize={"0.8rem"} data-testid={PORTFOLIO_LINK}>
             <a href="link">{link}</a>
           </Typography>
         </Grid>

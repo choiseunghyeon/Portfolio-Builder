@@ -14,6 +14,7 @@ import IconComponent from "@components/common/IconComponent"
 import { getGroupBlockDefaultNameAndLabel, isGroupBlock } from "@store/utils"
 import SetupPanel from "@components/SetupPanel"
 import { DefaultBlockTypeStyle } from "@store/defaultData/defaultBlockStyle"
+import { SETUP_BLOCK_CONTENT, SETUP_BLOCK_LAYOUT } from "@constants/testConstants"
 
 function a11yProps(index: number) {
   return {
@@ -91,8 +92,8 @@ const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
   return (
     <Box data-testid={dataTestId}>
       <Tabs value={currentTabValue} onChange={handleChange} aria-label="basic tabs example">
-        <Tab label="내용" value="block" {...a11yProps(0)} />
-        <Tab label="레이아웃" value="layout" {...a11yProps(1)} />
+        <Tab label="내용" value="block" {...a11yProps(0)} data-testid={SETUP_BLOCK_CONTENT} />
+        <Tab label="레이아웃" value="layout" {...a11yProps(1)} data-testid={SETUP_BLOCK_LAYOUT} />
       </Tabs>
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel currentTabValue={currentTabValue} tabValue="block">

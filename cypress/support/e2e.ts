@@ -36,6 +36,12 @@ declare global {
     interface Chainable {
       getById(value: string): Chainable<JQuery<HTMLElement>>
       findById(value: string): Chainable<JQuery<HTMLElement>>
+      typeMultiLineInput(value: string): Chainable<JQuery<HTMLElement>>
+      typeTextInput(value: string): Chainable<JQuery<HTMLElement>>
+      typeImageInput(value: string): Chainable<JQuery<HTMLElement>>
+      validateTextInput(value: string): Chainable<JQuery<HTMLElement>>
+      validateMultiLineInput(value: string): Chainable<JQuery<HTMLElement>>
+      validateImageInput(value: string): Chainable<JQuery<HTMLElement>>
       //   login(email: string, password: string): Chainable<void>
       //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>

@@ -34,9 +34,9 @@
     {
       "blockType": "Career",
       "fieldValues": {
-        "careerMainText": "현대 자동차",
+        "careerMainText": "이카운트",
         "careerSubText": "Front-End",
-        "careerDescription": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유",
+        "careerDescription": "View와 Data를 분리하고\n redux, redux-saga 적용 및 가이드 공유",
         "careerTerm": { "from": "2022-04-01", "to": "2022-05-30" }
       }
     },
@@ -44,15 +44,15 @@
       "blockType": "Portfolio",
       "fieldValues": {
         "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
-        "portfolioName": "MZ세대 언어",
-        "portfolioDescription": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고",
+        "portfolioName": "스마트미러",
+        "portfolioDescription": "스마트미러 프로젝트\n하드웨어 소프트웨어 제작",
         "portfolioURL": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
       }
     },
     {
       "blockType": "MarkDown",
       "fieldValues": {
-        "markdownText": "# Multi Project Extension 제작 회고 \n ## 제작 동기 \n 현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다.  "
+        "markdownText": "# Multi Project Extension 제작 회고 \n ## 제작 동기 \n 현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다."
       }
     }
   ],
