@@ -22,31 +22,31 @@ Cypress.Commands.add(
   {
     prevSubject: true,
   },
-  (subject, value: string) => {
+  (subject, value) => {
     return subject.find(`[data-testid=${value}]`)
   }
 )
 
 // subject로 jquery 넘어옴 왜 chainable이 안들어오지?
-Cypress.Commands.add("typeTextInput", { prevSubject: true }, (subject, text: string) => {
+Cypress.Commands.add("typeTextInput", { prevSubject: true }, (subject, text) => {
   return cy.wrap(subject).find("input").clear().type(text)
 })
 
-Cypress.Commands.add("typeMultiLineInput", { prevSubject: true }, (subject, text: string) => {
+Cypress.Commands.add("typeMultiLineInput", { prevSubject: true }, (subject, text) => {
   return cy.wrap(subject).find("textarea").eq(0).clear().type(text)
 })
 
-Cypress.Commands.add("typeImageInput", { prevSubject: true }, (subject, text: string) => {
+Cypress.Commands.add("typeImageInput", { prevSubject: true }, (subject, text) => {
   return cy.wrap(subject).clear().type(text)
 })
 
-Cypress.Commands.add("validateTextInput", { prevSubject: true }, (subject, text: string) => {
-  return cy.wrap(subject).find("input").should("have.value", text)
-})
-Cypress.Commands.add("validateMultiLineInput", { prevSubject: true }, (subject, text: string) => {
+Cypress.Commands.add("validateMultiLineInput", { prevSubject: true }, (subject, text) => {
   return cy.wrap(subject).find("textarea").eq(0).should("have.value", text)
 })
-Cypress.Commands.add("validateImageInput", { prevSubject: true }, (subject, text: string) => {
+Cypress.Commands.add("validateTextInput", { prevSubject: true }, (subject, text) => {
+  return cy.wrap(subject).find("input").should("have.value", text)
+})
+Cypress.Commands.add("validateImageInput", { prevSubject: true }, (subject, text) => {
   console.log(subject)
   return cy.wrap(subject).should("have.value", text)
 })
