@@ -1,5 +1,5 @@
+import { useState } from "react"
 import HeaderContainer from "@container/HeaderContainer"
-import * as React from "react"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
 import AppBar from "@mui/material/AppBar"
@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MailIcon from "@mui/icons-material/Mail"
-import { Grid, IconButton, Paper, Stack } from "@mui/material"
+import { Chip, Grid, IconButton, Paper, Stack } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Menu from "@mui/material/Menu"
 import MenuIcon from "@mui/icons-material/Menu"
@@ -29,6 +29,7 @@ import TechBlogCard from "./TechBlogCard"
 import CareerSubCard from "./CareerSubCard"
 
 function PageLayout() {
+  const [techblog, setTechBlog] = useState<"favorite" | "all">("favorite")
   let arr: number[] = []
   arr.length = 50
   arr.fill(1)
@@ -91,8 +92,9 @@ function PageLayout() {
 
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Toolbar />
-        <Grid container spacing={2} sx={{ overflow: "hidden" }}>
-          <Grid item xs={2} sx={{ backgroundColor: "black", color: "white", borderTopRightRadius: "55px 65px", height: "calc(100vh - 64px)" }}>
+        <Grid container sx={{ overflow: "hidden" }}>
+          {/* Navigation 영역 */}
+          <Grid item xs={2} sx={{ backgroundColor: "black", color: "white", borderTopRightRadius: "55px 65px", height: "calc(100vh - 64px)", padding: 2 }}>
             <Grid container direction="column" justifyContent="space-between" sx={{ height: "100% !important" }}>
               <Grid item>
                 <Grid container spacing={1}>
@@ -119,66 +121,92 @@ function PageLayout() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={7} sx={{ overflowY: "auto", height: "calc(100vh - 64px)", paddingX: 4 }}>
+          <Grid item xs={7} sx={{ overflowY: "auto", height: "calc(100vh - 64px)", padding: 2 }}>
             <Typography paragraph>PPB는 기술블로그를 꾸준히 운영하는 기업이 개발자가 성장하기 좋은 개발 문화를 가진 공간이라고 믿어요.</Typography>
-            <Grid container sx={{ marginBottom: 2 }}>
-              <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
-                <Grid container justifyContent={"space-between"} alignItems={"center"}>
-                  <Grid item>
-                    <Typography
-                      variant="h6"
-                      noWrap
-                      sx={{
-                        fontWeight: 700,
-                        letterSpacing: ".3rem",
-                        textDecoration: "none",
-                      }}>
-                      Favorite (10)
-                    </Typography>
-                  </Grid>
-                  <Grid item>*최신순으로 기본 정렬</Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid container spacing={1}>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => (
-                    <Grid key={value} item xs={4}>
-                      <TechBlogCard />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
+            <Grid item xs={12} sx={{ textAlign: "end", marginBottom: 2 }}>
+              <Chip
+                label="Favorite"
+                variant={techblog === "favorite" ? "filled" : "outlined"}
+                color={techblog === "favorite" ? "primary" : "default"}
+                onClick={() => {
+                  setTechBlog("favorite")
+                }}
+              />
+              <Chip
+                label="All"
+                variant={techblog === "all" ? "filled" : "outlined"}
+                color={techblog === "all" ? "primary" : "default"}
+                onClick={() => {
+                  setTechBlog("all")
+                }}
+                sx={{ marginLeft: 1 }}
+              />
             </Grid>
-            <Grid container sx={{ marginBottom: 2 }}>
-              <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
-                <Grid container justifyContent={"space-between"} alignItems={"center"}>
-                  <Grid item>
-                    <Typography
-                      variant="h6"
-                      noWrap
-                      sx={{
-                        fontWeight: 700,
-                        letterSpacing: ".3rem",
-                        textDecoration: "none",
-                      }}>
-                      All (50)
-                    </Typography>
-                  </Grid>
-                  <Grid item>최신순 | 별점순 | 클릭순</Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid container spacing={1}>
-                  {arr.map(value => (
-                    <Grid key={value} item xs={4}>
-                      <TechBlogCard />
+
+            {techblog === "favorite" && (
+              <Grid container sx={{ marginBottom: 2 }}>
+                <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
+                  <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                    <Grid item>
+                      <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{
+                          fontWeight: 700,
+                          letterSpacing: ".3rem",
+                          textDecoration: "none",
+                        }}>
+                        Favorite (10)
+                      </Typography>
                     </Grid>
-                  ))}
+                    <Grid item>*최신순으로 기본 정렬</Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Grid container spacing={1}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => (
+                      <Grid key={value} item xs={4}>
+                        <TechBlogCard />
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+            )}
+
+            {techblog === "all" && (
+              <Grid container sx={{ marginBottom: 2 }}>
+                <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
+                  <Grid container justifyContent={"space-between"} alignItems={"center"}>
+                    <Grid item>
+                      <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{
+                          fontWeight: 700,
+                          letterSpacing: ".3rem",
+                          textDecoration: "none",
+                        }}>
+                        All (50)
+                      </Typography>
+                    </Grid>
+                    <Grid item>최신순 | 별점순 | 클릭순</Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <Grid container spacing={1}>
+                    {arr.map(value => (
+                      <Grid key={value} item xs={4}>
+                        <TechBlogCard />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
-          <Grid item xs={3} sx={{ height: "calc(100vh - 64px)" }}>
+          <Grid item xs={3} sx={{ height: "calc(100vh - 64px)", padding: 2 }}>
             <Grid container direction="column" columns={16} sx={{ height: "100%" }}>
               <Grid item xs={6} sx={{ border: "1px solid black", padding: 1 }}>
                 {/* <CareerSubCard /> */}
