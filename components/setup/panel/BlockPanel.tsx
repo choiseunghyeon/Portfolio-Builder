@@ -1,4 +1,4 @@
-import BlockContainer from "@container/BlockContainer"
+import BlockContainer from "@container/builder/BlockContainer"
 import { CAREER_TAB, CAREER_TAB_PANEL, MARKDOWN_TAB_PANEL, PORTFOLIO_TAB_PANEL, PROFILE_TAB_PANEL, PROJECT_TAB_PANEL } from "@constants/testConstants"
 import { BlockType } from "@type/block"
 

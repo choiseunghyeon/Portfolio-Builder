@@ -1,12 +1,12 @@
 import { Box, CssBaseline, Grid } from "@mui/material"
 import type { NextPage } from "next"
-import HeaderContainer from "@container/HeaderContainer"
+import HeaderContainer from "@container/builder/HeaderContainer"
 import DirectoryNavigation from "@components/common/DirectoryNavigation"
 import UserCard from "@components/common/UserCard"
 import Main from "@components/common/Main"
 import AppbarHeader from "@components/common/AppbarHeader"
 import { useRouter } from "next/router"
-import PreviewContainer from "@container/PreviewContainer"
+import PreviewContainer from "@container/builder/PreviewContainer"
 
 const Portfolio: NextPage = () => {
   const router = useRouter()

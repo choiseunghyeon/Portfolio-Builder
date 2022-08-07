@@ -17,22 +17,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import { Button, Grid, Menu, MenuItem, Stack } from "@mui/material"
 import IconComponent from "./IconComponent"
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean
+interface ITechBlogCardProps {
+  companyName: string
+  serviceName?: string
+  days: number
+  favorite: boolean
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}))
-
-export default function TechBlogCard() {
+export default function TechBlogCard({ companyName, serviceName, days, favorite }: ITechBlogCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -43,31 +35,43 @@ export default function TechBlogCard() {
   }
   return (
     <Card>
-      <CardMedia component="img" height="194" image="https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg" alt="Paella dish" />
-      <CardContent sx={{ padding: "12px !important" }}>
+      <CardContent sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7" }}>
+        <Typography sx={{ textAlign: "left" }} variant="h6" component="div">
+          <IconButton onClick={handleClick} color="primary" aria-label="add to shopping cart">
+            <IconComponent icon={favorite ? "Star" : "StarBorder"} />
+          </IconButton>
+        </Typography>
+        <Typography variant="h6" component="div">
+          <IconComponent icon={"GitHub"} />
+        </Typography>
+        <Typography variant="h6" component="div">
+          {companyName}
+        </Typography>
+        {serviceName && (
+          <Typography variant="h6" component="div">
+            {serviceName}
+          </Typography>
+        )}
+      </CardContent>
+      <CardActions>
         <Grid container justifyContent={"space-between"} alignItems={"center"}>
           <Grid item>
             <Typography variant="body2" color="text.secondary">
               최근 업로드 날짜로부터
             </Typography>
-            <Typography>1일 지남</Typography>
+            <Typography>{days}일 지남</Typography>
           </Grid>
           <Grid item>
-            <span>
-              <IconComponent icon={"StarBorder"} />
-            </span>
-            <span onClick={handleClick}>
+            <IconButton onClick={handleClick} color="primary" aria-label="add to shopping cart">
               <IconComponent icon={"MoreHoriz"} />
-            </span>
+            </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Profile</MenuItem>
-              {/* <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+              <MenuItem>스타트업 정보 바로가기</MenuItem>
+              <MenuItem>가장 최신 글 바로가기</MenuItem>
             </Menu>
           </Grid>
         </Grid>
-      </CardContent>
+      </CardActions>
     </Card>
   )
 }

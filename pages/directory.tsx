@@ -1,6 +1,6 @@
 import { Box, CssBaseline, Grid } from "@mui/material"
 import type { NextPage } from "next"
-import HeaderContainer from "@container/HeaderContainer"
+import HeaderContainer from "@container/builder/HeaderContainer"
 import DirectoryNavigation from "@components/common/DirectoryNavigation"
 import UserCard from "@components/common/UserCard"
 import Main from "@components/common/Main"
