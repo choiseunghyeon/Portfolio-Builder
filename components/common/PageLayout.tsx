@@ -29,13 +29,11 @@ import CareerSubCard from "./CareerSubCard"
 import TechBlogHeader from "./TechBlogHeader"
 import Navigation from "./Navigation"
 import CommunitySubCard from "./CommunitySubCard"
+import Title from "./Title"
+import TechBlogLogContainer from "@container/techblog/techBlogLogContainer"
 import TechBlogCardContainer from "@container/techblog/techBlogCardContainer"
 
 function PageLayout() {
-  const [techblog, setTechBlog] = useState<"favorite" | "all">("favorite")
-  let arr: number[] = []
-  arr.length = 50
-  arr.fill(1)
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -47,11 +45,19 @@ function PageLayout() {
           <Grid item xs={2} sx={{ backgroundColor: "black", color: "white", borderTopRightRadius: "55px 65px", height: "calc(100vh - 64px)", padding: 2 }}>
             <Navigation />
           </Grid>
+          {/* Main 영역 */}
           <Grid item xs={7} sx={{ overflowY: "auto", height: "calc(100vh - 64px)", padding: 2 }}>
             <Typography paragraph>PPB는 기술블로그를 꾸준히 운영하는 기업이 개발자가 성장하기 좋은 개발 문화를 가진 공간이라고 믿어요.</Typography>
+            <Stack spacing={2}>
+              <Title title="Tech-blog" subTitle="log" />
+              <TechBlogLogContainer />
 
-            <TechBlogCardContainer />
+              <Title title="Tech-blog" subTitle="official" />
+              <TechBlogCardContainer />
+            </Stack>
           </Grid>
+
+          {/* Side 영역 */}
           <Grid item xs={3} sx={{ height: "calc(100vh - 64px)", padding: 2 }}>
             <Grid container direction="column" columns={16} sx={{ height: "100%" }}>
               <Grid item xs={6} sx={{ border: "1px solid black", padding: 1 }}>

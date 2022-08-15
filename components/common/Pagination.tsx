@@ -8,27 +8,21 @@ import { Box, Grid, IconButton } from "@mui/material"
 import IconComponent from "./IconComponent"
 
 interface IPagination {
-  children: React.ReactChildren
-  handleNext: Function
-  handleBack: Function
+  children?: React.ReactChildren
+  currentPage: number
+  totalPage: number
+  handleNext: any
+  handleBack: any
 }
 
-export default function Pagination() {
-  const theme = useTheme()
-  const [activeStep, setActiveStep] = React.useState(0)
-
-  const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
-  }
+export default function Pagination({ children, currentPage, totalPage, handleNext, handleBack }: IPagination) {
+  const canGoBack = currentPage - 1 >= 1
+  const canGoNext = currentPage + 1 <= totalPage
 
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid item>
-        <IconButton onClick={() => {}} color="primary">
+        <IconButton onClick={handleBack} color="primary" disabled={!canGoBack}>
           <IconComponent icon={"ArrowBack"} />
         </IconButton>
       </Grid>
@@ -44,7 +38,7 @@ export default function Pagination() {
         </Grid>
       </Grid>
       <Grid item>
-        <IconButton onClick={() => {}} color="primary">
+        <IconButton onClick={handleNext} color="primary" disabled={!canGoNext}>
           <IconComponent icon={"ArrowForward"} />
         </IconButton>
       </Grid>
