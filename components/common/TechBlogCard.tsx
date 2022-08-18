@@ -16,15 +16,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import { Button, Grid, Menu, MenuItem, Stack } from "@mui/material"
 import IconComponent from "./IconComponent"
+import { ITechBlogResponse } from "@type/response"
 
-interface ITechBlogCardProps {
-  companyName: string
-  serviceName?: string
-  days: number
-  favorite: boolean
-}
+interface ITechBlogCardProps extends ITechBlogResponse {}
 
-export default function TechBlogCard({ companyName, serviceName, days, favorite }: ITechBlogCardProps) {
+export default function TechBlogCard({ companyName, serviceName, dateFromLastUpdate, favorite, iconUrl, companyInformationUrl, recentPostUrl, clickCount }: ITechBlogCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,17 +29,18 @@ export default function TechBlogCard({ companyName, serviceName, days, favorite 
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   return (
     <Card>
-      <CardContent sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7" }}>
+      <CardContent sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7", justifyContent: "center" }}>
         <Typography sx={{ textAlign: "left" }} variant="h6" component="div">
-          <IconButton onClick={handleClick} color="primary" aria-label="add to shopping cart">
+          <IconButton onClick={() => {}} color="primary" aria-label="add to shopping cart">
             <IconComponent icon={favorite ? "Star" : "StarBorder"} />
           </IconButton>
         </Typography>
-        <Typography variant="h6" component="div">
-          <IconComponent icon={"GitHub"} />
-        </Typography>
+        <Stack direction={"row"}>
+          <Avatar src={iconUrl} />
+        </Stack>
         <Typography variant="h6" component="div">
           {companyName}
         </Typography>
@@ -59,15 +56,23 @@ export default function TechBlogCard({ companyName, serviceName, days, favorite 
             <Typography variant="body2" color="text.secondary">
               최근 업로드 날짜로부터
             </Typography>
-            <Typography>{days}일 지남</Typography>
+            <Typography>{dateFromLastUpdate}일 지남</Typography>
           </Grid>
           <Grid item>
             <IconButton onClick={handleClick} color="primary" aria-label="add to shopping cart">
               <IconComponent icon={"MoreHoriz"} />
             </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem>스타트업 정보 바로가기</MenuItem>
-              <MenuItem>가장 최신 글 바로가기</MenuItem>
+              <MenuItem>
+                <a href={companyInformationUrl} target="blank">
+                  스타트업 정보 바로가기
+                </a>
+              </MenuItem>
+              <MenuItem>
+                <a href={recentPostUrl} target="blank">
+                  가장 최신 글 바로가기
+                </a>
+              </MenuItem>
             </Menu>
           </Grid>
         </Grid>
