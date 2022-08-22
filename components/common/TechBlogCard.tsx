@@ -32,13 +32,13 @@ export default function TechBlogCard({ companyName, serviceName, dateFromLastUpd
 
   return (
     <Card>
-      <CardContent sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7", justifyContent: "center" }}>
+      <CardContent sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7" }}>
         <Typography sx={{ textAlign: "left" }} variant="h6" component="div">
           <IconButton onClick={() => {}} color="primary" aria-label="add to shopping cart">
             <IconComponent icon={favorite ? "Star" : "StarBorder"} />
           </IconButton>
         </Typography>
-        <Stack direction={"row"}>
+        <Stack direction={"row"} sx={{ justifyContent: "center" }}>
           <Avatar src={iconUrl} />
         </Stack>
         <Typography variant="h6" component="div">

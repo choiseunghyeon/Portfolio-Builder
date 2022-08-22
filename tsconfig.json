@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.extend.json",
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -15,16 +16,6 @@
     "noImplicitAny": false,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./",
-    "paths": {
-      "@pages/*": ["pages/*"],
-      "@components/*": ["components/*"],
-      "@container/*": ["container/*"],
-      "@store/*": ["store/*"],
-      "@type/*": ["type/*"],
-      "@lib/*": ["lib/*"],
-      "@constants/*": ["constants/*"]
-    },
     "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cypress/support/commands.js"],
