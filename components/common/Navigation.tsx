@@ -22,7 +22,7 @@ function Navigation() {
           ))}
         </Grid>
       </Grid>
-      <Grid item>팀 소개 페이지</Grid>
+      {/* <Grid item>팀 소개 페이지</Grid> */}
       <Grid item>
         <Button variant="text" size="medium" startIcon={<IconComponent icon={"Person"} />} sx={{ color: "white" }}>
           Login

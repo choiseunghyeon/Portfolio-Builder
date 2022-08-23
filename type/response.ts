@@ -1,4 +1,5 @@
 export interface ITechBlogResponse {
+  id: string
   favorite: boolean
   companyName: string
   serviceName?: string

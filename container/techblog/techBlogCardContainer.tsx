@@ -4,20 +4,6 @@ import React, { useState } from "react"
 import AllTechBlogCardContainer from "./AllTechBlogCardContainer"
 import FavoriteTechBlogCardContainer from "./FavoriteTechBlogCardContainer"
 
-const techBlogCardData = [
-  {
-    companyName: "비바리퍼블리카",
-    serviceName: "토스",
-    favorite: true,
-    days: 3,
-  },
-  {
-    companyName: "카카오",
-    favorite: false,
-    days: 31,
-  },
-]
-
 function TechBlogCardContainer() {
   const [techblog, setTechBlog] = useState<"favorite" | "all">("favorite")
   return (
