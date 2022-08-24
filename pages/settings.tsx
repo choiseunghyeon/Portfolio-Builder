@@ -1,4 +1,4 @@
-import { Box, Grid, Tab, Tabs } from "@mui/material"
+import { Grid, Tab, Tabs } from "@mui/material"
 import type { NextPage } from "next"
 import TabPanel from "@components/setup/panel/TabPanel"
 import { useState } from "react"

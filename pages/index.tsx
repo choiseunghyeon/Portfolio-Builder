@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react"
-import { styled, useTheme } from "@mui/material/styles"
-import Box from "@mui/material/Box"
-import Drawer from "@mui/material/Drawer"
+import { useTheme } from "@mui/material/styles"
 
-import CssBaseline from "@mui/material/CssBaseline"
-
-import Typography from "@mui/material/Typography"
-import Divider from "@mui/material/Divider"
-import IconButton from "@mui/material/IconButton"
-import MenuIcon from "@mui/icons-material/Menu"
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
-import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import { Button, Dialog, DialogTitle, Grid } from "@mui/material"
+import { ChevronLeft, ChevronRight } from "@mui/icons-material"
+import { Button, Dialog, DialogTitle, Grid, Box, Typography, Divider, IconButton, Drawer, CssBaseline } from "@mui/material"
 import SetupContainer from "@container/builder/SetupContainer"
 import PreviewContainer from "@container/builder/PreviewContainer"
 import IconComponent from "@components/common/IconComponent"
@@ -104,7 +95,7 @@ function CustomDrawer({ open, drawerWidth, handleDrawerClose, onCopyPortfolio })
         <AppbarHeader>
           {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           </Typography> */}
-          <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+          <IconButton onClick={handleDrawerClose}>{theme.direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}</IconButton>
           <Typography variant="h6" component="h6" sx={{ flexGrow: 1, textAlign: "center !important" }}>
             포트폴리오 탐색 및 검색
           </Typography>

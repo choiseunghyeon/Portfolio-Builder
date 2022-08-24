@@ -1,12 +1,6 @@
 import * as React from "react"
-import Box from "@mui/material/Box"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import ListItemButton from "@mui/material/ListItemButton"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import InboxIcon from "@mui/icons-material/Inbox"
-import DraftsIcon from "@mui/icons-material/Drafts"
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Inbox, Drafts } from "@mui/icons-material"
 
 interface IDirectoryNavigationProps {}
 export default function DirectoryNavigation({}: IDirectoryNavigationProps) {
@@ -23,7 +17,7 @@ export default function DirectoryNavigation({}: IDirectoryNavigationProps) {
           <ListItem disablePadding>
             <ListItemButton selected={selectedIndex === 1} onClick={event => handleListItemClick(event, 1)}>
               <ListItemIcon>
-                <InboxIcon />
+                <Inbox />
               </ListItemIcon>
               <ListItemText primary="전체 디렉토리" />
             </ListItemButton>
@@ -31,7 +25,7 @@ export default function DirectoryNavigation({}: IDirectoryNavigationProps) {
           <ListItem disablePadding>
             <ListItemButton selected={selectedIndex === 2} onClick={event => handleListItemClick(event, 2)}>
               <ListItemIcon>
-                <DraftsIcon />
+                <Drafts />
               </ListItemIcon>
               <ListItemText primary="개발" />
             </ListItemButton>

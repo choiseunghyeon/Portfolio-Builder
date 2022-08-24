@@ -1,15 +1,60 @@
 import React from "react"
-import * as ReactIconSi from "react-icons/si"
-import * as ReactIconFa from "react-icons/fa"
-import * as MaterialIcon from "@mui/icons-material"
+// import * as ReactIconSi from "react-icons/si"
+// import * as ReactIconFa from "react-icons/fa"
+import {
+  Add,
+  Settings,
+  Menu,
+  Inbox,
+  Person,
+  ArrowDropDown,
+  ArrowBack,
+  Create,
+  ChatBubble,
+  ArrowForward,
+  Star,
+  StarBorder,
+  MoreHoriz,
+  LocalPhone,
+  Email,
+  DragIndicator,
+  Delete,
+  FolderShared,
+  ContentCopy,
+  PersonOutline,
+  Computer,
+} from "@mui/icons-material"
 import { IconType } from "react-icons/lib"
 
-function getIcon(iconName: string): IconType | MaterialIcon.SvgIconComponent | undefined {
-  if (ReactIconSi[iconName]) return ReactIconSi[iconName]
+const Icons = {
+  Add,
+  Settings,
+  Menu,
+  Inbox,
+  Person,
+  ArrowDropDown,
+  ArrowBack,
+  Create,
+  ChatBubble,
+  ArrowForward,
+  Star,
+  StarBorder,
+  MoreHoriz,
+  LocalPhone,
+  Email,
+  DragIndicator,
+  Delete,
+  FolderShared,
+  ContentCopy,
+  PersonOutline,
+  Computer,
+}
+function getIcon(iconName: string): IconType | any | undefined {
+  // if (ReactIconSi[iconName]) return ReactIconSi[iconName]
 
-  if (ReactIconFa[iconName]) return ReactIconFa[iconName]
+  // if (ReactIconFa[iconName]) return ReactIconFa[iconName]
 
-  if (MaterialIcon[iconName]) return MaterialIcon[iconName]
+  if (Icons[iconName]) return Icons[iconName]
 }
 
 interface IconComponentProps {

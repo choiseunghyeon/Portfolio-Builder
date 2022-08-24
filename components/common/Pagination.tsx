@@ -1,10 +1,5 @@
 import * as React from "react"
-import { useTheme } from "@mui/material/styles"
-import MobileStepper from "@mui/material/MobileStepper"
-import Button from "@mui/material/Button"
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft"
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight"
-import { Box, Grid, IconButton } from "@mui/material"
+import { Box, Grid, IconButton, Button } from "@mui/material"
 import IconComponent from "./IconComponent"
 
 interface IPagination {

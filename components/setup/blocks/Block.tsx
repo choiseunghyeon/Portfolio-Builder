@@ -1,12 +1,8 @@
 import React, { useState, useCallback, forwardRef } from "react"
-import Accordion from "@mui/material/Accordion"
-import AccordionSummary from "@mui/material/AccordionSummary"
-import AccordionDetails from "@mui/material/AccordionDetails"
-import Typography from "@mui/material/Typography"
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } from "@mui/material"
 import IconComponent from "../../common/IconComponent"
 import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
-import { Box, Grid } from "@mui/material"
 import { SETUP_BLOCK, SETUP_BLOCK_EXPAND_ICON, SETUP_BLOCK_TITLE } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 

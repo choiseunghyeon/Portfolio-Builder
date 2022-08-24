@@ -1,8 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material"
-import Tabs from "@mui/material/Tabs"
-import Tab from "@mui/material/Tab"
+import { Box, Tabs, Tab } from "@mui/material"
 import SetupGroupPanel from "@components/SetupGroupPanel"
-import type { GetStaticProps, NextPage } from "next"
 import React, { useCallback, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addBlock, changeBlockTypeStyle, changeItemValue, IAddBlockPayload, IChangeBlockTypeStylePayload, removeBlock, swapBlock } from "@store/root"
@@ -10,11 +7,10 @@ import { BlockType } from "@type/block"
 import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/selector"
 import TabPanel from "@components/setup/panel/TabPanel"
 import LayoutPanel from "@components/LayoutPanel"
-import IconComponent from "@components/common/IconComponent"
-import { getGroupBlockDefaultNameAndLabel, isGroupBlock } from "@store/utils"
 import SetupPanel from "@components/SetupPanel"
 import { DefaultBlockTypeStyle } from "@store/defaultData/defaultBlockStyle"
 import { SETUP_BLOCK_CONTENT, SETUP_BLOCK_LAYOUT } from "@constants/testConstants"
+import { isGroupBlock } from "@store/utils"
 
 function a11yProps(index: number) {
   return {

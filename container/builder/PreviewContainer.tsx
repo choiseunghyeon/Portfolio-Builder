@@ -1,7 +1,7 @@
 import { previewProvider } from "@components/preview/provider"
 import { useDispatch, useSelector } from "react-redux"
 import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockStyle, selectBlockTypeStyleByBlockType } from "@store/selector"
-import { Grid } from "@mui/material"
+import { Grid, Box, Divider } from "@mui/material"
 import Timeline from "@mui/lab/Timeline"
 import { convertColumnCountIntoXS, isGroupBlock, getDividerNameByBlockType } from "@store/utils"
 import { ColumnCountType, IBlockTypeStyle } from "@type/blockStyle"
@@ -10,8 +10,6 @@ import React, { useEffect } from "react"
 import { changePortfolioById, PortfolioPageType } from "@store/root"
 import { BlockType, IBlock } from "@type/block"
 import { usePortfolio } from "@lib/hooks/query"
-import { Box } from "@mui/material"
-import { Divider } from "@mui/material"
 interface IPreviewContainer {
   portfolioId: string
   portfolioPageType?: PortfolioPageType
