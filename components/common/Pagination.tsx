@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Box, Grid, IconButton, Button } from "@mui/material"
 import IconComponent from "./IconComponent"
 

@@ -1,21 +1,34 @@
+import { NAVIGATION_CONTAINER } from "@constants/testConstants"
 import { Button, Grid } from "@mui/material"
+import { ActivatablePageType } from "@type/common"
 import React from "react"
 import IconComponent from "./IconComponent"
 
-function Navigation() {
+interface INavigationProps {
+  activePageId: ActivatablePageType
+}
+
+const navigatablePage: { text: string; icon: string; pageId: ActivatablePageType }[] = [
+  { text: "Home", icon: "Inbox", pageId: "home" },
+  { text: "Discovery", icon: "Inbox", pageId: "discovery" },
+  { text: "Tech-blog", icon: "Inbox", pageId: "tech-blog" },
+  { text: "Career", icon: "Inbox", pageId: "career" },
+  { text: "Community", icon: "Inbox", pageId: "community" },
+]
+function Navigation({ activePageId }: INavigationProps) {
   return (
-    <Grid container direction="column" justifyContent="space-between" sx={{ height: "100% !important" }}>
+    <Grid data-testid={NAVIGATION_CONTAINER} container direction="column" justifyContent="space-between" sx={{ height: "100% !important" }}>
       <Grid item>
         <Grid container spacing={1}>
-          {[
-            { text: "Home", icon: "Inbox" },
-            { text: "Discovery", icon: "Inbox" },
-            { text: "Tech-blog", icon: "Inbox" },
-            { text: "Career", icon: "Inbox" },
-            { text: "Community", icon: "Inbox" },
-          ].map(({ text, icon }, index) => (
+          {navigatablePage.map(({ text, icon, pageId }, index) => (
             <Grid key={text} item xs={12}>
-              <Button variant="text" size="medium" startIcon={<IconComponent icon={icon} />} sx={{ color: "white" }}>
+              <Button
+                className={activePageId === pageId ? "active" : ""}
+                color={activePageId === pageId ? "secondary" : "inherit"}
+                variant="text"
+                size="medium"
+                startIcon={<IconComponent icon={icon} />}
+                sx={{ color: "white" }}>
                 {text}
               </Button>
             </Grid>

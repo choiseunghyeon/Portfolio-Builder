@@ -3,9 +3,10 @@ export interface ITechBlogResponse {
   favorite: boolean
   companyName: string
   serviceName?: string
+  techBlogUrl: string // url
   iconUrl: string // url
   dateFromLastUpdate: string // Date
   companyInformationUrl: string // url
-  recentPostUrl: string // url
+  videoUrl: string // url
   clickCount: number
 }

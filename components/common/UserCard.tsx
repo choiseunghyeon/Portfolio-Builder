@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from "@mui/material"
 import { Favorite, Share } from "@mui/icons-material"
 

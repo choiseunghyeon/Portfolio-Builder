@@ -1,4 +1,3 @@
-import * as React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addBlock, foldTab, IAddBlockPayload } from "@store/root"
 import { tabFold } from "@store/selector"
@@ -9,6 +8,7 @@ import IconComponent from "@components/common/IconComponent"
 import { Grid, Tabs, Tab, Typography, Box } from "@mui/material"
 import { BlockType } from "@type/block"
 import { CAREER_TAB as CAREER_TAB, MARKDOWN_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
+import { useState } from "react"
 
 function a11yProps(value: TabType) {
   return {
@@ -19,7 +19,7 @@ function a11yProps(value: TabType) {
 }
 const tabList: TabType[] = ["MiniMap", "Profile", "Project", "Career", "Portfolio", "Fold", "MarkDown"]
 export default function SetupContainer() {
-  const [currentTabValue, setCurrentTabValue] = React.useState<TabType>("MiniMap")
+  const [currentTabValue, setCurrentTabValue] = useState<TabType>("MiniMap")
   const dispatch = useDispatch()
   const needTabFold = useSelector(tabFold)
   const CurrentTabPanel = panelProvider[currentTabValue]

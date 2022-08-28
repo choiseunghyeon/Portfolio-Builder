@@ -1,5 +1,6 @@
 import IconComponent from "@components/common/IconComponent"
 import TechBlogCard from "@components/common/TechBlogCard"
+import { TECH_BLOG_CARD_CONTAINER_TITLE } from "@constants/testConstants"
 import { updateTechBlogClicCount, updateTechBlogFavorite } from "@lib/api/techblog"
 import { useTechBlogCardList } from "@lib/hooks/query"
 import { Button, Chip, Grid, IconButton, Typography } from "@mui/material"
@@ -29,6 +30,7 @@ function AllTechBlogCardContainer() {
         <Grid container justifyContent={"space-between"} alignItems={"center"}>
           <Grid item>
             <Typography
+              data-testid={TECH_BLOG_CARD_CONTAINER_TITLE}
               variant="h6"
               noWrap
               sx={{

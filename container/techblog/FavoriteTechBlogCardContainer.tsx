@@ -1,23 +1,10 @@
 import IconComponent from "@components/common/IconComponent"
 import TechBlogCard from "@components/common/TechBlogCard"
+import { TECH_BLOG_CARD_CONTAINER_TITLE } from "@constants/testConstants"
 import { updateTechBlogClicCount, updateTechBlogFavorite } from "@lib/api/techblog"
 import { useFavoriteTechBlogCardList, useTechBlogCardList } from "@lib/hooks/query"
 import { Button, Chip, Grid, IconButton, Typography } from "@mui/material"
 import React, { useState } from "react"
-
-const techBlogCardData = [
-  {
-    companyName: "비바리퍼블리카",
-    serviceName: "토스",
-    favorite: true,
-    days: 3,
-  },
-  {
-    companyName: "카카오",
-    favorite: false,
-    days: 31,
-  },
-]
 
 function FavoriteTechBlogCardContainer() {
   const techBlogList = useFavoriteTechBlogCardList()
@@ -41,6 +28,7 @@ function FavoriteTechBlogCardContainer() {
         <Grid container justifyContent={"space-between"} alignItems={"center"}>
           <Grid item>
             <Typography
+              data-testid={TECH_BLOG_CARD_CONTAINER_TITLE}
               variant="h6"
               noWrap
               sx={{

@@ -6,8 +6,12 @@ import CommunitySubCard from "./CommunitySubCard"
 import Title from "./Title"
 import TechBlogLogContainer from "@container/techblog/TechBlogLogContainer"
 import TechBlogCardContainer from "@container/techblog/TechBlogCardContainer"
+import { ActivatablePageType } from "@type/common"
 
-function PageLayout() {
+interface IPageLayout {
+  activePageId: ActivatablePageType
+}
+function PageLayout({ activePageId }: IPageLayout) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -17,7 +21,7 @@ function PageLayout() {
         <Grid container sx={{ overflow: "hidden" }}>
           {/* Navigation 영역 */}
           <Grid item xs={2} sx={{ backgroundColor: "black", color: "white", borderTopRightRadius: "55px 65px", height: "calc(100vh - 64px)", padding: 2 }}>
-            <Navigation />
+            <Navigation activePageId={activePageId} />
           </Grid>
           {/* Main 영역 */}
           <Grid item xs={7} sx={{ overflowY: "auto", height: "calc(100vh - 64px)", padding: 2 }}>
