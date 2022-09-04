@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import {
+  ADD_BLOCK_BUTTON,
   DATE_FIELD_FROM_TEST_ID,
   DATE_FIELD_TO_TEST_ID,
   DEFINE_COLUMN_COUNT,
@@ -15,6 +16,7 @@ import {
   PROJECT_PREVIEW_TERM,
   PROJECT_TAB,
   PROJECT_TAB_PANEL,
+  REMOVE_BLOCK_BUTTON,
   SETUP_BLOCK,
   SETUP_BLOCK_CONTENT,
   SETUP_BLOCK_EXPAND_ICON,
@@ -38,11 +40,10 @@ describe("Project", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+    cy.wait("@aPortfolioData")
   })
 
-  it("render && modify project", () => {
-    cy.wait("@aPortfolioData")
-
+  it("render project", () => {
     cy.getById(PROJECT_TAB).click()
 
     // PROJECT SETUP & PREVIEW RENDER TEST
@@ -51,7 +52,7 @@ describe("Project", () => {
       .getById(SETUP_BLOCK)
       .eq(0)
       .then($projectBlock => {
-        cy.wrap($projectBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        cy.wrap($projectBlock).click()
         cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(0).validateTextInput("ERP 솔루션")
         cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(1).validateTextInput("이카운트")
         cy.wrap($projectBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0).validateTextInput("04/01/2022")
@@ -74,12 +75,21 @@ describe("Project", () => {
         // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_DESCRIPTION).contains(description);
         // cy.wrap($firstProjectPreview).findById(PROJECT_PREVIEW_SKILLS).contains(skills);
       })
+  }) // the end of test case
+
+  it("modify project block", () => {
+    cy.getById(PROJECT_TAB).click()
+
+    // PROJECT SETUP & PREVIEW RENDER TEST
+    cy.getById(PROJECT_TAB_PANEL).findById(SETUP_BLOCK_CONTENT).click()
 
     // PROJECT MODIFIY TEST
     cy.getById(PROJECT_TAB_PANEL)
       .getById(SETUP_BLOCK)
       .eq(0)
       .then($projectBlock => {
+        cy.wrap($projectBlock).click()
+
         cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(0).typeTextInput("스마트미러")
         cy.wrap($projectBlock).findById(INPUT_FIELD_TEST_ID).eq(1).typeTextInput("개인")
         cy.wrap($projectBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0).typeTextInput("04012022")
@@ -130,7 +140,7 @@ describe("Project", () => {
         .then($firstProjectBlock => {
           // Block Title과 field value 값 동기화 검증
 
-          cy.wrap($firstProjectBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+          cy.wrap($firstProjectBlock).click()
           cy.wrap($firstProjectBlock)
             .findById(INPUT_FIELD_TEST_ID)
             .eq(0)
@@ -144,5 +154,18 @@ describe("Project", () => {
           cy.wrap($firstProjectBlock).findById(SETUP_BLOCK_TITLE).should("contain.text", "프로젝트1")
         })
     })
+  })
+
+  it("add block && remove block", () => {
+    cy.getById(PROJECT_TAB).click()
+
+    cy.getById(PROJECT_TAB_PANEL).findById(SETUP_BLOCK_CONTENT).click()
+    cy.getById(PROJECT_TAB_PANEL).findById(ADD_BLOCK_BUTTON).click()
+
+    cy.getById(PROJECT_TAB_PANEL).getById(SETUP_BLOCK).should("have.length", 2)
+
+    cy.getById(PROJECT_TAB_PANEL).getById(SETUP_BLOCK).last().findById(REMOVE_BLOCK_BUTTON).click()
+
+    cy.getById(PROJECT_TAB_PANEL).getById(SETUP_BLOCK).should("have.length", 1)
   })
 }) // the end of describe

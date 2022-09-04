@@ -32,11 +32,10 @@ describe("Career", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+    cy.wait("@aPortfolioData")
   })
 
-  it("render && modify career", () => {
-    cy.wait("@aPortfolioData")
-
+  it("render career", () => {
     cy.getById(CAREER_TAB).click()
 
     // CAREER SETUP & PREVIEW RENDER TEST
@@ -45,7 +44,7 @@ describe("Career", () => {
       .getById(SETUP_BLOCK)
       .eq(0)
       .then(careerBlock => {
-        cy.wrap(careerBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        cy.wrap(careerBlock).click()
         cy.wrap(careerBlock).findById(INPUT_FIELD_TEST_ID).eq(0).validateTextInput("이카운트")
         cy.wrap(careerBlock).findById(INPUT_FIELD_TEST_ID).eq(1).validateTextInput("Front-End")
         cy.wrap(careerBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0).validateTextInput("04/01/2022")
@@ -61,12 +60,16 @@ describe("Career", () => {
         cy.wrap(careerBlock).findById(CARRER_ROLE).contains("Front-End")
         // cy.wrap(careerBlock).findById(CARRER_DESCRIPTION).contains("Front-End")
       })
+  }) // the end of test case
+  it("modify career block", () => {
+    cy.getById(CAREER_TAB).click()
 
     // CAREER MODIFIY TEST
     cy.getById(CAREER_TAB_PANEL)
       .getById(SETUP_BLOCK)
       .eq(0)
       .then($careerBlock => {
+        cy.wrap($careerBlock).click()
         cy.wrap($careerBlock).findById(INPUT_FIELD_TEST_ID).eq(0).typeTextInput("카카오")
         cy.wrap($careerBlock).findById(INPUT_FIELD_TEST_ID).eq(1).typeTextInput("Back-End")
         cy.wrap($careerBlock).findById(DATE_FIELD_FROM_TEST_ID).eq(0).typeTextInput("05012022")

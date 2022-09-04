@@ -32,11 +32,10 @@ describe("Portfolio", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+    cy.wait("@aPortfolioData")
   })
 
-  it("render && modify portflio", () => {
-    cy.wait("@aPortfolioData")
-
+  it("render portflio", () => {
     cy.getById(PORTFOLIO_TAB).click()
 
     // PORTFOLIO SETUP & PREVIEW RENDER TEST
@@ -45,7 +44,7 @@ describe("Portfolio", () => {
       .getById(SETUP_BLOCK)
       .eq(0)
       .then(portfolioBlock => {
-        cy.wrap(portfolioBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        cy.wrap(portfolioBlock).click()
         cy.wrap(portfolioBlock).findById(IMAGE_FIELD_TEST_ID).eq(0).validateImageInput("https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg")
         cy.wrap(portfolioBlock).findById(INPUT_FIELD_TEST_ID).eq(0).validateTextInput("http://sports.hankooki.com/news/articleView.html?idxno=6798068")
         cy.wrap(portfolioBlock).findById(INPUT_FIELD_TEST_ID).eq(1).validateTextInput("스마트미러")
@@ -60,12 +59,18 @@ describe("Portfolio", () => {
         // cy.wrap($portfolioPreview).findById(PORTFOLIO_CONTENT).contains("이카운트")
         cy.wrap($portfolioPreview).findById(PORTFOLIO_LINK).contains("http://sports.hankooki.com/news/articleView.html?idxno=6798068")
       })
+  }) // the end of test case
 
-    // PORTFOLIO MODIFIY TEST
+  it("modify portflio block", () => {
+    cy.getById(PORTFOLIO_TAB).click()
+
+    cy.getById(PORTFOLIO_TAB_PANEL).findById(SETUP_BLOCK_CONTENT).click()
+
     cy.getById(PORTFOLIO_TAB_PANEL)
       .getById(SETUP_BLOCK)
       .eq(0)
       .then($portfolioBlock => {
+        cy.wrap($portfolioBlock).click()
         cy.wrap($portfolioBlock).findById(IMAGE_FIELD_TEST_ID).eq(0).typeImageInput("https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg")
         cy.wrap($portfolioBlock).findById(INPUT_FIELD_TEST_ID).eq(0).typeTextInput("https://github.com/choiseunghyeon")
         cy.wrap($portfolioBlock).findById(INPUT_FIELD_TEST_ID).eq(1).typeTextInput("멀티프로젝트")

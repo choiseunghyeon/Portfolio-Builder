@@ -5,6 +5,7 @@ import { BlockType, IBlock } from "@type/block"
 import { Button, Grid, List } from "@mui/material"
 import IconComponent from "./common/IconComponent"
 import { getGroupBlockDefaultNameAndLabel } from "@store/utils"
+import { ADD_BLOCK_BUTTON } from "@constants/testConstants"
 
 interface ISetupPanel {
   blocks: IBlock[]
@@ -101,7 +102,7 @@ function NewBlockName({ blockType, onAddBlock }: INewBlockNameProps) {
           <TextField id="standard-basic" label={blockLabel} value={newBlockName} onChange={handleNewBlockName} variant="standard" />
         </Grid> */}
         <Grid item xs={4}>
-          <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock}>
+          <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlock} data-testid={ADD_BLOCK_BUTTON}>
             추가
           </Button>
         </Grid>

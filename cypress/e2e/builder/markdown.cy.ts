@@ -18,11 +18,10 @@ describe("MarkDown", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+    cy.wait("@aPortfolioData")
   })
 
-  it("render && modify markdown", () => {
-    cy.wait("@aPortfolioData")
-
+  it("render markdown", () => {
     cy.getById(MARKDOWN_TAB).click()
 
     // MARKDOWN SETUP & PREVIEW RENDER TEST
@@ -31,7 +30,7 @@ describe("MarkDown", () => {
       .getById(SETUP_BLOCK)
       .eq(0)
       .then($markdownBlock => {
-        cy.wrap($markdownBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        cy.wrap($markdownBlock).click()
 
         cy.wrap($markdownBlock)
           .findById(MULTI_LINE_INPUT_FIELD_TEST_ID)
@@ -44,17 +43,23 @@ describe("MarkDown", () => {
     cy.getById(MARKDOWN_PREVIEW)
       .eq(0)
       .then(markdownBlock => {})
+  }) // the end of test case
+  it.only("modify markdown", () => {
+    cy.getById(MARKDOWN_TAB).click()
 
     // MARKDOWN MODIFIY TEST
     cy.getById(MARKDOWN_TAB_PANEL)
       .getById(SETUP_BLOCK)
       .eq(0)
-      .then($projectBlock => {
-        cy.wrap($projectBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(0).typeMultiLineInput("# 신규 Framework를 제작 중인데 핵심 개념은 모듈화다.")
+      .then($markdownBlock => {
+        cy.wrap($markdownBlock).click()
+        cy.wrap($markdownBlock).findById(MULTI_LINE_INPUT_FIELD_TEST_ID).eq(0).typeMultiLineInput("# 신규 Framework를 제작 중인데 핵심 개념은 모듈화다.")
       })
 
     cy.getById(MARKDOWN_PREVIEW)
       .eq(0)
-      .then(markdownBlock => {})
+      .then($markdownBlock => {
+        cy.wrap($markdownBlock).find("h1").contains("신규 Framework를 제작 중인데 핵심 개념은 모듈화다.")
+      })
   }) // the end of test case
 })

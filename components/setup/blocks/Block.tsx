@@ -3,7 +3,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } from 
 import IconComponent from "../../common/IconComponent"
 import { IBlock } from "@type/block"
 import { fieldProvider } from "../fields/provider"
-import { SETUP_BLOCK, SETUP_BLOCK_EXPAND_ICON, SETUP_BLOCK_TITLE } from "@constants/testConstants"
+import { REMOVE_BLOCK_BUTTON, SETUP_BLOCK, SETUP_BLOCK_EXPAND_ICON, SETUP_BLOCK_TITLE } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 
 interface IBlockProps {
@@ -42,7 +42,7 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
         </span>
         <Typography data-testid={SETUP_BLOCK_TITLE}>{title}</Typography>
         {isGroupBlock(type) && (
-          <span style={{ marginLeft: "5px" }} onClick={removeBlock}>
+          <span style={{ marginLeft: "5px" }} onClick={removeBlock} data-testid={REMOVE_BLOCK_BUTTON}>
             <IconComponent icon="Delete" />
           </span>
         )}

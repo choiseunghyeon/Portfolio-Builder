@@ -62,19 +62,18 @@ describe("Profile", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+    cy.wait("@aPortfolioData")
   })
 
-  it("render && modify profile", () => {
-    cy.wait("@aPortfolioData")
-
-    cy.getById(PROFILE_TAB).click()
+  it("redner test", () => {
     // PROFILE RENDER TEST
+    cy.getById(PROFILE_TAB).click()
     cy.getById(PROFILE_TAB_PANEL).findById(SETUP_BLOCK_CONTENT).click()
     cy.getById(PROFILE_TAB_PANEL)
       .findById(SETUP_BLOCK)
       .eq(0)
       .then($profileBlock => {
-        cy.wrap($profileBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+        cy.wrap($profileBlock).click()
         // cy.wrap($profileBlock).findById(IMAGE_FIELD_TEST_ID).validateImageInput("https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
         cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0).validateTextInput("Front End Developer")
         cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1).validateTextInput("안녕하세요 최승현입니다.")
@@ -85,14 +84,17 @@ describe("Profile", () => {
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_MAIN_TEXT).contains("Front End Developer")
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_SUB_TEXT).contains("안녕하세요 최승현입니다.")
     })
-
+  })
+  it("modify profile block", () => {
     // PROFILE MODIFY TEST
+    cy.getById(PROFILE_TAB).click()
+    cy.getById(PROFILE_TAB_PANEL).findById(SETUP_BLOCK_CONTENT).click()
     cy.getById(PROFILE_TAB_PANEL).then($profileTabPanel => {
       cy.wrap($profileTabPanel)
         .findById(SETUP_BLOCK)
         .eq(0)
         .then($profileBlock => {
-          // cy.wrap($profileBlock).findById(SETUP_BLOCK_EXPAND_ICON).click()
+          cy.wrap($profileBlock).click()
           // cy.wrap($profileBlock).find(`[data-testid=ExpandMoreIcon]`).click()
           cy.wrap($profileBlock).findById(IMAGE_FIELD_TEST_ID).typeImageInput("https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
           cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0).typeTextInput("Back End Developer")
@@ -107,5 +109,5 @@ describe("Profile", () => {
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_MAIN_TEXT).contains("Back End Developer")
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_SUB_TEXT).contains("안녕하세요 홍길동입니다.")
     })
-  }) // the end of test case
-})
+  })
+}) // the end of test case
