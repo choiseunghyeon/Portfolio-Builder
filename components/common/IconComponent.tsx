@@ -23,6 +23,7 @@ import {
   ContentCopy,
   PersonOutline,
   Computer,
+  Cancel,
 } from "@mui/icons-material"
 import { IconType } from "react-icons/lib"
 
@@ -48,6 +49,7 @@ const Icons = {
   ContentCopy,
   PersonOutline,
   Computer,
+  Cancel,
 }
 function getIcon(iconName: string): IconType | any | undefined {
   // if (ReactIconSi[iconName]) return ReactIconSi[iconName]

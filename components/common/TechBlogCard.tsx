@@ -14,6 +14,7 @@ import {
   TECH_BLOG_CARD_SERVICE_NAME,
 } from "@constants/testConstants"
 import { openWindow } from "@lib/util/native"
+import CardMenu from "./CardMenu"
 
 interface ITechBlogCardProps extends ITechBlogResponse {
   onClickContent: (event: any) => void
@@ -34,13 +35,14 @@ export default function TechBlogCard({
   onClickContent,
   onClickFavorite,
 }: ITechBlogCardProps) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
+
+  const showMenu = () => {
+    setOpenMenu(true)
   }
-  const handleClose = () => {
-    setAnchorEl(null)
+
+  const hideMenu = () => {
+    setOpenMenu(false)
   }
 
   const onClickCard = useCallback(() => {
@@ -58,7 +60,7 @@ export default function TechBlogCard({
   )
 
   return (
-    <Card data-testid={TECH_BLOG_CARD}>
+    <Card data-testid={TECH_BLOG_CARD} sx={{ position: "relative" }}>
       <CardContent data-testid={TECH_BLOG_CARD_CONTENT} sx={{ textAlign: "center", height: "190px", padding: 1, backgroundColor: "#f7f7f7", "&:hover": { cursor: "pointer" } }} onClick={onClickCard}>
         <Typography sx={{ textAlign: "left" }} variant="h6" component="div">
           <IconButton data-active={favorite ? "true" : "false"} data-testid={TECH_BLOG_CARD_FAVORITE} onClick={onClickFav} color="primary" aria-label="add to shopping cart">
@@ -86,10 +88,10 @@ export default function TechBlogCard({
             <Typography>{dateFromLastUpdate}일 지남</Typography>
           </Grid>
           <Grid item>
-            <IconButton data-testid={TECH_BLOG_CARD_MENU} onClick={handleClick} color="primary" aria-label="add to shopping cart">
+            <IconButton data-testid={TECH_BLOG_CARD_MENU} onClick={showMenu} color="primary" aria-label="add to shopping cart">
               <IconComponent icon={"MoreHoriz"} />
             </IconButton>
-            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+            {/* <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem data-testid={TECH_BLOG_CARD_COMPANY_INFO_LINK}>
                 <a href={companyInformationUrl} target="blank">
                   스타트업 정보 바로가기(THE VC)
@@ -100,10 +102,11 @@ export default function TechBlogCard({
                   스타트업 영상(YouTue)
                 </a>
               </MenuItem>
-            </Menu>
+            </Menu> */}
           </Grid>
         </Grid>
       </CardActions>
+      {openMenu && <CardMenu companyInformationUrl={companyInformationUrl} videoUrl={videoUrl} onClose={hideMenu} />}
     </Card>
   )
 }
