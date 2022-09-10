@@ -11,10 +11,10 @@ interface ICardMenuProps {
 
 function CardMenu({ companyInformationUrl, videoUrl, onClose }: ICardMenuProps) {
   return (
-    <Box sx={{ backgroundColor: "black", opacity: "0.7", padding: 2, position: "absolute", bottom: 0 }}>
-      <Grid container justifyContent={"center"} alignItems={"center"} spacing={1}>
+    <Box sx={{ backgroundColor: "black", opacity: "0.7", width: "100%", position: "absolute", bottom: 0 }}>
+      <Grid container justifyContent={"center"} alignItems={"center"} spacing={2} sx={{ padding: 1.5 }}>
         <Grid item>
-          <Button data-testid={TECH_BLOG_CARD_COMPANY_INFO_LINK} href={companyInformationUrl} variant="outlined" sx={{ color: "white", borderColor: "white" }}>
+          <Button data-testid={TECH_BLOG_CARD_COMPANY_INFO_LINK} href={companyInformationUrl} target="blank" variant="outlined" sx={{ color: "white", borderColor: "white" }}>
             <Typography variant="button" display="block" gutterBottom>
               스타트업 정보
             </Typography>

@@ -31,7 +31,6 @@ export default function TechBlogCard({
   companyInformationUrl,
   techBlogUrl,
   videoUrl,
-  clickCount,
   onClickContent,
   onClickFavorite,
 }: ITechBlogCardProps) {
@@ -91,18 +90,6 @@ export default function TechBlogCard({
             <IconButton data-testid={TECH_BLOG_CARD_MENU} onClick={showMenu} color="primary" aria-label="add to shopping cart">
               <IconComponent icon={"MoreHoriz"} />
             </IconButton>
-            {/* <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem data-testid={TECH_BLOG_CARD_COMPANY_INFO_LINK}>
-                <a href={companyInformationUrl} target="blank">
-                  스타트업 정보 바로가기(THE VC)
-                </a>
-              </MenuItem>
-              <MenuItem data-testid={TECH_BLOG_CARD_COMPANY_VIDEO_LINK}>
-                <a href={videoUrl} target="blank">
-                  스타트업 영상(YouTue)
-                </a>
-              </MenuItem>
-            </Menu> */}
           </Grid>
         </Grid>
       </CardActions>

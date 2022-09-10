@@ -14,5 +14,8 @@ Default.args = {
   companyName: "비바리퍼블리카",
   serviceName: "토스",
   favorite: true,
-  days: 3,
+  dateFromLastUpdate: "3",
+  techBlogUrl: "https://www.naver.com/",
+  companyInformationUrl: "https://www.naver.com/",
+  videoUrl: "https://www.naver.com/",
 }
