@@ -1,9 +1,17 @@
-import { ITechBlogResponse } from "@type/response"
+import { ITechBlogResponse, SortByType } from "@type/api"
 import { http } from "./http"
 
-export const fetchTechBlog = (query?: string) => {
-  if (query === "favorite") return http.get<ITechBlogResponse[]>(`http://localhost:4000/favoriteTechCardList/`)
-  return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardList/`)
+export const fetchTechBlog = (sortBy: SortByType) => {
+  switch (sortBy) {
+    case "latest":
+      return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByLatest`)
+    case "click":
+      return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByClick`)
+    case "stars":
+      return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByStars`)
+    case "favorite":
+      return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByFavorite`)
+  }
 }
 
 export const updateTechBlogFavorite = (id: string, favorite: boolean) => {
@@ -12,5 +20,6 @@ export const updateTechBlogFavorite = (id: string, favorite: boolean) => {
 }
 
 export const updateTechBlogClicCount = (id: string) => {
+  // http.put(`http://localhost:4000/techCardListByClick`)
   return Promise.resolve()
 }

@@ -1,4 +1,4 @@
-import { TECH_BLOG_CARD_COMPANY_INFO_LINK, TECH_BLOG_CARD_COMPANY_VIDEO_LINK } from "@constants/testConstants"
+import { TECH_BLOG_CARD_COMPANY_INFO_LINK, TECH_BLOG_CARD_COMPANY_VIDEO_LINK, TECH_BLOG_CARD_MENU_CLOSE } from "@constants/testConstants"
 import { Box, Button, Grid, IconButton, Typography } from "@mui/material"
 import React from "react"
 import IconComponent from "./IconComponent"
@@ -34,7 +34,7 @@ function CardMenu({ companyInformationUrl, videoUrl, onClose }: ICardMenuProps) 
           </Button>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "right" }}>
-          <IconButton sx={{ color: "white" }} onClick={onClose}>
+          <IconButton data-testid={TECH_BLOG_CARD_MENU_CLOSE} sx={{ color: "white" }} onClick={onClose}>
             <IconComponent icon="Cancel" />
           </IconButton>
         </Grid>

@@ -8,5 +8,6 @@ export interface ITechBlogResponse {
   dateFromLastUpdate: string // Date
   companyInformationUrl: string // url
   videoUrl: string // url
-  clickCount: number
 }
+
+export type SortByType = "latest" | "stars" | "click" | "favorite"

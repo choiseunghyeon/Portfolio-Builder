@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "favorite": false,
+    "companyName": "비바리퍼블리카",
+    "techBlogUrl": "https://mui.com/material-ui/react-button/",
+    "serviceName": "토스",
+    "iconUrl": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+    "dateFromLastUpdate": "2022/09/12",
+    "companyInformationUrl": "https://www.naver.com/",
+    "videoUrl": "https://www.naver.com/"
+  },
+  {
+    "id": "2",
+    "favorite": false,
+    "companyName": "카카오",
+    "techBlogUrl": "https://mui.com/material-ui/react-button/",
+    "serviceName": "카카오톡",
+    "iconUrl": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
+    "dateFromLastUpdate": "2022/09/10",
+    "companyInformationUrl": "https://www.naver.com/",
+    "videoUrl": "https://www.naver.com/"
+  }
+]

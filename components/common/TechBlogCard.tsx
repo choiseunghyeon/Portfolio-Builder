@@ -1,12 +1,10 @@
 import { Button, Grid, Menu, MenuItem, Stack, IconButton, CardContent, CardActions, Typography, Avatar, Card } from "@mui/material"
 import IconComponent from "./IconComponent"
-import { ITechBlogResponse } from "@type/response"
+import { ITechBlogResponse } from "@type/api"
 import { useState, useCallback, MouseEvent } from "react"
 import {
   TECH_BLOG_CARD,
-  TECH_BLOG_CARD_COMPANY_INFO_LINK,
   TECH_BLOG_CARD_COMPANY_NAME,
-  TECH_BLOG_CARD_COMPANY_VIDEO_LINK,
   TECH_BLOG_CARD_CONTENT,
   TECH_BLOG_CARD_DESCRIPTION,
   TECH_BLOG_CARD_FAVORITE,

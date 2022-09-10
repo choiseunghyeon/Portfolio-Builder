@@ -23,7 +23,7 @@ function Navigation({ activePageId }: INavigationProps) {
           {navigatablePage.map(({ text, icon, pageId }, index) => (
             <Grid key={text} item xs={12}>
               <Button
-                className={activePageId === pageId ? "active" : ""}
+                data-active={activePageId === pageId ? "true" : "false"}
                 color={activePageId === pageId ? "secondary" : "inherit"}
                 variant="text"
                 size="medium"

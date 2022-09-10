@@ -1,7 +1,7 @@
 import { skillSet } from "@constants/skillSet"
 import axios from "axios"
-import { useQuery } from "react-query"
-import { ITechBlogResponse } from "@type/response"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import { ITechBlogResponse, SortByType } from "@type/api"
 import { fetchTechBlog } from "@lib/api/techblog"
 
 export function usePortfolio(portfolioId: string) {
@@ -34,18 +34,26 @@ export function useAutoCompleteList(autocompleteRequest: string | undefined) {
   }
 }
 
-export function useTechBlogCardList() {
-  const { data } = useQuery(["techCardList"], async () => {
-    const { data } = await fetchTechBlog()
+export function useTechBlogCardList(sortBy: SortByType) {
+  const { data } = useQuery(["techCardList", sortBy], async () => {
+    const { data } = await fetchTechBlog(sortBy)
     return data
   })
   return data
 }
 
-export function useFavoriteTechBlogCardList() {
-  const { data } = useQuery(["favorite", "techCardList"], async () => {
-    const { data } = await fetchTechBlog("favorite")
-    return data
+export function useTechBlogCardFavoriteMutation(sortBy: SortByType) {
+  const queryClient = useQueryClient()
+
+  return useMutation(({ id, favorite }: any) => Promise.resolve(), {
+    onSuccess: () => queryClient.invalidateQueries(["techCardList", sortBy]),
   })
-  return data
+}
+
+export function useTechBlogCardClickCountMutation(sortBy: SortByType) {
+  const queryClient = useQueryClient()
+
+  return useMutation(({ id }: any) => Promise.resolve(), {
+    onSuccess: () => queryClient.invalidateQueries(["techCardList", sortBy]),
+  })
 }
