@@ -16,7 +16,17 @@
     "noImplicitAny": false,
     "jsx": "preserve",
     "incremental": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "./",
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+      "@container/*": ["container/*"],
+      "@store/*": ["store/*"],
+      "@type/*": ["type/*"],
+      "@lib/*": ["lib/*"],
+      "@constants/*": ["constants/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cypress/support/commands.js"],
   "exclude": ["node_modules"]
