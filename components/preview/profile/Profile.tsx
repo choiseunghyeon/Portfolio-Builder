@@ -1,6 +1,6 @@
 import IconComponent from "@components/common/IconComponent"
 import { Grid, Divider, Typography, Theme, Box, Stack, Chip } from "@mui/material"
-import { PROFILE_PREVIEW, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@constants/testConstants"
+import { PROFILE_PREVIEW, PROFILE_PREVIEW_CONTACT_EMAIL, PROFILE_PREVIEW_CONTACT_PHONE_NUMBER, PROFILE_PREVIEW_MAIN_TEXT, PROFILE_PREVIEW_SUB_TEXT } from "@constants/testConstants"
 import { IBaseProps } from "@type/preview"
 import { splitMultiLineText } from "@store/utils"
 import React from "react"
@@ -93,9 +93,13 @@ function DefaultAdditionalInformation({ apply, contact, github, keyword }: IProf
       <Grid item xs={12} sx={{ margin: "0 10px" }}>
         <Typography variant="h5" component="h3">
           <IconComponent icon="LocalPhone" />
-          {phoneNumber}
+          <Typography component="span" data-testid={PROFILE_PREVIEW_CONTACT_PHONE_NUMBER}>
+            {phoneNumber}
+          </Typography>
           <IconComponent icon="Email" />
-          {email}
+          <Typography component="span" data-testid={PROFILE_PREVIEW_CONTACT_EMAIL}>
+            {email}
+          </Typography>
         </Typography>
       </Grid>
     )

@@ -40,6 +40,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.1",
     "@babel/core": "^7.17.9",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",

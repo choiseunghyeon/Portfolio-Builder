@@ -157,7 +157,7 @@ describe("Tech Blog", () => {
     })
   })
 
-  it.only("show tech blog cards order by click", () => {
+  it("show tech blog cards order by click", () => {
     cy.getById(TECH_BLOG_CARD_CONTAINER).then($techBlogCardContainer => {
       cy.getById(ALL_TECH_BLOG_BUTTON).should("have.attr", "data-active", "true")
       cy.getById(ORDER_BY_CLICK_TECH_BLOG_BUTTON).click()

@@ -4,7 +4,6 @@ import TechBlogHeader from "./TechBlogHeader"
 import Navigation from "./Navigation"
 import CommunitySubCard from "./CommunitySubCard"
 import Title from "./Title"
-import TechBlogLogContainer from "@container/techblog/TechBlogLogContainer"
 import TechBlogCardContainer from "@container/techblog/TechBlogCardContainer"
 import { ActivatablePageType } from "@type/common"
 

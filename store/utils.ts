@@ -50,11 +50,6 @@ export function validateValue(value: string | number, validation: IFieldValidati
 
   if (limit && value.length > limit) return { pass: false, canValueChange: false, errorMessage: `제한 글자${limit}자를 초과합니다.` }
 
-  // if (!includeSpecialChar) {
-  //   const specialCharIndex = value.search(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim);
-  //   return { pass: false, errorMessage: `특수 문자 ${value[specialCharIndex]}를 포함하고 있습니다.` };
-  // }
-
   if (dataType === "numeric") {
     const notNumericIndex = value.search(/[^0-9]/gi)
     return { pass: false, canValueChange: true, errorMessage: `숫자가 아닌 ${value[notNumericIndex]}를 포함하고 있습니다.` }

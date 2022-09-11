@@ -4,10 +4,14 @@ import {
   IMAGE_FIELD_TEST_ID,
   INPUT_FIELD_TEST_ID,
   PROFILE_PREVIEW,
+  PROFILE_PREVIEW_CONTACT_EMAIL,
+  PROFILE_PREVIEW_CONTACT_PHONE_NUMBER,
   PROFILE_PREVIEW_MAIN_TEXT,
   PROFILE_PREVIEW_SUB_TEXT,
   PROFILE_TAB,
   PROFILE_TAB_PANEL,
+  SELECT_FIELD_TEST_ID,
+  SELECT_MENU_FIELD_TEST_ID,
   SETUP_BLOCK,
   SETUP_BLOCK_CONTENT,
   SETUP_BLOCK_EXPAND_ICON,
@@ -95,12 +99,22 @@ describe("Profile", () => {
         .eq(0)
         .then($profileBlock => {
           cy.wrap($profileBlock).click()
-          // cy.wrap($profileBlock).find(`[data-testid=ExpandMoreIcon]`).click()
           cy.wrap($profileBlock).findById(IMAGE_FIELD_TEST_ID).typeImageInput("https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
           cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0).typeTextInput("Back End Developer")
           cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1).typeTextInput("안녕하세요 홍길동입니다.")
-          // cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(0).clear().type(mainText)
-          // cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(1).clear().type(subText)
+          cy.wrap($profileBlock).findById(SELECT_FIELD_TEST_ID).eq(0).click()
+          cy.getById(SELECT_MENU_FIELD_TEST_ID).eq(2).contains("Contact").click()
+
+          // validation 포함
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(2).typeTextInput("010")
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(2).find("p").contains("010는 올바른 전화번호가 아닙니다.")
+
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(2).typeTextInput("01234567890123456789012345")
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(2).find("p").contains("제한 글자25자를 초과합니다.")
+
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(2).typeTextInput("010-1234-5678")
+
+          cy.wrap($profileBlock).findById(INPUT_FIELD_TEST_ID).eq(3).typeTextInput("test@gmail.com")
         })
     })
 
@@ -108,6 +122,8 @@ describe("Profile", () => {
       cy.wrap($profilePreview).find("img").should("have.attr", "src", "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg")
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_MAIN_TEXT).contains("Back End Developer")
       cy.wrap($profilePreview).findById(PROFILE_PREVIEW_SUB_TEXT).contains("안녕하세요 홍길동입니다.")
+      cy.wrap($profilePreview).findById(PROFILE_PREVIEW_CONTACT_PHONE_NUMBER).contains("010-1234-5678")
+      cy.wrap($profilePreview).findById(PROFILE_PREVIEW_CONTACT_EMAIL).contains("test@gmail.com")
     })
   })
 }) // the end of test case

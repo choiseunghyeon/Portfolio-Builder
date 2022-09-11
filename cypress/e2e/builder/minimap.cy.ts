@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import {
+  ADD_MINI_BLOCK_LIST_BUTTON,
   CAREER_PREVIEW,
   MARKDOWN_PREVIEW,
   MARKDOWN_TAB,
@@ -29,11 +30,12 @@ describe("MiniMap", () => {
         fixture: "aPortfolioData.json",
       }
     ).as("aPortfolioData")
+
+    cy.getById(MINI_MAP_TAB).click()
   })
 
   it("render minimap", () => {
     // MINIMAP Rendering
-    cy.getById(MINI_MAP_TAB).click()
     // setup render 확인
     cy.getById(MINI_MAP_PANEL)
       .getById(MINI_BLOCK)
@@ -54,4 +56,11 @@ describe("MiniMap", () => {
       cy.wrap($previewBlockContainerList[4]).getById(MARKDOWN_PREVIEW)
     })
   }) // the end of test case
+
+  // it.only("drag & drop minimap", () => {
+  //   // cy.getById(ADD_MINI_BLOCK_LIST_BUTTON).click()
+  //   cy.getById(MINI_BLOCK).contains("커리어").move({ deltaX: 100, deltaY: 100 })
+  //   // .move({ deltaX: 0, deltaY: 200 })
+  //   // .drag('div[data-testid="MINI_BLOCK"]', { force: true })
+  // })
 })

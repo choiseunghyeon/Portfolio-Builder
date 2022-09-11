@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectBlockLayout } from "@store/selector"
 import { addBlockLayout, LayoutBlock, swapBlockLayout } from "@store/root"
 import IconComponent from "@components/common/IconComponent"
-import { MINI_BLOCK, MINI_MAP_PANEL } from "@constants/testConstants"
+import { ADD_MINI_BLOCK_LIST_BUTTON, MINI_BLOCK, MINI_BLOCK_LIST, MINI_MAP_PANEL } from "@constants/testConstants"
 
 interface IMiniMapProps {
   value: "MiniMap"
@@ -50,7 +50,7 @@ export default function MiniMap({ value }: IMiniMapProps) {
                 </Grid>
               )
             })}
-            <Button variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlockLayout}>
+            <Button data-testid={ADD_MINI_BLOCK_LIST_BUTTON} variant="outlined" startIcon={<IconComponent icon="Add" />} onClick={handleAddBlockLayout}>
               추가
             </Button>
           </DragDropContext>
@@ -89,7 +89,7 @@ function MiniBlockList({ MiniBlockMap, listId, listType, isCombineEnabled = fals
   return (
     <Droppable droppableId={"" + listId} type={listType} direction="horizontal" isCombineEnabled={isCombineEnabled}>
       {(dropProvided: DroppableProvided, dropSnapshot: DroppableStateSnapshot) => (
-        <Wrapper ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
+        <Wrapper data-testid={MINI_BLOCK_LIST} ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
           {MiniBlockMap.map((blockInfo: LayoutBlock, index: number) => {
             const key = blockInfo.blockType ? blockInfo.blockType : blockInfo.title
             return (
