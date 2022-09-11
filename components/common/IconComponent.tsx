@@ -24,6 +24,11 @@ import {
   PersonOutline,
   Computer,
   Cancel,
+  Home,
+  Code,
+  Lightbulb,
+  Timeline,
+  Language,
 } from "@mui/icons-material"
 import { IconType } from "react-icons/lib"
 
@@ -50,6 +55,11 @@ const Icons = {
   PersonOutline,
   Computer,
   Cancel,
+  Home,
+  Code,
+  Lightbulb,
+  Timeline,
+  Language,
 }
 function getIcon(iconName: string): IconType | any | undefined {
   // if (ReactIconSi[iconName]) return ReactIconSi[iconName]

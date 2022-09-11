@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react"
 import MarkDown from "./MarkDown"
 
 export default {
-  title: "MarkDown",
+  title: "Portfolio/MarkDown",
   component: MarkDown,
 } as ComponentMeta<typeof MarkDown>
 

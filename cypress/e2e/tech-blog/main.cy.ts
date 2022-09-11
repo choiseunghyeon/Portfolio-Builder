@@ -20,18 +20,18 @@ import {
   TECH_BLOG_CARD_MENU_CLOSE,
   TECH_BLOG_CARD_SERVICE_NAME,
 } from "@constants/testConstants"
+// import techCardListByStarsJson from "../../fixtures/techCardListByStars.json"
+// import updatedTechCardListByStarsJson from "../../fixtures/updateTechCardListByStars.json"
 
 describe("Tech Blog", () => {
   beforeEach(function () {
-    // Cypress starts out with a blank slate for each test
-    // so we must tell it to visit our website with the `cy.visit()` command.
-    // Since we want to visit the same URL at the start of all our tests,
-    // we include it in our beforeEach function so that it runs before each test
     cy.visit("http://localhost:3000/techblog")
 
     cy.window().then(win => {
       cy.stub(win, "open").as("open")
     })
+
+    // this.techCardListByStars = techCardListByStarsJson
 
     cy.intercept(
       {
@@ -46,7 +46,7 @@ describe("Tech Blog", () => {
     cy.intercept(
       {
         method: "GET",
-        url: "http://localhost:4000/techCardListByFavorite/",
+        url: "http://localhost:4000/techCardListByFavorite",
       },
       {
         fixture: "techCardListByFavorite.json",
@@ -55,7 +55,7 @@ describe("Tech Blog", () => {
     cy.intercept(
       {
         method: "GET",
-        url: "http://localhost:4000/techCardListByClick/",
+        url: "http://localhost:4000/techCardListByClick",
       },
       {
         fixture: "techCardListByClick.json",
@@ -64,12 +64,13 @@ describe("Tech Blog", () => {
     cy.intercept(
       {
         method: "GET",
-        url: "http://localhost:4000/techCardListByStars/",
+        url: "http://localhost:4000/techCardListByStars",
       },
+      // this.techCardListByStars
       {
         fixture: "techCardListByStars.json",
       }
-    ).as("techCardListByStars")
+    )
   })
 
   it("initially active tech blog navigation", () => {
@@ -95,7 +96,7 @@ describe("Tech Blog", () => {
     })
   })
 
-  it.only("show tech blog cards order by stars", function () {
+  it("show tech blog cards order by stars", function () {
     cy.getById(TECH_BLOG_CARD_CONTAINER).then($techBlogCardContainer => {
       cy.getById(ALL_TECH_BLOG_BUTTON).should("have.attr", "data-active", "true")
       cy.getById(ORDER_BY_STARS_TECH_BLOG_BUTTON).click()
@@ -124,9 +125,26 @@ describe("Tech Blog", () => {
       favorite: false,
     })
 
-    getTechBlogCardByIndex(1).findById(TECH_BLOG_CARD_FAVORITE).click()
     /*
-    favorite 이후 바뀐 list 반영
+    favorite에 의한 바뀐 순서 테스트
+    favorite 변경에 따른 list req/res 검증 포함
+    */
+
+    getTechBlogCardByIndex(1)
+      .findById(TECH_BLOG_CARD_FAVORITE)
+      .then($techBlogCardFavorite => {
+        cy.intercept(
+          {
+            method: "GET",
+            url: "http://localhost:4000/techCardListByStars",
+          },
+          {
+            fixture: "updateTechCardListByStars.json",
+          }
+        )
+
+        cy.wrap($techBlogCardFavorite).click()
+      })
 
     TestCard({
       cardIndex: 0,
@@ -137,10 +155,9 @@ describe("Tech Blog", () => {
       videoUrl: "https://www.naver.com/",
       favorite: true,
     })
-    */
   })
 
-  it("show tech blog cards order by click", () => {
+  it.only("show tech blog cards order by click", () => {
     cy.getById(TECH_BLOG_CARD_CONTAINER).then($techBlogCardContainer => {
       cy.getById(ALL_TECH_BLOG_BUTTON).should("have.attr", "data-active", "true")
       cy.getById(ORDER_BY_CLICK_TECH_BLOG_BUTTON).click()
@@ -170,8 +187,24 @@ describe("Tech Blog", () => {
     })
 
     /*
-    click 이후 바뀐 list 반영
-    getTechBlogCardByIndex(1).findById(TECH_BLOG_CARD_FAVORITE).click()
+    click에 의한 바뀐 순서 테스트
+    click에 따른 list req/res 검증 포함
+    */
+    getTechBlogCardByIndex(1)
+      .findById(TECH_BLOG_CARD_CONTENT)
+      .then($techBlogCardContent => {
+        cy.intercept(
+          {
+            method: "GET",
+            url: "http://localhost:4000/techCardListByClick",
+          },
+          {
+            fixture: "updateTechCardListByClick.json",
+          }
+        )
+
+        cy.wrap($techBlogCardContent).click()
+      })
 
     TestCard({
       cardIndex: 0,
@@ -182,7 +215,6 @@ describe("Tech Blog", () => {
       videoUrl: "https://www.naver.com/",
       favorite: false,
     })
-    */
   })
 
   it("show favorite tech blog cards when favorite click", () => {

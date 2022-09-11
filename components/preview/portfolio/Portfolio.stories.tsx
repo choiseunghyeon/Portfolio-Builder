@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react"
 import Portfolio from "./Portfolio"
 
 export default {
-  title: "Portfolio",
+  title: "Portfolio/Portfolio",
   component: Portfolio,
 } as ComponentMeta<typeof Portfolio>
 

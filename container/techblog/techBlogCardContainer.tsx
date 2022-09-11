@@ -10,7 +10,7 @@ import {
 } from "@constants/testConstants"
 import { fetchTechBlog, updateTechBlogClicCount, updateTechBlogFavorite } from "@lib/api/techblog"
 import { useTechBlogCardClickCountMutation, useTechBlogCardFavoriteMutation, useTechBlogCardList } from "@lib/hooks/query"
-import { Chip, Grid, Button, IconButton, Typography } from "@mui/material"
+import { Chip, Grid, Button, IconButton, Typography, Divider, ButtonGroup } from "@mui/material"
 import { SortByType } from "@type/api"
 import axios from "axios"
 import React, { useState } from "react"
@@ -87,6 +87,11 @@ function TechBlogCardContainer() {
 
 export default TechBlogCardContainer
 
+const SortButtons = [
+  { title: "최신순", sortBy: "latest", testid: ORDER_BY_LATEST_TECH_BLOG_BUTTON },
+  { title: "별점순", sortBy: "stars", testid: ORDER_BY_STARS_TECH_BLOG_BUTTON },
+  { title: "클릭순", sortBy: "click", testid: ORDER_BY_CLICK_TECH_BLOG_BUTTON },
+]
 function AllTechBlog({ cardCount, handleSortBy, sortBy }) {
   return (
     <>
@@ -104,35 +109,22 @@ function AllTechBlog({ cardCount, handleSortBy, sortBy }) {
         </Typography>
       </Grid>
       <Grid item>
-        <Button
-          variant="text"
-          onClick={() => {
-            handleSortBy("latest")
-          }}
-          data-testid={ORDER_BY_LATEST_TECH_BLOG_BUTTON}
-          data-active={sortBy === "latest" ? "true" : "false"}>
-          최신순
-        </Button>{" "}
-        |
-        <Button
-          variant="text"
-          onClick={() => {
-            handleSortBy("stars")
-          }}
-          data-testid={ORDER_BY_STARS_TECH_BLOG_BUTTON}
-          data-active={sortBy === "stars" ? "true" : "false"}>
-          별점순
-        </Button>{" "}
-        |
-        <Button
-          variant="text"
-          onClick={() => {
-            handleSortBy("click")
-          }}
-          data-testid={ORDER_BY_CLICK_TECH_BLOG_BUTTON}
-          data-active={sortBy === "click" ? "true" : "false"}>
-          클릭순
-        </Button>
+        <ButtonGroup variant="text">
+          {SortButtons.map(sortButton => (
+            <Button
+              key={sortButton.title}
+              variant="text"
+              onClick={() => {
+                handleSortBy(sortButton.sortBy)
+              }}
+              // sx={{ color: sortBy === sortButton.sortBy ? "orange" : "inherit" }}
+              color={sortBy === sortButton.sortBy ? "info" : "inherit"}
+              data-testid={sortButton.testid}
+              data-active={sortBy === sortButton.sortBy ? "true" : "false"}>
+              {sortButton.title}
+            </Button>
+          ))}
+        </ButtonGroup>
       </Grid>
     </>
   )

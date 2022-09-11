@@ -9,11 +9,11 @@ interface INavigationProps {
 }
 
 const navigatablePage: { text: string; icon: string; pageId: ActivatablePageType }[] = [
-  { text: "Home", icon: "Inbox", pageId: "home" },
-  { text: "Discovery", icon: "Inbox", pageId: "discovery" },
-  { text: "Tech-blog", icon: "Inbox", pageId: "tech-blog" },
-  { text: "Career", icon: "Inbox", pageId: "career" },
-  { text: "Community", icon: "Inbox", pageId: "community" },
+  { text: "Home", icon: "Home", pageId: "home" },
+  { text: "Discovery", icon: "Code", pageId: "discovery" },
+  { text: "Tech-blog", icon: "Lightbulb", pageId: "tech-blog" },
+  { text: "Career", icon: "Timeline", pageId: "career" },
+  { text: "Community", icon: "Language", pageId: "community" },
 ]
 function Navigation({ activePageId }: INavigationProps) {
   return (
@@ -24,11 +24,13 @@ function Navigation({ activePageId }: INavigationProps) {
             <Grid key={text} item xs={12}>
               <Button
                 data-active={activePageId === pageId ? "true" : "false"}
-                color={activePageId === pageId ? "secondary" : "inherit"}
+                color={activePageId === pageId ? "info" : "inherit"}
                 variant="text"
                 size="medium"
                 startIcon={<IconComponent icon={icon} />}
-                sx={{ color: "white" }}>
+                // color={}
+                // sx={{ color: `${activePageId === pageId ? "orange" : "white"}` }}
+              >
                 {text}
               </Button>
             </Grid>
