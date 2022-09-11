@@ -12,6 +12,7 @@ import {
   TECH_BLOG_CARD_COMPANY_NAME,
   TECH_BLOG_CARD_COMPANY_VIDEO_LINK,
   TECH_BLOG_CARD_CONTAINER,
+  TECH_BLOG_CARD_CONTAINER_NOTIFICATION,
   TECH_BLOG_CARD_CONTAINER_TITLE,
   TECH_BLOG_CARD_CONTENT,
   TECH_BLOG_CARD_DESCRIPTION,
@@ -217,13 +218,29 @@ describe("Tech Blog", () => {
     })
   })
 
-  it("show favorite tech blog cards when favorite click", () => {
+  it("show favorite tech blog cards when favorite button click", () => {
     cy.getById(FAVORITE_TECH_BLOG_BUTTON).click()
 
     cy.getById(TECH_BLOG_CARD_CONTAINER).then($techBlogCardContainer => {
       cy.getById(FAVORITE_TECH_BLOG_BUTTON).should("have.attr", "data-active", "true")
       cy.getById(TECH_BLOG_CARD_CONTAINER_TITLE).contains("Favorite (2)")
       cy.getById(TECH_BLOG_CARD).should("have.length", 2)
+    })
+  }) // the end of test case
+
+  it("show notification that there is no favorite tech blog cards when favorite button click", () => {
+    cy.intercept(
+      {
+        method: "GET",
+        url: "http://localhost:4000/techCardListByFavorite",
+      },
+      []
+    )
+    cy.getById(FAVORITE_TECH_BLOG_BUTTON).click()
+
+    cy.getById(TECH_BLOG_CARD_CONTAINER).then($techBlogCardContainer => {
+      cy.getById(FAVORITE_TECH_BLOG_BUTTON).should("have.attr", "data-active", "true")
+      cy.getById(TECH_BLOG_CARD_CONTAINER_NOTIFICATION).contains("잠깐! 별을 클릭하면 관심 테크 블로그로 설정됩니다 :-)")
     })
   }) // the end of test case
 })

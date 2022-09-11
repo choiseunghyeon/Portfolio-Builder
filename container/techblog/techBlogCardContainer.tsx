@@ -1,4 +1,5 @@
 import TechBlogCard from "@components/common/TechBlogCard"
+import TechBlogHeader from "@components/common/TechBlogHeader"
 import {
   ALL_TECH_BLOG_BUTTON,
   FAVORITE_TECH_BLOG_BUTTON,
@@ -6,15 +7,14 @@ import {
   ORDER_BY_LATEST_TECH_BLOG_BUTTON,
   ORDER_BY_STARS_TECH_BLOG_BUTTON,
   TECH_BLOG_CARD_CONTAINER,
+  TECH_BLOG_CARD_CONTAINER_NOTIFICATION,
   TECH_BLOG_CARD_CONTAINER_TITLE,
 } from "@constants/testConstants"
-import { fetchTechBlog, updateTechBlogClicCount, updateTechBlogFavorite } from "@lib/api/techblog"
 import { useTechBlogCardClickCountMutation, useTechBlogCardFavoriteMutation, useTechBlogCardList } from "@lib/hooks/query"
+import { isEmpty } from "@lib/util/common"
 import { Chip, Grid, Button, IconButton, Typography, Divider, ButtonGroup } from "@mui/material"
 import { SortByType } from "@type/api"
-import axios from "axios"
 import React, { useState } from "react"
-import { useMutation, useQueryClient } from "react-query"
 
 function TechBlogCardContainer() {
   const [techblog, setTechBlog] = useState<"favorite" | "all">("all")
@@ -27,21 +27,22 @@ function TechBlogCardContainer() {
     const targetTechBlog = techBlogList?.find(techblog => techblog.id === id)
     if (!targetTechBlog) return
     techBlogCardFavoriteMutation.mutate({ id: targetTechBlog.id, favorite: !targetTechBlog.favorite })
-    // updateTechBlogFavorite(targetTechBlog.id, !targetTechBlog.favorite)
   }
 
   const onClickContent = (id: string) => {
     const targetTechBlog = techBlogList?.find(techblog => techblog.id === id)
     if (!targetTechBlog) return
     techBlogCardClickCountMutation.mutate({ id: targetTechBlog.id })
-    // updateTechBlogClicCount(id)
   }
-
-  if (!techBlogList) return null
 
   return (
     <Grid container sx={{ marginBottom: 2 }} data-testid={TECH_BLOG_CARD_CONTAINER}>
       <Grid item xs={12} sx={{ textAlign: "end", marginBottom: 2 }}>
+        {isEmpty(techBlogList) && techblog === "favorite" && (
+          <Typography data-testid={TECH_BLOG_CARD_CONTAINER_NOTIFICATION} component="span" sx={{ fontSize: "0.7rem", marginRight: "10px" }}>
+            <b>잠깐!</b> 별을 클릭하면 관심 테크 블로그로 설정됩니다 :-)
+          </Typography>
+        )}
         <Chip
           data-active={techblog === "favorite" ? "true" : "false"}
           data-testid={FAVORITE_TECH_BLOG_BUTTON}
@@ -66,21 +67,25 @@ function TechBlogCardContainer() {
           sx={{ marginLeft: 1 }}
         />
       </Grid>
-      <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
-        <Grid container justifyContent={"space-between"} alignItems={"center"}>
-          {techblog === "all" ? <AllTechBlog cardCount={techBlogList.length} sortBy={sortBy} handleSortBy={setSortBy} /> : <FavoriteTechBlog cardCount={techBlogList.length} />}
-        </Grid>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Grid container spacing={1}>
-          {techBlogList.map((cardData, index) => (
-            <Grid key={cardData.id} item xs={4}>
-              <TechBlogCard {...cardData} onClickContent={onClickContent} onClickFavorite={onToggleFavorite} />
+      {techBlogList && (
+        <>
+          <Grid item xs={12} sx={{ marginBottom: 1.2 }}>
+            <Grid container justifyContent={"space-between"} alignItems={"center"}>
+              {techblog === "all" ? <AllTechBlog cardCount={techBlogList.length} sortBy={sortBy} handleSortBy={setSortBy} /> : <FavoriteTechBlog cardCount={techBlogList.length} />}
             </Grid>
-          ))}
-        </Grid>
-      </Grid>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid container spacing={1}>
+              {techBlogList.map((cardData, index) => (
+                <Grid key={cardData.id} item xs={4}>
+                  <TechBlogCard {...cardData} onClickContent={onClickContent} onClickFavorite={onToggleFavorite} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </>
+      )}
     </Grid>
   )
 }
