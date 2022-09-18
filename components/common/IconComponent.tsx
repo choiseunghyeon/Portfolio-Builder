@@ -1,6 +1,6 @@
 import React from "react"
-// import * as ReactIconSi from "react-icons/si"
-// import * as ReactIconFa from "react-icons/fa"
+import { RiKakaoTalkFill } from "react-icons/ri"
+import { FcGoogle } from "react-icons/fc"
 import {
   Add,
   Settings,
@@ -60,12 +60,10 @@ const Icons = {
   Lightbulb,
   Timeline,
   Language,
+  Kakao: RiKakaoTalkFill,
+  Google: FcGoogle,
 }
 function getIcon(iconName: string): IconType | any | undefined {
-  // if (ReactIconSi[iconName]) return ReactIconSi[iconName]
-
-  // if (ReactIconFa[iconName]) return ReactIconFa[iconName]
-
   if (Icons[iconName]) return Icons[iconName]
 }
 
