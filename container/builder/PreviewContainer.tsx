@@ -1,6 +1,15 @@
 import { previewProvider } from "@components/preview/provider"
 import { useDispatch, useSelector } from "react-redux"
-import { previewSelectorProvider, selectBlockById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockStyle, selectBlockTypeStyleByBlockType } from "@store/selector"
+import {
+  previewSelectorProvider,
+  selectBlockById,
+  selectBlockLayout,
+  selectBlocks,
+  selectBlocksByType,
+  selectBlockStyle,
+  selectBlockTypeStyleByBlockType,
+  selectChangedPortfolio,
+} from "@store/selector"
 import { Grid, Box, Divider } from "@mui/material"
 import Timeline from "@mui/lab/Timeline"
 import { convertColumnCountIntoXS, isGroupBlock, getDividerNameByBlockType } from "@store/utils"
@@ -94,7 +103,6 @@ const GroupBlock = ({ blockType, portfolioPageType }: { blockType: BlockType; po
 const Block = ({ blockType, portfolioPageType }: { blockType: BlockType; portfolioPageType: PortfolioPageType }) => {
   const blocks = useSelector(state => selectBlocksByType(state, portfolioPageType, blockType))
   const blockStyle = useSelector(state => selectBlockTypeStyleByBlockType(state, portfolioPageType, blockType))
-
   const block = blocks[0]
   if (!block) return null
   return <MemoizedPreview key={block.id} block={block} blockStyle={blockStyle} />

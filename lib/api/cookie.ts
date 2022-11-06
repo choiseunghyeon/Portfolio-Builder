@@ -1,4 +1,4 @@
-type cookieType = "accessToken"
+type cookieType = "accessToken" | "sessionKey"
 
 export function setCookie(cname: cookieType, cvalue: string, exdays: number = 7) {
   const d = new Date()

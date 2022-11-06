@@ -24,7 +24,7 @@ const Block = forwardRef(({ draggableProps, dragHandleProps, blockInfo, handleFi
   const removeBlock = useCallback(
     (event: any) => {
       if (onRemoveBlock) {
-        onRemoveBlock(id)
+        onRemoveBlock(id, type)
       }
     },
     [id]

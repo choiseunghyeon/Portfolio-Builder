@@ -2,7 +2,8 @@ import { IField } from "./field"
 
 export type BlockType = "Profile" | "Career" | "Project" | "Portfolio" | "MarkDown"
 export interface IBlock {
-  id: string
+  id: string | number
+  idx: string
   type: BlockType
   title: string
   iconName: string

@@ -1,0 +1,66 @@
+{
+  "id": "kakao_2266193025",
+  "blocks": [
+    {
+      "blockType": "Career",
+      "id": 7,
+      "idx": "1",
+      "fieldValues": {
+        "careerMainText": "이카운트",
+        "careerSubText": "Front-End",
+        "careerDescription": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유",
+        "careerTerm": {
+          "from": "2022-07-01",
+          "to": "2022-09-30"
+        }
+      }
+    }
+  ],
+  "blockLayout": [
+    [
+      {
+        "blockType": "Profile"
+      }
+    ],
+    [
+      {
+        "blockType": "Project"
+      }
+    ],
+    [
+      {
+        "blockType": "Portfolio"
+      },
+      {
+        "blockType": "Career"
+      }
+    ],
+    [
+      {
+        "blockType": "MarkDown"
+      }
+    ]
+  ],
+  "blockTypeStyle": {
+    "Career": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Profile": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Project": {
+      "layoutType": "default",
+      "columnCount": 2
+    },
+    "MarkDown": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Portfolio": {
+      "layoutType": "default",
+      "columnCount": 4
+    }
+  }
+}

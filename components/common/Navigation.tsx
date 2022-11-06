@@ -1,8 +1,9 @@
 import { NAVIGATION_CONTAINER } from "@constants/testConstants"
 import { Button, Grid } from "@mui/material"
 import { ActivatablePageType } from "@type/common"
-import React from "react"
+import { useState } from "react"
 import IconComponent from "./IconComponent"
+import LoginDialog from "./LoginDialog"
 
 interface INavigationProps {
   activePageId: ActivatablePageType
@@ -16,6 +17,15 @@ const navigatablePage: { text: string; icon: string; pageId: ActivatablePageType
   { text: "Community", icon: "Language", pageId: "community" },
 ]
 function Navigation({ activePageId }: INavigationProps) {
+  const [open, setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <Grid data-testid={NAVIGATION_CONTAINER} container direction="column" justifyContent="space-between" sx={{ height: "100% !important" }}>
       <Grid item>
@@ -39,9 +49,10 @@ function Navigation({ activePageId }: INavigationProps) {
       </Grid>
       {/* <Grid item>팀 소개 페이지</Grid> */}
       <Grid item>
-        <Button variant="text" size="medium" startIcon={<IconComponent icon={"Person"} />} sx={{ color: "white" }}>
+        <Button onClick={handleClickOpen} variant="text" size="medium" startIcon={<IconComponent icon={"Person"} />} sx={{ color: "white" }}>
           Login
         </Button>
+        <LoginDialog open={open} onClose={handleClose} />
       </Grid>
     </Grid>
   )

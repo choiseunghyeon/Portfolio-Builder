@@ -4,14 +4,27 @@ import { IPortfolioProps } from "@components/preview/portfolio/Portfolio"
 import { IProfileProps } from "@components/preview/profile/Profile"
 import { IProjectProps } from "@components/preview/project/Project"
 import { createSelector } from "@reduxjs/toolkit"
-import { PortfolioPageType } from "@store/root"
+import { IPortFolio, PortfolioPageType } from "@store/root"
 import { BlockType, IBlock } from "@type/block"
 import { IBlockTypeStyle } from "@type/blockStyle"
+
+import { getChangedPortfolioInfo, getUpdatedPortfolio } from "./utils"
 import { RootState } from ".."
 
 export const selectBlocks = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blocks
 export const selectBlockStyle = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blockTypeStyle
 export const selectBlockLayout = (state: RootState, portfolioPageType: PortfolioPageType) => state.portfolio[portfolioPageType].blockLayout
+
+export const selectBlockIndexByIdAndBlockType = createSelector(
+  [
+    selectBlocks,
+    (state: RootState, portfolioPageType: PortfolioPageType, blockId: string, blockType: BlockType) => ({
+      blockId,
+      blockType,
+    }),
+  ],
+  (blocks, { blockId, blockType }) => blocks.findIndex(block => block.id === blockId && block.type === blockType)
+)
 
 export const selectBlockIndexById = createSelector([selectBlocks, (state: RootState, portfolioPageType: PortfolioPageType, blockId: string) => blockId], (blocks, blockId) =>
   blocks.findIndex(block => block.id === blockId)
@@ -28,6 +41,14 @@ export const selectBlockTypeStyleByBlockType = createSelector(
   [selectBlockStyle, (state: RootState, portfolioPageType: PortfolioPageType, blockType: BlockType) => blockType],
   (blockStyle, blockType) => blockStyle[blockType]
 )
+
+export const selectChangedPortfolio = (state: RootState) => {
+  const { baseline, edit } = state.portfolio
+  const changedInfo = getChangedPortfolioInfo(baseline, edit)
+  const updatedPortfolio = getUpdatedPortfolio(edit, changedInfo)
+
+  return updatedPortfolio
+}
 
 // for memoization
 const selectProfileProps = createSelector(

@@ -12,13 +12,12 @@ import HeaderContainer from "@container/builder/HeaderContainer"
 import Main from "@components/common/Main"
 import AppbarHeader from "@components/common/AppbarHeader"
 import UserCard from "@components/common/UserCard"
+import PortfolioContainer from "@container/builder/PortfolioContainer"
 
 export default function EditPortfolioPage() {
   const [currentPortfolioId, setCurrentPortfolioId] = useState("1")
   const [open, setOpen] = useState(false)
   const [drawerWidth, setDrawerWidth] = useState(320)
-  const needTabFold = useSelector(tabFold)
-  const setupWidthRatio = needTabFold ? 2 : 4
 
   const onCopyPortfolio = (portfolioId: string) => {
     setCurrentPortfolioId(portfolioId)
@@ -43,15 +42,7 @@ export default function EditPortfolioPage() {
         <HeaderContainer open={open} drawerWidth={drawerWidth} handleDrawerOpen={handleDrawerOpen} />
         <Main open={open} drawerWidth={drawerWidth}>
           <AppbarHeader />
-          <Grid container sx={{ overflow: "hidden" }}>
-            <Grid item xs={setupWidthRatio} sx={{ borderRight: 1, borderColor: "divider", height: "calc(100vh - 64px)", overflowY: "auto" }}>
-              <SetupContainer />
-            </Grid>
-            <Grid item xs={8} sx={{ height: "calc(100vh - 64px)", overflowY: "auto", paddingX: 2 }}>
-              {/* dummy data는 순위 높은 데이터 또는 특정 지정 데이터 */}
-              <PreviewContainer portfolioId={currentPortfolioId} />
-            </Grid>
-          </Grid>
+          <PortfolioContainer />
         </Main>
       </Box>
       <CustomDrawer open={open} drawerWidth={drawerWidth} handleDrawerClose={handleDrawerClose} onCopyPortfolio={onCopyPortfolio} />

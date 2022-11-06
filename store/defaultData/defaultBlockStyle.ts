@@ -9,7 +9,7 @@ type DefaultBlockTypeStyleType = {
   }
 }
 
-export const DefaultBlockTypeStyle: DefaultBlockTypeStyleType = {
+export const DefaultBlockTypeStyleForComponent: DefaultBlockTypeStyleType = {
   Profile: {
     changableLayoutTypes: ["default", "second"],
     changableColumnCount: [],
@@ -29,6 +29,35 @@ export const DefaultBlockTypeStyle: DefaultBlockTypeStyleType = {
   MarkDown: {
     changableLayoutTypes: [],
     changableColumnCount: [1, 2, 3, 4],
+  },
+}
+
+type DefaultBlockTypeStyle = {
+  [blockType in BlockType]: {
+    layoutType: string
+    columnCount: number
+  }
+}
+export const defaultBlockTypeStyle: DefaultBlockTypeStyle = {
+  Career: {
+    layoutType: "default",
+    columnCount: 1,
+  },
+  Profile: {
+    layoutType: "default",
+    columnCount: 1,
+  },
+  Project: {
+    layoutType: "default",
+    columnCount: 1,
+  },
+  MarkDown: {
+    layoutType: "default",
+    columnCount: 1,
+  },
+  Portfolio: {
+    layoutType: "default",
+    columnCount: 1,
   },
 }
 

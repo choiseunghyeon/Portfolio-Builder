@@ -3,18 +3,34 @@ import axios from "axios"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { ITechBlogResponse, SortByType } from "@type/api"
 import { fetchTechBlog } from "@lib/api/techblog"
+import { fetchPortfolio, fetchPortfolioList, savePortfolioById } from "@lib/api/builder"
 
 export function usePortfolio(portfolioId: string) {
   const { data } = useQuery(["portfolio", portfolioId], async () => {
-    const { data } = await axios.get(`http://localhost:4000/portfolio/${portfolioId}`)
-    return data
+    const {
+      data: { body, statusCode },
+    } = await fetchPortfolio(portfolioId)
+    // const { data } = await axios.get(`${BASE_URL}/api/builder/${portfolioId}`)
+    return body
   })
   return data
 }
 
+export function usePortfolioeMutation(portfolioId: string) {
+  const queryClient = useQueryClient()
+  return useMutation(
+    () => {
+      return savePortfolioById()
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(["portfolio", portfolioId]),
+    }
+  )
+}
+
 export function useProfileList() {
   const { data } = useQuery(["profileList"], async () => {
-    const { data } = await axios.get(`http://localhost:4000/profileList/`)
+    const { data } = await fetchPortfolioList()
     return data
   })
   return data

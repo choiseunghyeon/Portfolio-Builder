@@ -1,0 +1,990 @@
+{
+  "blockLayout": [
+    [
+      {
+        "blockType": "Profile",
+        "title": "프로필"
+      }
+    ],
+    [
+      {
+        "blockType": "Project",
+        "title": "프로젝트"
+      }
+    ],
+    [
+      {
+        "blockType": "Portfolio",
+        "title": "포트폴리오"
+      },
+      {
+        "blockType": "Career",
+        "title": "커리어"
+      }
+    ],
+    [
+      {
+        "blockType": "MarkDown",
+        "title": "마크다운"
+      }
+    ]
+  ],
+  "blockTypeStyle": {
+    "Profile": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Project": {
+      "layoutType": "default",
+      "columnCount": 2
+    },
+    "Career": {
+      "layoutType": "default",
+      "columnCount": 1
+    },
+    "Portfolio": {
+      "layoutType": "default",
+      "columnCount": 4
+    },
+    "MarkDown": {
+      "layoutType": "default",
+      "columnCount": 1
+    }
+  },
+  "blocks": [
+    {
+      "id": "profile_id",
+      "type": "Profile",
+      "title": "프로필",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "b2f5abe4-797a-438f-b8aa-bf6c79eb7e73",
+          "type": "Image",
+          "title": "이미지 업로드",
+          "value": {
+            "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg"
+          },
+          "attributes": {}
+        },
+        {
+          "id": "553fb7cd-eab2-4026-a007-81d3c4108b99",
+          "type": "Text",
+          "title": "메인 텍스트",
+          "value": {
+            "text": "Front End Developer"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "이름, 닉네임"
+            },
+            "validation": {
+              "limit": 25
+            }
+          }
+        },
+        {
+          "id": "3f34e57d-16d0-4ce1-bf5d-d0df034a688e",
+          "type": "Text",
+          "title": "서브 텍스트",
+          "value": {
+            "text": "안녕하세요 :) 서핏 팀의 \n디자이너 박소연입니다."
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "직무, 전공, 나를 소개하는 한 마디"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "bc4acb2c-4790-47ff-aac9-6764ee2fbf88",
+          "type": "Select",
+          "title": "(선택) 추가 정보",
+          "value": {
+            "selectList": [
+              {
+                "label": "None",
+                "value": ""
+              },
+              {
+                "label": "Apply",
+                "value": "apply"
+              },
+              {
+                "label": "Contact",
+                "value": "contact"
+              },
+              {
+                "label": "Github",
+                "value": "github"
+              },
+              {
+                "label": "Keyword",
+                "value": "keyword"
+              }
+            ],
+            "selectedValue": "apply"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "직무, 전공, 나를 소개하는 한 마디"
+            }
+          }
+        },
+        {
+          "id": "55db015b-1c45-4ea6-bf67-e2c14bca07be",
+          "type": "Text",
+          "title": "지원회사",
+          "value": {
+            "text": "당근마켓"
+          },
+          "attributes": {
+            "relatedSelectValue": "apply",
+            "display": true,
+            "placeholder": {
+              "text": "예) 당근마켓"
+            },
+            "validation": {
+              "limit": 25
+            }
+          }
+        },
+        {
+          "id": "ab35b606-6390-4184-94f6-f7d204f1c61b",
+          "type": "Text",
+          "title": "지원직무 / 지원파트",
+          "value": {
+            "text": "Front End"
+          },
+          "attributes": {
+            "relatedSelectValue": "apply",
+            "display": true,
+            "placeholder": {
+              "text": "예) 프론트엔드 개발자 / 당근페이"
+            },
+            "validation": {
+              "limit": 25
+            }
+          }
+        },
+        {
+          "id": "b3d0959f-3b7f-4271-839e-9791b0a464fb",
+          "type": "Text",
+          "title": "휴대폰 번호",
+          "value": {
+            "text": "010-3734-1715"
+          },
+          "attributes": {
+            "relatedSelectValue": "contact",
+            "display": false,
+            "placeholder": {
+              "text": "예) 010-1234-5678"
+            },
+            "validation": {
+              "limit": 25,
+              "dataType": "phoneNumber"
+            }
+          }
+        },
+        {
+          "id": "4b650304-421d-4a75-9fb8-14a6dc825843",
+          "type": "Text",
+          "title": "이메일",
+          "value": {
+            "text": "ket8780@gmail.com"
+          },
+          "attributes": {
+            "relatedSelectValue": "contact",
+            "display": false,
+            "placeholder": {
+              "text": "예) ppb@naver.com"
+            },
+            "validation": {
+              "limit": 25,
+              "dataType": "email"
+            }
+          }
+        },
+        {
+          "id": "e69b5f08-5026-4d34-af33-d565780a4829",
+          "type": "Text",
+          "title": "GitHub 주소",
+          "value": {
+            "text": "https://github.com/choiseunghyeon"
+          },
+          "attributes": {
+            "relatedSelectValue": "github",
+            "display": false,
+            "placeholder": {
+              "text": "Github 주소 입력"
+            }
+          }
+        },
+        {
+          "id": "816d4a24-55d0-43d4-a39f-88683231b427",
+          "type": "Text",
+          "title": "키워드 1",
+          "value": {
+            "text": "근명"
+          },
+          "attributes": {
+            "relatedSelectValue": "keyword",
+            "display": false,
+            "placeholder": {
+              "text": "키워드 1 입력"
+            }
+          }
+        },
+        {
+          "id": "e983bae3-88b3-43ae-b35b-4a0c0863a605",
+          "type": "Text",
+          "title": "키워드 2",
+          "value": {
+            "text": "성실"
+          },
+          "attributes": {
+            "relatedSelectValue": "keyword",
+            "display": false,
+            "placeholder": {
+              "text": "키워드 2 입력"
+            }
+          }
+        },
+        {
+          "id": "e70bb073-0b62-4154-9e9c-f569b4d4b8bc",
+          "type": "Text",
+          "title": "키워드 3",
+          "value": {
+            "text": "책임"
+          },
+          "attributes": {
+            "relatedSelectValue": "keyword",
+            "display": false,
+            "placeholder": {
+              "text": "키워드 3 입력"
+            }
+          }
+        },
+        {
+          "id": "a4e324ce-0704-485a-9e7a-92e69e16a6c7",
+          "type": "Text",
+          "title": "키워드 4",
+          "value": {
+            "text": "개발"
+          },
+          "attributes": {
+            "relatedSelectValue": "keyword",
+            "display": false,
+            "placeholder": {
+              "text": "키워드 4 입력"
+            }
+          }
+        },
+        {
+          "id": "559a48bb-4a92-46c1-81ac-aaef0cdd1ac3",
+          "type": "Text",
+          "title": "키워드 5",
+          "value": {
+            "text": "혁신"
+          },
+          "attributes": {
+            "relatedSelectValue": "keyword",
+            "display": false,
+            "placeholder": {
+              "text": "키워드 5 입력"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "project_b3a32028-06e2-4abf-9aea-681ef822455a",
+      "type": "Project",
+      "title": "대출 추천 재개발",
+      "iconName": "Computer",
+      "fields": [
+        {
+          "id": "df23b9f3-91a8-4246-b4e0-4e77cec68762",
+          "type": "Text",
+          "title": "프로젝트",
+          "value": {
+            "text": "대출 추천 재개발"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "예) 대출 추천 재개발"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "5c8763b4-1389-4b42-a927-daa3e39c8997",
+          "type": "Text",
+          "title": "소속 / 기관",
+          "value": {
+            "text": "현대 자동차"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "예) Banksalad"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "96dfb4a7-3063-4892-ad8e-2cea391ba260",
+          "type": "Date",
+          "title": "기간",
+          "value": {
+            "from": "2022-04-01",
+            "to": "2022-05-30"
+          },
+          "attributes": {
+            "placeholder": {
+              "from": "시작 날짜",
+              "to": "종료 날짜"
+            }
+          }
+        },
+        {
+          "id": "3d2102a0-e2f9-4328-9d26-56663f215d9b",
+          "type": "MultiLineText",
+          "title": "배경 / 설명",
+          "value": {
+            "multiLineText": "도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통\n 호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다. 이에 재개발을 제안하여 비즈니스 로직을 좀 더 파악하기 쉽고 빠르게 임팩를 낼 수 있도록 하는데 기여하였습니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        },
+        {
+          "id": "ac8ae9ca-baa0-4952-a811-2bcb3caee10b",
+          "type": "MultiLineText",
+          "title": "Skills",
+          "value": {
+            "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "- View와 Data를 분리하고 모든 비즈니스 로직을 redux, middleware에서 처리"
+            },
+            "validation": {
+              "limit": 100
+            }
+          }
+        },
+        {
+          "id": "c952478f-b6ca-451b-83e5-f2019003d8be",
+          "type": "AutoCompleteText",
+          "title": "Skill Set",
+          "value": {
+            "textList": [],
+            "selectedTextList": ["React"]
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "React"
+            },
+            "autocompleteRequest": "skillSet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "project_b5fd1651-6125-4af3-a8d4-93dddec72bb4",
+      "type": "Project",
+      "title": "대출 추천 재개발",
+      "iconName": "Computer",
+      "fields": [
+        {
+          "id": "cf9d003d-02ff-4722-8b98-b562a51cd664",
+          "type": "Text",
+          "title": "프로젝트",
+          "value": {
+            "text": "대출 추천 재개발"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "예) 대출 추천 재개발"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "10508e45-ada6-4389-a6cb-b48de35b4028",
+          "type": "Text",
+          "title": "소속 / 기관",
+          "value": {
+            "text": "현대 자동차"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "예) Banksalad"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "94d5311a-21eb-4e02-9e35-0f71995f071f",
+          "type": "Date",
+          "title": "기간",
+          "value": {
+            "from": "2022-04-01",
+            "to": "2022-05-30"
+          },
+          "attributes": {
+            "placeholder": {
+              "from": "시작 날짜",
+              "to": "종료 날짜"
+            }
+          }
+        },
+        {
+          "id": "4564963c-de01-4a82-9b47-580157beb992",
+          "type": "MultiLineText",
+          "title": "배경 / 설명",
+          "value": {
+            "multiLineText": "도시·개발계획 분석 전문가인 엄재웅(서경파파)씨가 신간 ‘강남 되는 강북 부동산은 정해져 있다’(위즈덤하우스)를 펴냈다. 엄씨는 부동산에서 가장 중요한 것은 입지가 아닌 정책이 부동산 시장에서 교통\n 호재는 언제나 많은 관심을 부르는 키워드입니다. 특히 교통 호재는 계획 발표"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) 레거시 등으로 개발 단계에서 많은 에러가 발생하는 문제가 있었습니다. 이에 재개발을 제안하여 비즈니스 로직을 좀 더 파악하기 쉽고 빠르게 임팩를 낼 수 있도록 하는데 기여하였습니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        },
+        {
+          "id": "f773d2a4-2f9e-4a1e-b7a5-e7100e7a1a0d",
+          "type": "MultiLineText",
+          "title": "Skills",
+          "value": {
+            "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\nredux, redux-saga 적용 및 가이드 공유"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "- View와 Data를 분리하고 모든 비즈니스 로직을 redux, middleware에서 처리"
+            },
+            "validation": {
+              "limit": 100
+            }
+          }
+        },
+        {
+          "id": "5fed0123-b855-4191-9f87-6c7511d43848",
+          "type": "AutoCompleteText",
+          "title": "Skill Set",
+          "value": {
+            "textList": [],
+            "selectedTextList": ["React"]
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "React"
+            },
+            "autocompleteRequest": "skillSet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "career_684073db-315f-4367-881e-d43b581721db",
+      "type": "Career",
+      "title": "현대 자동차",
+      "iconName": "Computer",
+      "fields": [
+        {
+          "id": "4cd54d6e-4b73-41b2-9efe-07933bdea43e",
+          "type": "Text",
+          "title": "메인 텍스트",
+          "value": {
+            "text": "현대 자동차"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학교명, 직장명, 컨퍼런스명, 대회명"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "9d27e292-f67a-416a-89cb-a74c040eb406",
+          "type": "Text",
+          "title": "서브 텍스트",
+          "value": {
+            "text": "Front-End"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학과, 역할, 발표 주제, 수상 내역"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "0c061437-a0f8-456c-adc0-064311959fae",
+          "type": "Date",
+          "title": "기간",
+          "value": {
+            "from": "2022-04-01",
+            "to": "2022-05-30"
+          },
+          "attributes": {
+            "placeholder": {
+              "from": "시작 날짜",
+              "to": "종료 날짜"
+            }
+          }
+        },
+        {
+          "id": "104ae938-1858-4fb2-9467-bdf3ee55b21b",
+          "type": "MultiLineText",
+          "title": "설명",
+          "value": {
+            "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용"
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "career_e52833c6-6fd7-4ed0-91d1-726ae9019856",
+      "type": "Career",
+      "title": "현대 자동차",
+      "iconName": "Computer",
+      "fields": [
+        {
+          "id": "2989813e-bb06-4521-ae95-60d611fd7968",
+          "type": "Text",
+          "title": "메인 텍스트",
+          "value": {
+            "text": "현대 자동차"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학교명, 직장명, 컨퍼런스명, 대회명"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "ed1654e2-257f-4e86-9920-697e5aa21712",
+          "type": "Text",
+          "title": "서브 텍스트",
+          "value": {
+            "text": "Front-End"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학과, 역할, 발표 주제, 수상 내역"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "d1d57249-d469-433c-afee-93f27ace449c",
+          "type": "Date",
+          "title": "기간",
+          "value": {
+            "from": "2022-04-01",
+            "to": "2022-05-30"
+          },
+          "attributes": {
+            "placeholder": {
+              "from": "시작 날짜",
+              "to": "종료 날짜"
+            }
+          }
+        },
+        {
+          "id": "38bdef77-6432-442f-87ca-c4b4bb6b8ec4",
+          "type": "MultiLineText",
+          "title": "설명",
+          "value": {
+            "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용"
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "career_2c6dccd7-9e9e-4590-8de1-ebcf94843e50",
+      "type": "Career",
+      "title": "현대 자동차",
+      "iconName": "Computer",
+      "fields": [
+        {
+          "id": "81f8bfd2-83dd-4aca-a768-70621983186c",
+          "type": "Text",
+          "title": "메인 텍스트",
+          "value": {
+            "text": "현대 자동차"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학교명, 직장명, 컨퍼런스명, 대회명"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "82ed371d-7962-446d-a000-20526540ae39",
+          "type": "Text",
+          "title": "서브 텍스트",
+          "value": {
+            "text": "Front-End"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "학과, 역할, 발표 주제, 수상 내역"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "0fb8fafe-62a9-46f8-801a-cb7997aecd72",
+          "type": "Date",
+          "title": "기간",
+          "value": {
+            "from": "2022-04-01",
+            "to": "2022-05-30"
+          },
+          "attributes": {
+            "placeholder": {
+              "from": "시작 날짜",
+              "to": "종료 날짜"
+            }
+          }
+        },
+        {
+          "id": "30f6e700-2843-413e-adf7-9ff50559bb55",
+          "type": "MultiLineText",
+          "title": "설명",
+          "value": {
+            "multiLineText": "View와 Data를 분리하고 모든 비즈니스 로직을 redux middleware에서 처리\n redux, redux-saga 적용 및 가이드 공유"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "전공, 경력 요약, 발표 내용, 입상한 프로젝트 내용"
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "portfolio_d73a9ee5-876f-49de-a8f1-43877137e2da",
+      "type": "Portfolio",
+      "title": "MZ세대 언어",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "d8af15c8-b863-4189-a9ee-43f516945a2e",
+          "type": "Image",
+          "title": "썸네일",
+          "value": {
+            "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"
+          },
+          "attributes": {}
+        },
+        {
+          "id": "13e03b9b-7de3-41db-86e0-34acb09d6a19",
+          "type": "Text",
+          "title": "URL / 동영상 / 파일",
+          "value": {
+            "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "링크 주소"
+            }
+          }
+        },
+        {
+          "id": "6a961eb5-1315-477e-a5e7-d7835a923e93",
+          "type": "Text",
+          "title": "포트폴리오 / 작품 제목",
+          "value": {
+            "text": "MZ세대 언어"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "05a4d18d-44dd-495e-ac20-5184447badc1",
+          "type": "MultiLineText",
+          "title": "포트폴리오 / 작품 설명",
+          "value": {
+            "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "portfolio_03a35030-0f96-465a-944c-493d0eb9c0dc",
+      "type": "Portfolio",
+      "title": "MZ세대 언어",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "2b1f7107-7f1d-4863-9bfc-30c198f2b8f9",
+          "type": "Image",
+          "title": "썸네일",
+          "value": {
+            "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"
+          },
+          "attributes": {}
+        },
+        {
+          "id": "a057208b-ae71-4f66-a30f-a4d3cc8114d6",
+          "type": "Text",
+          "title": "URL / 동영상 / 파일",
+          "value": {
+            "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "링크 주소"
+            }
+          }
+        },
+        {
+          "id": "ce8a4927-97e7-4a85-804d-9c21a097c124",
+          "type": "Text",
+          "title": "포트폴리오 / 작품 제목",
+          "value": {
+            "text": "MZ세대 언어"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "e733d8de-9117-4364-aa9e-e36949783e75",
+          "type": "MultiLineText",
+          "title": "포트폴리오 / 작품 설명",
+          "value": {
+            "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "portfolio_3c8e152b-6740-49a9-a583-deff4a8d7f12",
+      "type": "Portfolio",
+      "title": "MZ세대 언어",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "90d65b5a-14ef-4226-bd47-72bfc5792b7c",
+          "type": "Image",
+          "title": "썸네일",
+          "value": {
+            "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"
+          },
+          "attributes": {}
+        },
+        {
+          "id": "0b719e39-fca3-40cb-920f-19cf524b62b5",
+          "type": "Text",
+          "title": "URL / 동영상 / 파일",
+          "value": {
+            "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "링크 주소"
+            }
+          }
+        },
+        {
+          "id": "c7939e88-3ecc-4d4a-ad80-3a905735c1cf",
+          "type": "Text",
+          "title": "포트폴리오 / 작품 제목",
+          "value": {
+            "text": "MZ세대 언어"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "6e95fd41-b5bf-4cf4-8096-d22d637bd259",
+          "type": "MultiLineText",
+          "title": "포트폴리오 / 작품 설명",
+          "value": {
+            "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "portfolio_a6a85fa1-05d1-423d-8f9a-a2ae40595799",
+      "type": "Portfolio",
+      "title": "MZ세대 언어",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "e2edc433-2211-4b9e-884d-f3716395a6d6",
+          "type": "Image",
+          "title": "썸네일",
+          "value": {
+            "imageSrc": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg"
+          },
+          "attributes": {}
+        },
+        {
+          "id": "d862f7a4-39ec-40c3-8bff-541ceb84a0ce",
+          "type": "Text",
+          "title": "URL / 동영상 / 파일",
+          "value": {
+            "text": "http://sports.hankooki.com/news/articleView.html?idxno=6798068"
+          },
+          "attributes": {
+            "placeholder": {
+              "text": "링크 주소"
+            }
+          }
+        },
+        {
+          "id": "56bd6c39-2de0-4d83-b912-2036be85c316",
+          "type": "Text",
+          "title": "포트폴리오 / 작품 제목",
+          "value": {
+            "text": "MZ세대 언어"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어"
+            },
+            "validation": {
+              "limit": 50
+            }
+          }
+        },
+        {
+          "id": "865b9a20-0a28-421c-a02f-8375972b2d0b",
+          "type": "MultiLineText",
+          "title": "포트폴리오 / 작품 설명",
+          "value": {
+            "multiLineText": "어남선생 류수영, 레시피 여왕 박복순 박솔미, 국민아들 찬또배기 이찬원이 치열한 경쟁을 예고"
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "예) MZ세대 언어를 테스트 할 수 있는 페이지입니다."
+            },
+            "validation": {
+              "limit": 200
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "markdown_b0b8ca68-e588-477b-97a3-34289b805998",
+      "type": "MarkDown",
+      "title": "마크다운",
+      "iconName": "PersonOutline",
+      "fields": [
+        {
+          "id": "4d590d98-5dfa-4e40-8a5d-336bc6798a1f",
+          "type": "MultiLineText",
+          "title": "MarKDown",
+          "value": {
+            "multiLineText": "# Multi Project Extension 제작 회고 \n ## 제작 동기 \n 현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다.  "
+          },
+          "attributes": {
+            "placeholder": {
+              "multiLineText": "## MarkDown"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -24,33 +24,43 @@ type PortfolioRefereceType = "portfolioThumbnail" | "portfolioURL" | "portfolioN
 type MarkDownRefereceType = "markdownText"
 type FieldRefereceType = ProfileReferenceType | ProjectRefereceType | CareerRefereceType | PortfolioRefereceType | MarkDownRefereceType
 interface ICreateBlock {
+  id?: string
+  idx: string
   blockType: BlockType
   title?: string
   style?: IBlockTypeStyle
   fieldValues?: { [key in FieldRefereceType]?: any }
 }
-export function createBlock({ blockType, title, style, fieldValues = {} }: ICreateBlock): IBlock {
+export function createBlock({ id, idx, blockType, title, style, fieldValues = {} }: ICreateBlock): IBlock {
   if (!fieldValues) fieldValues = {}
   switch (blockType) {
     case "Profile":
-      return createProfileBlock({ title, style, fieldValues })
+      return createProfileBlock({ id, idx, title, style, fieldValues })
     case "Project":
-      return createProjectBlock({ title, style, fieldValues })
+      return createProjectBlock({ id, idx, title, style, fieldValues })
     case "Career":
-      return createCareerBlock({ title, style, fieldValues })
+      return createCareerBlock({ id, idx, title, style, fieldValues })
     case "Portfolio":
-      return createPortfolioBlock({ title, style, fieldValues })
+      return createPortfolioBlock({ id, idx, title, style, fieldValues })
     case "MarkDown":
-      return createMarkDownBlock({ title, style, fieldValues })
+      return createMarkDownBlock({ id, idx, title, style, fieldValues })
   }
 }
 
-interface ICreateProfileBlock {
+function createDefaultBlockId(blockType: BlockType) {
+  return `tempsid_${blockType}_${uuidv4()}`
+}
+
+interface ICreateBLock {
+  id?: string | number
+  idx: string
   title?: string
   style?: IBlockTypeStyle
+}
+interface ICreateProfileBlock extends ICreateBLock {
   fieldValues: { [key in ProfileReferenceType]?: any }
 }
-function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock): IBlock {
+function createProfileBlock({ id, idx, title, style, fieldValues }: ICreateProfileBlock): IBlock {
   if (!title) title = "프로필"
   if (!style)
     style = {
@@ -58,7 +68,8 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
       columnCount: "1",
     }
   return {
-    id: "profile_id",
+    id: id ?? createDefaultBlockId("Profile"),
+    idx,
     type: "Profile",
     title: title,
     iconName: "PersonOutline",
@@ -154,12 +165,10 @@ function createProfileBlock({ title, style, fieldValues }: ICreateProfileBlock):
   }
 }
 
-interface ICreateProjectBlock {
-  title?: string
-  style?: IBlockTypeStyle
+interface ICreateProjectBlock extends ICreateBLock {
   fieldValues: { [key in ProjectRefereceType]?: any }
 }
-function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock): IBlock {
+function createProjectBlock({ id, idx, title, style, fieldValues }: ICreateProjectBlock): IBlock {
   if (!title) title = "프로젝트"
   if (!style)
     style = {
@@ -167,7 +176,8 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
       columnCount: "1",
     }
   return {
-    id: `project_${uuidv4()}`,
+    id: id ?? createDefaultBlockId("Project"),
+    idx,
     type: "Project",
     title: fieldValues.projectName || title,
     iconName: "Computer",
@@ -212,12 +222,10 @@ function createProjectBlock({ title, style, fieldValues }: ICreateProjectBlock):
   }
 }
 
-interface ICreateCareerBlock {
-  title?: string
-  style?: IBlockTypeStyle
+interface ICreateCareerBlock extends ICreateBLock {
   fieldValues: { [key in CareerRefereceType]?: any }
 }
-function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): IBlock {
+function createCareerBlock({ id, idx, title, style, fieldValues }: ICreateCareerBlock): IBlock {
   if (!title) title = "경력"
   if (!style)
     style = {
@@ -225,7 +233,8 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
       columnCount: "1",
     }
   return {
-    id: `career_${uuidv4()}`,
+    id: id ?? createDefaultBlockId("Career"),
+    idx: idx,
     type: "Career",
     title: fieldValues.careerMainText || title,
     iconName: "Computer",
@@ -257,12 +266,10 @@ function createCareerBlock({ title, style, fieldValues }: ICreateCareerBlock): I
   }
 }
 
-interface ICreatePortfolioBlock {
-  title?: string
-  style?: IBlockTypeStyle
+interface ICreatePortfolioBlock extends ICreateBLock {
   fieldValues: { [key in PortfolioRefereceType]?: any }
 }
-function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlock): IBlock {
+function createPortfolioBlock({ id, idx, title, style, fieldValues }: ICreatePortfolioBlock): IBlock {
   if (!title) title = "포트폴리오"
   if (!style)
     style = {
@@ -270,7 +277,8 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
       columnCount: "1",
     }
   return {
-    id: `portfolio_${uuidv4()}`,
+    id: id ?? createDefaultBlockId("Portfolio"),
+    idx,
     type: "Portfolio",
     title: fieldValues.portfolioName || title,
     iconName: "PersonOutline",
@@ -297,12 +305,10 @@ function createPortfolioBlock({ title, style, fieldValues }: ICreatePortfolioBlo
   }
 }
 
-interface ICreateMarkDownBlock {
-  title?: string
-  style?: IBlockTypeStyle
+interface ICreateMarkDownBlock extends ICreateBLock {
   fieldValues: { [key in MarkDownRefereceType]?: any }
 }
-function createMarkDownBlock({ title, style, fieldValues }: ICreateMarkDownBlock): IBlock {
+function createMarkDownBlock({ id, idx, title, style, fieldValues }: ICreateMarkDownBlock): IBlock {
   if (!title) title = "마크다운"
   if (!style)
     style = {
@@ -310,7 +316,8 @@ function createMarkDownBlock({ title, style, fieldValues }: ICreateMarkDownBlock
       columnCount: "1",
     }
   return {
-    id: `markdown_${uuidv4()}`,
+    id: id ?? createDefaultBlockId("MarkDown"),
+    idx,
     type: "MarkDown",
     title: title,
     iconName: "PersonOutline",

@@ -1,13 +1,14 @@
 {
-  "id": "kakao_2266193025",
+  "id": "kakao_2224182301",
   "blocks": [
     {
       "blockType": "Profile",
+      "idx": "1",
       "fieldValues": {
         "profileImage": "https://image.shutterstock.com/image-photo/osaka-japan-jun e-24-2017-600w-669537982.jpg",
         "profileMainText": "Front End Developer",
         "profileSubText": "안녕하세요 :) 서핏 팀의 \n디자이너 박소연입니다.",
-        "profileAdditionalnfo": "apply",
+        "profileAdditionalInfo": "apply",
         "profileApplyCompany": "당근마켓",
         "profileApplyPosition": "Front End",
         "profilePhoneNumber": "010-3734-1715",
@@ -22,7 +23,6 @@
     },
     {
       "blockType": "Project",
-      "id": "23",
       "idx": "1",
       "fieldValues": {
         "projectName": "대출 추천 재개발",
@@ -35,6 +35,7 @@
     },
     {
       "blockType": "Project",
+      "idx": "2",
       "fieldValues": {
         "projectName": "대출 추천 재개발",
         "projectOrganigation": "현대 자동차",
@@ -46,6 +47,7 @@
     },
     {
       "blockType": "Career",
+      "idx": "1",
       "fieldValues": {
         "careerMainText": "현대 자동차",
         "careerSubText": "Front-End",
@@ -55,6 +57,7 @@
     },
     {
       "blockType": "Career",
+      "idx": "2",
       "fieldValues": {
         "careerMainText": "현대 자동차",
         "careerSubText": "Front-End",
@@ -64,6 +67,7 @@
     },
     {
       "blockType": "Career",
+      "idx": "3",
       "fieldValues": {
         "careerMainText": "현대 자동차",
         "careerSubText": "Front-End",
@@ -73,6 +77,7 @@
     },
     {
       "blockType": "Portfolio",
+      "idx": "1",
       "fieldValues": {
         "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
         "portfolioName": "MZ세대 언어",
@@ -82,6 +87,7 @@
     },
     {
       "blockType": "Portfolio",
+      "idx": "2",
       "fieldValues": {
         "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
         "portfolioName": "MZ세대 언어",
@@ -91,6 +97,7 @@
     },
     {
       "blockType": "Portfolio",
+      "idx": "3",
       "fieldValues": {
         "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
         "portfolioName": "MZ세대 언어",
@@ -100,6 +107,7 @@
     },
     {
       "blockType": "Portfolio",
+      "idx": "4",
       "fieldValues": {
         "portfolioThumbnail": "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
         "portfolioName": "MZ세대 언어",

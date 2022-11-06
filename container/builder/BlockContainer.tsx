@@ -8,7 +8,7 @@ import { selectBlocksByType, selectBlockTypeStyleByBlockType } from "@store/sele
 import TabPanel from "@components/setup/panel/TabPanel"
 import LayoutPanel from "@components/LayoutPanel"
 import SetupPanel from "@components/SetupPanel"
-import { DefaultBlockTypeStyle } from "@store/defaultData/defaultBlockStyle"
+import { DefaultBlockTypeStyleForComponent } from "@store/defaultData/defaultBlockStyle"
 import { SETUP_BLOCK_CONTENT, SETUP_BLOCK_LAYOUT } from "@constants/testConstants"
 import { isGroupBlock } from "@store/utils"
 
@@ -28,8 +28,8 @@ interface ISetupBlockContainer {
 const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
   const blocks = useSelector(state => selectBlocksByType(state, "edit", blockType))
   const { layoutType, columnCount } = useSelector(state => selectBlockTypeStyleByBlockType(state, "edit", blockType))
-  const changableLayoutTypes = DefaultBlockTypeStyle[blockType].changableLayoutTypes
-  const changableColumnCount = DefaultBlockTypeStyle[blockType].changableColumnCount
+  const changableLayoutTypes = DefaultBlockTypeStyleForComponent[blockType].changableLayoutTypes
+  const changableColumnCount = DefaultBlockTypeStyleForComponent[blockType].changableColumnCount
   const [currentTabValue, setCurrentTabValue] = useState<TabValueType>("block")
   const handleChange = (event: React.SyntheticEvent, newValue: TabValueType) => {
     setCurrentTabValue(newValue)
@@ -65,15 +65,16 @@ const BlockContainer = ({ blockType, dataTestId }: ISetupBlockContainer) => {
     dispatch(addBlock(payload))
   }
 
-  const onRemoveBlock = (blockId: string) => {
-    dispatch(removeBlock(blockId))
+  const onRemoveBlock = (blockId: string, blockType: BlockType) => {
+    dispatch(removeBlock({ blockId, blockType }))
   }
 
   const swapBlockPosition = useCallback(
-    (sourceBlockId: string, destinationBlockId: string) => {
+    (sourceBlockId: string, destinationBlockId: string, blockType: BlockType) => {
       const payload = {
         sourceBlockId,
         destinationBlockId,
+        blockType,
       }
       dispatch(swapBlock(payload))
     },

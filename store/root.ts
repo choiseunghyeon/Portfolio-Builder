@@ -1,31 +1,33 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
 import { BlockType, IBlock } from "@type/block"
-import { selectBlockById, selectBlockIndexById, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector"
+import { selectBlockById, selectBlockIndexByIdAndBlockType, selectBlockLayout, selectBlocks, selectBlocksByType, selectBlockTypeStyleByBlockType } from "./selector"
 import { EachBlockTypeStyle, IBlockTypeStyle } from "@type/blockStyle"
 import { createBlock } from "./defaultData/defaultBlockData"
 import { ISelectFiedlValue } from "@type/field"
-import { createDefaultBlockLayout } from "./defaultData/defaultBlockStyle"
+import { createDefaultBlockLayout, defaultBlockTypeStyle } from "./defaultData/defaultBlockStyle"
 
 export interface LayoutBlock {
   blockType: BlockType
   title: string
 }
 
-export type PortfolioPageType = "edit" | "search"
+export type PortfolioPageType = "edit" | "search" | "baseline"
 interface TempState {
   portfolio: {
-    [pageType: string]: IPortFolio
+    [pageType in PortfolioPageType]: IPortFolio
   }
   tabFold: boolean
   skillSet: string[]
 }
-interface IPortFolio {
+export interface IPortFolio {
+  id: string
   blocks: IBlock[]
   blockTypeStyle: EachBlockTypeStyle
   blockLayout: LayoutBlock[][]
 }
 
 const defaultPortfolioData: IPortFolio = {
+  id: "temp",
   blockLayout: [
     [{ title: "프로필", blockType: "Profile" }],
     [{ title: "커리어", blockType: "Career" }],
@@ -34,11 +36,11 @@ const defaultPortfolioData: IPortFolio = {
     [{ title: "마크다운", blockType: "MarkDown" }],
   ],
   blocks: [
-    createBlock({ blockType: "Profile" }),
-    createBlock({ blockType: "Project" }),
-    createBlock({ blockType: "Portfolio" }),
-    createBlock({ blockType: "Career" }),
-    createBlock({ blockType: "MarkDown" }),
+    createBlock({ blockType: "Profile", idx: "1" }),
+    createBlock({ blockType: "Project", idx: "1" }),
+    createBlock({ blockType: "Portfolio", idx: "1" }),
+    createBlock({ blockType: "Career", idx: "1" }),
+    createBlock({ blockType: "MarkDown", idx: "1" }),
   ],
   blockTypeStyle: {
     Profile: {
@@ -67,12 +69,17 @@ const defaultPortfolioData: IPortFolio = {
 const root: TempState = {
   tabFold: false,
   portfolio: {
+    baseline: defaultPortfolioData,
     edit: defaultPortfolioData,
     search: defaultPortfolioData,
   },
   skillSet: ["React", "Redux", "Immer"],
 }
 
+interface IRemoveBlockPayload {
+  blockId: string
+  blockType: BlockType
+}
 interface ItemValuePayload {
   blockId: string
   fieldId: string
@@ -83,6 +90,7 @@ interface ItemValuePayload {
 interface ISwapBlockPayload {
   sourceBlockId: string
   destinationBlockId: string
+  blockType: BlockType
 }
 
 export interface IChangeBlockTypeStylePayload extends Partial<IBlockTypeStyle> {
@@ -103,13 +111,14 @@ interface IPorfolioPayload {
   portfolioPageType: PortfolioPageType
   portfolio: any // server response
 }
+
 export const changePortfolioById = createAction<IPorfolioPayload>("setup/changePortfolioById")
 export const changeItemValue = createAction<ItemValuePayload>("setup/handleItemValue")
 export const swapBlock = createAction<ISwapBlockPayload>("setup/swapBlock")
 export const foldTab = createAction<boolean>("setup/foldTab")
 export const changeBlockTypeStyle = createAction<IChangeBlockTypeStylePayload>("setup/changeBlockStyleType")
 export const addBlock = createAction<IAddBlockPayload>("setup/addBlock")
-export const removeBlock = createAction<string>("setup/removeBlock")
+export const removeBlock = createAction<IRemoveBlockPayload>("setup/removeBlock")
 // layout
 export const swapBlockLayout = createAction<any>("setup/swapBlockLayout")
 export const addBlockLayout = createAction<void>("setup/addBlockLayout")
@@ -117,15 +126,24 @@ const rootReducer = createReducer(root, builder => {
   builder
     .addCase(changePortfolioById, (state, action) => {
       const { portfolioPageType, portfolio } = action.payload
-      const newPortfolio: IPortFolio = {
-        blockLayout: createDefaultBlockLayout(portfolio.blockLayout),
-        blockTypeStyle: portfolio.blockTypeStyle,
-        blocks: portfolio.blocks.map(block => createBlock({ blockType: block.blockType, fieldValues: block.fieldValues })),
+      let baselinePortfolio
+      if (!portfolio) {
+        baselinePortfolio = defaultPortfolioData
+      } else {
+        baselinePortfolio = {
+          id: portfolio.id,
+          blockLayout: createDefaultBlockLayout(portfolio.blockLayout),
+          blockTypeStyle: portfolio.blockTypeStyle || defaultBlockTypeStyle,
+          blocks: portfolio.blocks.map(block => createBlock({ id: block.id, idx: block.idx, blockType: block.blockType, fieldValues: block.fieldValues })),
+        }
       }
-      console.log(newPortfolio)
-      state.portfolio[portfolioPageType] = newPortfolio
 
-      const profileBlock = newPortfolio.blocks.find(block => block.type === "Profile")
+      console.log(baselinePortfolio)
+
+      state.portfolio["baseline"] = baselinePortfolio
+      state.portfolio[portfolioPageType] = baselinePortfolio
+
+      const profileBlock = baselinePortfolio.blocks.find(block => block.type === "Profile")
       if (!profileBlock) return
 
       const additionalField = profileBlock.fields.find(field => field.title === "(선택) 추가 정보")
@@ -164,13 +182,21 @@ const rootReducer = createReducer(root, builder => {
       }
     })
     .addCase(swapBlock, (state, action) => {
-      const { sourceBlockId, destinationBlockId } = action.payload
-      const sourceIndex = selectBlockIndexById(state, "edit", sourceBlockId)
-      const destinationIndex = selectBlockIndexById(state, "edit", destinationBlockId)
+      const { sourceBlockId, destinationBlockId, blockType } = action.payload
       const blocks = selectBlocks(state, "edit")
+      const sourceIndex = selectBlockIndexByIdAndBlockType(state, "edit", sourceBlockId, blockType)
+      const destinationIndex = selectBlockIndexByIdAndBlockType(state, "edit", destinationBlockId, blockType)
 
       //swap two items
       ;[blocks[sourceIndex], blocks[destinationIndex]] = [blocks[destinationIndex], blocks[sourceIndex]]
+
+      const sameTypeBlocks = selectBlocksByType(state, "edit", blockType)
+
+      sameTypeBlocks.forEach((block, index) => {
+        const newIdx = "" + (index + 1)
+        if (block.idx === newIdx) return
+        block.idx = newIdx
+      })
     })
     .addCase(swapBlockLayout, (state, action) => {
       const { source, destination } = action.payload
@@ -230,7 +256,13 @@ const rootReducer = createReducer(root, builder => {
         }
       }
 
-      const blockData = createBlock({ blockType, title, style: blockTypeStyle })
+      const sameTypeBlocks = selectBlocksByType(state, "edit", blockType)
+      let lastIndex = sameTypeBlocks.reduce((acc, block) => {
+        const idx = parseInt(block.idx)
+        return acc < idx ? idx : acc
+      }, 1)
+
+      const blockData = createBlock({ idx: "" + (lastIndex + 1), blockType, title, style: blockTypeStyle })
       if (!blockData) return
 
       if (lastBlockIndexInBlockType) {
@@ -240,9 +272,9 @@ const rootReducer = createReducer(root, builder => {
       }
     })
     .addCase(removeBlock, (state, action) => {
-      const blockId = action.payload
+      const { blockId, blockType } = action.payload
       const blocks = selectBlocks(state, "edit")
-      const targetBlockIndex = selectBlockIndexById(state, "edit", blockId)
+      const targetBlockIndex = selectBlockIndexByIdAndBlockType(state, "edit", blockId, blockType)
       blocks.splice(targetBlockIndex, 1)
     })
 })

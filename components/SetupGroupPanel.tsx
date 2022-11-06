@@ -40,7 +40,8 @@ const SetupGroupPanel = ({ blocks, blockType, handleField, swapBlockPosition, on
     }
     const sourceBlockId = blocks[source.index].id
     const destinationBlockId = blocks[destination.index].id
-    swapBlockPosition(sourceBlockId, destinationBlockId)
+    const blockType = blocks[source.index].type
+    swapBlockPosition(sourceBlockId, destinationBlockId, blockType)
   }
 
   return (
@@ -54,7 +55,7 @@ const SetupGroupPanel = ({ blocks, blockType, handleField, swapBlockPosition, on
             // CCS가 적용된 Div
             <List {...provided.droppableProps} ref={provided.innerRef}>
               {blocks.map((block, blockIndex) => (
-                <Draggable key={block.id} draggableId={block.id} index={blockIndex}>
+                <Draggable key={block.id} draggableId={"" + block.id} index={blockIndex}>
                   {(provided, snapshot) => (
                     <Block
                       blockInfo={block}

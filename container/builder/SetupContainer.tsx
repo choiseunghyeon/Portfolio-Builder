@@ -9,6 +9,7 @@ import { Grid, Tabs, Tab, Typography, Box } from "@mui/material"
 import { BlockType } from "@type/block"
 import { CAREER_TAB as CAREER_TAB, MARKDOWN_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
 import { useState } from "react"
+import { getChangedPortfolioInfo } from "@lib/api/jsonDiff"
 
 function a11yProps(value: TabType) {
   return {
@@ -45,7 +46,7 @@ export default function SetupContainer() {
           <Tab label={"Portfolio"} {...a11yProps("Portfolio")} data-testid={PORTFOLIO_TAB} />
           <Tab label={"Career"} {...a11yProps("Career")} data-testid={CAREER_TAB} />
           <Tab label={"MarkDown"} {...a11yProps("MarkDown")} data-testid={MARKDOWN_TAB} />
-          <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} />
+          {/* <Tab label={"접기"} icon={<IconComponent icon="ArrowBack" />} onClick={toggleTabPanel} {...a11yProps("Fold")} /> */}
         </Tabs>
       </Grid>
       <Grid item xs={8}>

@@ -1,6 +1,6 @@
 import React from "react"
 import { RiKakaoTalkFill } from "react-icons/ri"
-import { FcGoogle } from "react-icons/fc"
+import { BsGithub } from "react-icons/bs"
 import {
   Add,
   Settings,
@@ -61,7 +61,7 @@ const Icons = {
   Timeline,
   Language,
   Kakao: RiKakaoTalkFill,
-  Google: FcGoogle,
+  Github: BsGithub
 }
 function getIcon(iconName: string): IconType | any | undefined {
   if (Icons[iconName]) return Icons[iconName]
