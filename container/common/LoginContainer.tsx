@@ -10,6 +10,7 @@ interface ILoginContainerProps {
 }
 
 function LoginContainer({ pageUri }: ILoginContainerProps) {
+  const [winReady, setWinReady] = useState(false)
   const router = useRouter()
   const [openLogin, setLoginOpen] = useState(false)
   const [needLogin, setNeedLogin] = useState(true)
@@ -31,8 +32,14 @@ function LoginContainer({ pageUri }: ILoginContainerProps) {
   }
 
   useEffect(() => {
+    setWinReady(true)
+  }, [])
+
+  useEffect(() => {
     setNeedLogin(isLoggedIn() ? false : true)
   })
+
+  if (!winReady) return null
 
   return (
     <>

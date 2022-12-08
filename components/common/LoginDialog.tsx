@@ -10,20 +10,31 @@ interface LoginDialogProps {
 }
 
 // const LOGIN_URL = `http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/kakao`
-const LOGIN_URL = `http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect`
+// const LOGIN_URL = `http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect`
 
-function getLoginUrl(social_type: "kakao" | "github", redirect: string, pageUri: string) {
+function getLoginUrl(social_type: "kakao" | "github", pageUri: string) {
+  const redirect = getRedirectUri()
   return `http://3.35.186.99:8080/oauth2/authorization/${social_type}?redirect_uri=${redirect}?page_uri=${pageUri}`
 }
 
-function TestApi() {
-  http.post(LOGIN_URL).then(res => {
-    debugger
-    console.log(res)
-  })
+function getRedirectUri() {
+  let redirectUri = ""
+  if (window.location.origin.search(/portfolio-builder/g) > -1) {
+    redirectUri = `${window.location.origin}/oauth/redirect`
+  } else {
+    redirectUri = "http://localhost:3000/oauth/redirect"
+  }
+  return redirectUri
 }
+// function TestApi() {
+//   http.post(LOGIN_URL).then(res => {
+//     debugger
+//     console.log(res)
+//   })
+// }
 
-const redirectUri = "http://localhost:3000/oauth/redirect"
+// 임시 처리
+
 function LoginDialog({ onClose, open, pageUri = "/" }: LoginDialogProps) {
   return (
     <Dialog onClose={onClose} open={open}>
@@ -33,9 +44,7 @@ function LoginDialog({ onClose, open, pageUri = "/" }: LoginDialogProps) {
         </Grid>
         <Grid item xs>
           <Button
-            // href="http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/kakao"
-            href={getLoginUrl("kakao", redirectUri, pageUri)}
-            onClick={TestApi}
+            href={getLoginUrl("kakao", pageUri)}
             sx={{ backgroundColor: "yellow", border: "1px solid yellow", color: "black" }}
             variant="contained"
             size="large"
@@ -45,8 +54,7 @@ function LoginDialog({ onClose, open, pageUri = "/" }: LoginDialogProps) {
         </Grid>
         <Grid item xs>
           <Button
-            // href="http://3.35.186.99:8080/oauth2/authorization/github?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/github"
-            href={getLoginUrl("github", redirectUri, pageUri)}
+            href={getLoginUrl("github", pageUri)}
             sx={{ backgroundColor: "white", border: "1px solid white", color: "black" }}
             variant="contained"
             size="large"
