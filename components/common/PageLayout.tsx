@@ -4,7 +4,7 @@ import TechBlogHeader from "./TechBlogHeader"
 import Navigation from "./Navigation"
 import CommunitySubCard from "./CommunitySubCard"
 import Title from "./Title"
-import TechBlogCardContainer from "@container/techblog/TechBlogCardContainer"
+import TechBlogCardContainer from "@container/techblog/TechBlogCardContainerTemp"
 import { ActivatablePageType } from "@type/common"
 
 interface IPageLayout {
