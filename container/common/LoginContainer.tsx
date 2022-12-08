@@ -17,12 +17,13 @@ function LoginContainer({ pageUri }: ILoginContainerProps) {
   const handleLoginOpen = () => {
     if (needLogin) {
       setLoginOpen(true)
+      return
+    } else {
+      // page refresh??
+      removeCookie("sessionKey")
+      removeCookie("userId")
+      router.reload()
     }
-
-    // page refresh??
-    removeCookie("sessionKey")
-    removeCookie("userId")
-    router.reload()
   }
 
   const handleLoginClose = () => {

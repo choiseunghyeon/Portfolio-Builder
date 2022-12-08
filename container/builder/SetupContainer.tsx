@@ -9,7 +9,6 @@ import { Grid, Tabs, Tab, Typography, Box } from "@mui/material"
 import { BlockType } from "@type/block"
 import { CAREER_TAB as CAREER_TAB, MARKDOWN_TAB, MINI_MAP_TAB, PORTFOLIO_TAB, PROFILE_TAB, PROJECT_TAB } from "@constants/testConstants"
 import { useState } from "react"
-import { getChangedPortfolioInfo } from "@lib/api/jsonDiff"
 
 function a11yProps(value: TabType) {
   return {

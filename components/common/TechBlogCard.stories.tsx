@@ -11,11 +11,11 @@ const Template: ComponentStory<typeof TechBlogCard> = args => <TechBlogCard {...
 
 export const Default = Template.bind({})
 Default.args = {
-  companyName: "비바리퍼블리카",
-  serviceName: "토스",
+  officialName: "비바리퍼블리카",
+  productName: "토스",
   favorite: true,
-  dateFromLastUpdate: "3",
-  techBlogUrl: "https://www.naver.com/",
-  companyInformationUrl: "https://www.naver.com/",
-  videoUrl: "https://www.naver.com/",
+  updateDate: new Date(),
+  link: "https://www.naver.com/",
+  //   companyInformationUrl: "https://www.naver.com/",
+  //   videoUrl: "https://www.naver.com/",
 }
