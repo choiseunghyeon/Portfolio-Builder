@@ -1,12 +1,24 @@
 import { NAVIGATION_CONTAINER } from "@constants/testConstants"
+import LoginContainer from "@container/common/LoginContainer"
+import { isLoggedIn } from "@lib/util/common"
 import { Button, Grid } from "@mui/material"
 import { ActivatablePageType } from "@type/common"
 import { useState } from "react"
 import IconComponent from "./IconComponent"
 import LoginDialog from "./LoginDialog"
+import LoginTypography from "./LoginTypography"
 
 interface INavigationProps {
   activePageId: ActivatablePageType
+}
+
+function getPageUriByPageId(pageId: ActivatablePageType): string {
+  switch (pageId) {
+    case "tech-blog":
+      return "/techblog"
+    default:
+      return "/"
+  }
 }
 
 const navigatablePage: { text: string; icon: string; pageId: ActivatablePageType }[] = [
@@ -50,9 +62,10 @@ function Navigation({ activePageId }: INavigationProps) {
       {/* <Grid item>팀 소개 페이지</Grid> */}
       <Grid item>
         <Button onClick={handleClickOpen} variant="text" size="medium" startIcon={<IconComponent icon={"Person"} />} sx={{ color: "white" }}>
-          Login
+          <LoginContainer pageUri={getPageUriByPageId(activePageId)} />
+          {/* <LoginTypography />
+          <LoginDialog open={open} onClose={handleClose} pageUri={getPageUriByPageId(activePageId)} /> */}
         </Button>
-        <LoginDialog open={open} onClose={handleClose} />
       </Grid>
     </Grid>
   )

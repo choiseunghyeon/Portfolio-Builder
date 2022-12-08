@@ -2,6 +2,8 @@ import { Button, IconButton, SwipeableDrawer, Toolbar, Typography } from "@mui/m
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import IconComponent from "./IconComponent"
 import { styled, useTheme } from "@mui/material/styles"
+import LoginTypography from "./LoginTypography"
+import LoginContainer from "@container/common/LoginContainer"
 
 interface IHeaderProps extends AppBarProps {
   handleNavigate: (href: string) => void
@@ -41,7 +43,9 @@ export default function Header({ handleNavigate, open, drawerWidth, handleDrawer
             포트폴리오 제작
           </Button>
           <Button color="inherit">채용</Button>
-          <Button color="inherit">로그인</Button>
+          <Button color="inherit">
+            <LoginContainer pageUri="/" />
+          </Button>
         </Typography>
         <IconButton onClick={() => handleNavigate("settings")} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <IconComponent icon="Settings" />

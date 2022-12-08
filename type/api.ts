@@ -10,4 +10,15 @@ export interface ITechBlogResponse {
   videoUrl: string // 유튜브 URL 주소
 }
 
+// 현재 주고 있는 response
+export interface ITechBlog {
+  blogId: number
+  logo: string
+  officialName: string
+  productName: string
+  link: string
+  updateDate: Date
+  writeDate: Date
+}
+
 export type SortByType = "latest" | "stars" | "click" | "favorite"

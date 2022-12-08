@@ -6,13 +6,14 @@ import IconComponent from "./IconComponent"
 interface LoginDialogProps {
   open: boolean
   onClose: () => void
+  pageUri: string
 }
 
 // const LOGIN_URL = `http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/kakao`
 const LOGIN_URL = `http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect`
 
-function getLoginUrl(social_type: "kakao" | "github", redirect: string) {
-  return `http://3.35.186.99:8080/oauth2/authorization/${social_type}?redirect_uri=${redirect}`
+function getLoginUrl(social_type: "kakao" | "github", redirect: string, pageUri: string) {
+  return `http://3.35.186.99:8080/oauth2/authorization/${social_type}?redirect_uri=${redirect}?page_uri=${pageUri}`
 }
 
 function TestApi() {
@@ -21,7 +22,9 @@ function TestApi() {
     console.log(res)
   })
 }
-function LoginDialog({ onClose, open }: LoginDialogProps) {
+
+const redirectUri = "http://localhost:3000/oauth/redirect"
+function LoginDialog({ onClose, open, pageUri = "/" }: LoginDialogProps) {
   return (
     <Dialog onClose={onClose} open={open}>
       <Grid container spacing={1} justifyContent="center" alignItems="center" sx={{ textAlign: "center", padding: "16px" }}>
@@ -31,7 +34,7 @@ function LoginDialog({ onClose, open }: LoginDialogProps) {
         <Grid item xs>
           <Button
             // href="http://3.35.186.99:8080/oauth2/authorization/kakao?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/kakao"
-            href={getLoginUrl("kakao", "http://localhost:3000/oauth/redirect")}
+            href={getLoginUrl("kakao", redirectUri, pageUri)}
             onClick={TestApi}
             sx={{ backgroundColor: "yellow", border: "1px solid yellow", color: "black" }}
             variant="contained"
@@ -43,7 +46,7 @@ function LoginDialog({ onClose, open }: LoginDialogProps) {
         <Grid item xs>
           <Button
             // href="http://3.35.186.99:8080/oauth2/authorization/github?redirect_uri=http://3.35.186.99:8080/login/oauth2/code/github"
-            href={getLoginUrl("github", "http://localhost:3000/oauth/redirect")}
+            href={getLoginUrl("github", redirectUri, pageUri)}
             sx={{ backgroundColor: "white", border: "1px solid white", color: "black" }}
             variant="contained"
             size="large"

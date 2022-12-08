@@ -1,16 +1,15 @@
 import { getPortfolioBlocksForRequest } from "@store/defaultData/converter"
 import { getChangedPortfolioInfo, getUpdatedPortfolio } from "@store/selector/utils"
-import axios from "axios"
 import store from "store"
-import { API_URL } from "./http"
+import { API_URL, http } from "./http"
 
 export const fetchPortfolio = (portfolioId: string) => {
-  return axios.get(`${API_URL}/api/v1/builder/${portfolioId}`)
+  return http.get(`${API_URL}/api/v1/builder/${portfolioId}`)
   // return axios.get(`http://localhost:4000/portfolio/`)
 }
 
 export const fetchPortfolioList = () => {
-  return axios.get(`http://localhost:4000/profileList/`)
+  return http.get(`http://localhost:4000/profileList/`)
 }
 
 export const savePortfolioById = async () => {
@@ -26,9 +25,12 @@ export const savePortfolioById = async () => {
 
   debugger
 
-  await axios.post(`${API_URL}/api/v1/builder`, updatePortfolio)
+  await http.post(`${API_URL}/api/v1/builder`, updatePortfolio)
 
-  // if (deletedBlockInfo.length > 0) {
-  //   await axios.delete(`http://3.35.186.99:8080/api/builder`, deletedBlockInfo)
-  // }
+  if (deletedBlockInfo.length > 0) {
+    for await (const blockInfo of deletedBlockInfo) {
+      await http.put(`${API_URL}/api/v1/builder`, { id: blockInfo.blockId, blockType: blockInfo.blockType })
+    }
+    // await axios.delete(`http://3.35.186.99:8080/api/builder`, deletedBlockInfo)
+  }
 }

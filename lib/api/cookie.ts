@@ -1,4 +1,4 @@
-type cookieType = "accessToken" | "sessionKey"
+type cookieType = "accessToken" | "sessionKey" | "userId"
 
 export function setCookie(cname: cookieType, cvalue: string, exdays: number = 7) {
   const d = new Date()
@@ -12,6 +12,8 @@ export function removeCookie(cname: cookieType) {
 }
 
 export function getCookie(cname: cookieType) {
+  if (!document) return ""
+
   let name = cname + "="
   let ca = document.cookie.split(";")
   for (let i = 0; i < ca.length; i++) {

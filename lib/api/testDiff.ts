@@ -144,3 +144,33 @@ const b = {
     },
   },
 }
+
+const markdown = {
+  id: "kakao_2266193025",
+  blockLayout: [
+    [{ title: "프로필", blockType: "Profile" }],
+    [{ title: "프로젝트", blockType: "Project" }],
+    [
+      { title: "포트폴리오", blockType: "Portfolio" },
+      { title: "커리어", blockType: "Career" },
+    ],
+    [{ title: "마크다운", blockType: "MarkDown" }],
+  ],
+  blockTypeStyle: {
+    Career: { layoutType: "default", columnCount: 1 },
+    Profile: { layoutType: "default", columnCount: 1 },
+    Project: { layoutType: "default", columnCount: 2 },
+    MarkDown: { layoutType: "default", columnCount: 1 },
+    Portfolio: { layoutType: "default", columnCount: 4 },
+  },
+  blocks: [
+    {
+      blockType: "MarkDown",
+      idx: "2",
+      fieldValues: {
+        markdownText:
+          "# Multi Project Extension 제작 회고\n\n## 제작 동기\n\n현재 다니고 있는 ECount 회사는 Client/Server Framework를 자체 제작해서 사용한다.  \n신규 Framework를 제작 중인데 핵심 개념은 모듈화다.  \n가능한 모듈로 분리하고 조립하여 하나의 기능, 사이트를 제작한다는 컨셉이다.\n\n이런 식의 개발 방식에는 여러 이점이 있다.\n\n1. 코드의 재사용\n2. 모듈이 담당하는 로직에만 집중\n3. 테스트하기 좋다.\n\n지금은 개발 초기라 개발 및 관리해야 하는 모듈이 굉장히 많다.  \n문제는 각 모듈마다 Visual Studio Code를 켜서 개발을 했는데  \n켜져 있는 Visual Studio Code가 많아서 특정 모듈을 찾기 힘들었다.\n\n이 불편함을 해소하기 위해 Multi Project Extension을 제작했다.\n\n## 사용자\n\n이 불편함을 가지고 있는게 우리 회사 뿐만 있다고 생각하지는 않아서 최대한 많은 사람을 타겟으로 제작을 했다.  \n그래서 코드 구현이나 기능이 ECount 회사 종속적이지는 않다.\n\n현재는 신규 Framework 제작 팀원 분들은 모두 사용하는 것 같다.\n\n",
+      },
+    },
+  ],
+}

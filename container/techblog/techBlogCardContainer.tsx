@@ -11,6 +11,7 @@ import {
   TECH_BLOG_CARD_CONTAINER_TITLE,
 } from "@constants/testConstants"
 import { useTechBlogCardClickCountMutation, useTechBlogCardFavoriteMutation, useTechBlogCardList } from "@lib/hooks/query"
+import { useUserInfo } from "@lib/hooks/query/user"
 import { isEmpty } from "@lib/util/common"
 import { Chip, Grid, Button, IconButton, Typography, Divider, ButtonGroup } from "@mui/material"
 import { SortByType } from "@type/api"
@@ -20,6 +21,7 @@ function TechBlogCardContainer() {
   const [techblog, setTechBlog] = useState<"favorite" | "all">("all")
   const [sortBy, setSortBy] = useState<SortByType>("latest")
   const techBlogList = useTechBlogCardList(sortBy)
+  // const {techFavorite, techOfficialList} = useTechBlogCardList(sortBy)
   const techBlogCardFavoriteMutation = useTechBlogCardFavoriteMutation(sortBy)
   const techBlogCardClickCountMutation = useTechBlogCardClickCountMutation(sortBy)
 

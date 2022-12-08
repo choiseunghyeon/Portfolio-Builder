@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query"
 import { ITechBlogResponse, SortByType } from "@type/api"
 import { fetchTechBlog } from "@lib/api/techblog"
 import { fetchPortfolio, fetchPortfolioList, savePortfolioById } from "@lib/api/builder"
+import { getCookie } from "@lib/api/cookie"
 
 export function usePortfolio(portfolioId: string) {
   const { data } = useQuery(["portfolio", portfolioId], async () => {
@@ -52,10 +53,21 @@ export function useAutoCompleteList(autocompleteRequest: string | undefined) {
 
 export function useTechBlogCardList(sortBy: SortByType) {
   const { data } = useQuery(["techCardList", sortBy], async () => {
-    const { data } = await fetchTechBlog(sortBy)
-    return data
+    const userId = getCookie("userId")
+    if (!userId) return
+
+    const { data } = await fetchTechBlog(userId, sortBy)
+    return data.body
   })
-  return data
+
+  let result
+  if (sortBy === "favorite") {
+    result = data?.techFavorite
+  } else {
+    result = data?.techOfficialList
+  }
+
+  return result
 }
 
 export function useTechBlogCardFavoriteMutation(sortBy: SortByType) {

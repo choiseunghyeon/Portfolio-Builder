@@ -13,6 +13,7 @@ import Main from "@components/common/Main"
 import AppbarHeader from "@components/common/AppbarHeader"
 import UserCard from "@components/common/UserCard"
 import PortfolioContainer from "@container/builder/PortfolioContainer"
+import LoginDialog from "@components/common/LoginDialog"
 
 export default function EditPortfolioPage() {
   const [currentPortfolioId, setCurrentPortfolioId] = useState("1")

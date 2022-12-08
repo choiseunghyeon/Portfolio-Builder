@@ -1,10 +1,23 @@
 import { ITechBlogResponse, SortByType } from "@type/api"
-import { http } from "./http"
+import { getCookie } from "./cookie"
+import { API_URL, http, setHeaderAuthorization } from "./http"
 
-export const fetchTechBlog = (sortBy: SortByType) => {
+interface ITechBlog {
+  blogId: number
+  logo: string
+  officialName: string
+  productName: string
+  link: string
+  updateDate: Date
+  writeDate: Date
+}
+
+export const fetchTechBlog = (userId: string, sortBy: SortByType) => {
+  const sessionKey = getCookie("sessionKey")
+  setHeaderAuthorization(sessionKey)
   switch (sortBy) {
     case "latest":
-      return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByLatest`)
+      return http.get(`${API_URL}/api/tech-blog/${userId}`)
     case "click":
       return http.get<ITechBlogResponse[]>(`http://localhost:4000/techCardListByClick`)
     case "stars":
