@@ -29,10 +29,11 @@ import {
   Lightbulb,
   Timeline,
   Language,
+  OpenInFull,
 } from "@mui/icons-material"
 import { IconType } from "react-icons/lib"
 
-const Icons = {
+export const Icons = {
   Add,
   Settings,
   Menu,
@@ -60,22 +61,26 @@ const Icons = {
   Lightbulb,
   Timeline,
   Language,
+  OpenInFull,
   Kakao: RiKakaoTalkFill,
-  Github: BsGithub
+  Github: BsGithub,
 }
+
 function getIcon(iconName: string): IconType | any | undefined {
   if (Icons[iconName]) return Icons[iconName]
 }
 
+type Icon = string | IconType | any | undefined
+
 interface IconComponentProps {
-  icon: string
+  icon: Icon
   fontSize?: string
   href?: string
   dataTestId?: string
 }
 
 function IconComponent({ icon, href, fontSize, dataTestId }: IconComponentProps) {
-  const Component = getIcon(icon)
+  const Component = typeof icon === "string" ? getIcon(icon) : icon
   if (!Component) return null
 
   if (href) {

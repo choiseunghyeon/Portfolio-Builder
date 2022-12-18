@@ -1,18 +1,17 @@
 import React from "react"
 import { ComponentStory, ComponentMeta } from "@storybook/react"
-import UserCard from "./UserCard"
+import DeveloperCard from "./DeveloperCard"
 
 export default {
-  title: "UserCard",
-  component: UserCard,
-} as ComponentMeta<typeof UserCard>
+  title: "Discovery/DeveloperCard",
+  component: DeveloperCard,
+} as ComponentMeta<typeof DeveloperCard>
 
-const Template: ComponentStory<typeof UserCard> = args => <UserCard {...args} />
+const Template: ComponentStory<typeof DeveloperCard> = args => <DeveloperCard {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
   imageSrc: "https://image.shutterstock.com/image-photo/osaka-japan-june-24-2017-600w-669537982.jpg",
   name: "홍길동",
-  description: "Front End Developer",
-  subDescription: "안녕하세요",
+  skillSet: ["React", "Redux"],
 }
